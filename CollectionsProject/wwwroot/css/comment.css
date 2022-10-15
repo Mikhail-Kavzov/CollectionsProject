@@ -5,8 +5,8 @@
     padding: 0 10px;
 }
 
-.message{
-    border-bottom: 2px solid gray;
+.message {
+    border-bottom: 2px solid rgb(221,221,221);
     padding: 10px 30px;
 }
 
@@ -19,6 +19,7 @@
 .message-sender{
     font-size: 20px;
     font-weight:500;
+    color: hsl(198,75%,60%);
 }
 
 .message-time{
@@ -26,6 +27,28 @@
     color:gray;
 }
 
-.message-body{
+.message-body {
     word-wrap: break-word;
+    font-weight: 300;
+}
+.comment-container{
+    margin-top: 50px;
+    background-color: rgb(237, 237, 237);
+    padding: 20px;
+    border-radius: 10px;
+}
+.comment-wrapper{
+    background-color: white;
+    max-height: 50vh;
+    height: 50vh;
+    overflow-y: scroll;
+    border: 2px solid rgb(221,221,221);
+    border-radius: 5px;
+}
+.btn-app{
+    font-size: 20px;
+    padding: 5px 20px;
+}
+.labels-account{
+    margin-bottom: 10px;
 }
