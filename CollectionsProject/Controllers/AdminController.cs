@@ -1,4 +1,5 @@
-﻿using CollectionsProject.Models.UserModels;
+﻿using CollectionsProject.Hash;
+using CollectionsProject.Models.UserModels;
 using CollectionsProject.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -37,33 +38,31 @@ namespace CollectionsProject.Controllers
             }
         }
 
-        private async Task<bool> CheckCurrentStatusUser()
+        private async Task<IActionResult> CheckCurrentStatusUser()
         {
             var currentUser = await _userManager.GetUserAsync(User);
-            return currentUser == null || currentUser?.Status == Status.Blocked || currentUser?.Role == Role.User;
+            bool hasNoAccess = currentUser == null || currentUser?.Status == Status.Blocked || currentUser?.Role == Role.User;
+            if (hasNoAccess)
+                return Json(new { redirectToUrl = Url.Action("Logout", "Account") });
+            return Json("");
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteUsers(string[] id)
         {
-            if (await CheckCurrentStatusUser())
-                return Json(new { redirectToUrl = Url.Action("Logout", "Account") });
             var users = await _userRepository.GetUsersAsync(id);
             foreach (var user in users)
             {
+                await _userManager.UpdateSecurityStampAsync(user);
                 _userRepository.Delete(user);
             }
             await _userRepository.SaveChangesAsync();
-            if (await CheckCurrentStatusUser())
-                return Json(new { redirectToUrl = Url.Action("Logout", "Account") });
-            return Json("");
+            return await CheckCurrentStatusUser();
         }
 
         [HttpPut]
         public async Task<IActionResult> UnBlockUsers(string[] id)
         {
-            if (await CheckCurrentStatusUser())
-                return Json(new { redirectToUrl = Url.Action("Logout", "Account") });
             var users = await _userRepository.GetUsersAsync(id);
             ChangeUserStatus(users, Status.Active);
             await _userRepository.SaveChangesAsync();
@@ -73,14 +72,12 @@ namespace CollectionsProject.Controllers
         [HttpPut]
         public async Task<IActionResult> BlockUsers(string[] id)
         {
-            if (await CheckCurrentStatusUser())
-                return Json(new { redirectToUrl = Url.Action("Logout", "Account") });
             var users = await _userRepository.GetUsersAsync(id);
             ChangeUserStatus(users, Status.Blocked);
+            foreach (var user in users)
+                await _userManager.UpdateSecurityStampAsync(user);
             await _userRepository.SaveChangesAsync();
-            if (await CheckCurrentStatusUser())
-                return Json(new { redirectToUrl = Url.Action("Logout", "Account") });
-            return Json("");
+            return await CheckCurrentStatusUser();
         }
 
         private async Task AddRole(IEnumerable<User> users, Role role, string addRole)
@@ -90,6 +87,7 @@ namespace CollectionsProject.Controllers
                 user.Role = role;
                 _userRepository.Update(user);
                 await _userManager.AddToRoleAsync(user, addRole);
+                await _userManager.UpdateSecurityStampAsync(user);
             }
             await _userRepository.SaveChangesAsync();
         }
@@ -101,6 +99,7 @@ namespace CollectionsProject.Controllers
                 user.Role = role;
                 _userRepository.Update(user);
                 await _userManager.RemoveFromRoleAsync(user, removeRole);
+                await _userManager.UpdateSecurityStampAsync(user);
             }
             await _userRepository.SaveChangesAsync();
         }
@@ -108,25 +107,17 @@ namespace CollectionsProject.Controllers
         [HttpPut]
         public async Task<IActionResult> AddAdminRole(string[] id)
         {
-            if (await CheckCurrentStatusUser())
-                return Json(new { redirectToUrl = Url.Action("Logout", "Account") });
             var users = await _userRepository.GetUsersAsync(id);
             await AddRole(users, Role.Admin, "Admin");
-            if (await CheckCurrentStatusUser())
-                return Json(new { redirectToUrl = Url.Action("Logout", "Account") });
-            return Json("");
+            return await CheckCurrentStatusUser();
         }
 
         [HttpPut]
         public async Task<IActionResult> RemoveAdminRole(string[] id)
         {
-            if (await CheckCurrentStatusUser())
-                return Json(new { redirectToUrl = Url.Action("Logout", "Account") });
             var users = await _userRepository.GetUsersAsync(id);
             await RemoveRole(users, Role.User, "Admin");
-            if (await CheckCurrentStatusUser())
-                return Json(new { redirectToUrl = Url.Action("Logout", "Account") });
-            return Json("");
+            return await CheckCurrentStatusUser();
         }
     }
 }
