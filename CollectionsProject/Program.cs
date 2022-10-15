@@ -3,8 +3,10 @@ using CollectionsProject.Models.UserModels;
 using CollectionsProject.Repositories;
 using CollectionsProject.Services.Implementation;
 using CollectionsProject.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Owin.Security.Cookies;
 
 internal class Program
 {
@@ -25,7 +27,13 @@ internal class Program
             opts.Password.RequireUppercase = false;
             opts.Password.RequireDigit = false;
             opts.User.RequireUniqueEmail = true;
+
         }).AddEntityFrameworkStores<ApplicationContext>();
+
+        builder.Services.Configure<SecurityStampValidatorOptions>(opts =>
+        {
+            opts.ValidationInterval = TimeSpan.Zero;
+        });
 
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
@@ -34,6 +42,7 @@ internal class Program
         builder.Services.AddScoped<ICollectionService, CollectionService>();
         builder.Services.AddScoped<IItemRepository, ItemRepository>();
         builder.Services.AddScoped<ITagRepository, TagRepository>();
+        builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
         var app = builder.Build();
 
@@ -64,9 +73,11 @@ internal class Program
         app.UseStaticFiles();
 
         app.UseRouting();
+
         app.UseAuthentication();
+
         app.UseAuthorization();
-        
+
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");

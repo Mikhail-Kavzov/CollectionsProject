@@ -52,6 +52,7 @@ namespace CollectionsProject.Controllers
 
         [HttpPost]
         [Route("{collectionId}/{id?}")]
+        [AllowAnonymous]
         public async Task<IActionResult> ItemsPagination(string collectionId, int id = 0)
         {
             var items = await _itemRepository.GetUserItemsAsync(id * itemCount, itemCount, collectionId);
@@ -67,6 +68,22 @@ namespace CollectionsProject.Controllers
             _itemRepository.Delete(item);
             await _itemRepository.SaveChangesAsync();
             return Ok();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ItemPage(string id)
+        {
+            var item = await _itemRepository.GetItemAsync(id);
+            if (item == null)
+                return NotFound();
+            var collection = await _collectionRepository.GetItemIncludeFieldsAsync(item.CollectionId.ToString());
+            var fields = collection!.AddFields;
+            for (int i=0; i < fields!.Count; i++)
+            {
+                item.AddItems[i].AddCollectionFields = new() { Name=fields[i].Name };
+            }
+            return View(item);
         }
     }
 }

@@ -68,7 +68,7 @@ namespace CollectionsProject.Controllers
                 var result = await _userManager.CreateAsync(user, regForm.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "User");
+                    await _userManager.AddToRolesAsync(user, new List<string> {"User"});
                     return RedirectToAction(nameof(Login));
                 }
 

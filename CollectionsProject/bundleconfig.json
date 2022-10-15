@@ -86,5 +86,19 @@
       "enabled": true,
       "renameLocals": true
     }
+  },
+  {
+    "outputFileName": "wwwroot/js/itemCommentPage.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js",
+      "wwwroot/js/comment.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/itemCommentPage.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css",
+      "wwwroot/css/comment.css"
+    ]
   }
 ]

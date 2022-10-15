@@ -36,9 +36,7 @@ namespace CollectionsProject.Services.Implementation
                         break;
                     case CollectionFieldType.dateField:
                         {
-                            var arr = model[i].Value.ToCharArray();
-                            Array.Reverse(arr);
-                            model[i].Value = new string(arr);
+                            model[i].Value=DateTime.Parse(model[i].Value).ToShortDateString();
                             break;
                         }
                 }

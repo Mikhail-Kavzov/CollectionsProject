@@ -1,0 +1,47 @@
+﻿@model Item
+@{
+    ViewData["Title"] = Model.ItemId;
+    ViewBag.JsPath = "js/itemCommentPage.min.js";
+    ViewBag.CssPath = "css/itemCommentPage.min.css";
+}
+<div class="container">
+    <div id="@Model.ItemId-page" class="container">
+        <div class="row">
+            <input type="hidden" id="ItemIdentificator" value="@Model.ItemId">
+            <table class="col-8 table-collection-list table table-hover table-bordered">
+                <thead class="thead">
+                    <tr>
+                        <th>Name</th>
+                        <th>Creation Date</th>
+                        <th>Tags</th>
+                        @{
+                            foreach (var field in Model.AddItems)
+                            {
+                                <th>@field.AddCollectionFields.Name</th>
+                            }
+                        }
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    @await Html.PartialAsync("ItemsPagination",new List<Item>(){Model})
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container comment-container">
+        <div class="row">
+            <div id="comment-wrapper" class="comment-wrapper col-8">
+            </div>
+        </div>
+        @{
+            if (User.Identity.IsAuthenticated)
+            {
+                <div class="row">
+                    <div class="comment-form col-8">                       
+                        @await Html.PartialAsync("../Comment/CommentForm",new CommentViewModel())                       
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

@@ -25,7 +25,6 @@ namespace CollectionsProject.Context
         {
            base.OnModelCreating(builder);
            builder.Entity<User>().HasMany(u => u.Comments).WithMany(c => c.Users).UsingEntity<UserComment>();
-            builder.Entity<Tag>().HasAlternateKey(t=>t.TagName);
         }
     }
 }

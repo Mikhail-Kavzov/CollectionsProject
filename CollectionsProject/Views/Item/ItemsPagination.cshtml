@@ -4,7 +4,7 @@
     {
         foreach (var item in Model)
         {
-            <tr class="info-table" id="@item.ItemId">
+            <tr onclick="window.location.href='@Url.Action("ItemPage","Item", new{id=item.ItemId})'" class="info-table" id="@item.ItemId">
                 <td>@item.Name</td>
                 <td>@item.CreatedDate</td>
                 @{

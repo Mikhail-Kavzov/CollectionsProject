@@ -46,7 +46,7 @@ namespace CollectionsProject.Repositories
 
         public async Task<Item?> GetItemAsync(string id)
         {
-            return await db.Items.Include(i=>i.AddItems).Include(i=>i.Tags).FirstOrDefaultAsync(i=>i.ItemId.ToString()==id);
+            return await db.Items.Include(i => i.AddItems).Include(i => i.Tags).Include(i=>i.Comments).FirstOrDefaultAsync(i=>i.ItemId.ToString()==id);
         }
 
         public Task <IEnumerable<Item>?> GetSomeItemsAsync(int itemsToSkip, int itemsToTake)

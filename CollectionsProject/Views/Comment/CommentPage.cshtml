@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Comment>
+@{
+    if (Model != null)
+    {
+        foreach (var comment in Model)
+        {
+            <div class="message" id="@comment.CommentId" >
+                <div class="message-sender-time">
+                    <span class="message-sender">@comment.Author</span>
+                    <span class="message-time">@comment.CreatedDate</span>
+                </div>
+                <p class="message-body">@comment.CommentText</p>
+            </div>
+        }
+    }
+}
