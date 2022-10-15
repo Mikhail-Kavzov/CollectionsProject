@@ -33,6 +33,7 @@ internal class Program
         builder.Services.AddScoped<IItemService, ItemService>();
         builder.Services.AddScoped<ICollectionService, CollectionService>();
         builder.Services.AddScoped<IItemRepository, ItemRepository>();
+        builder.Services.AddScoped<ITagRepository, TagRepository>();
 
         var app = builder.Build();
 

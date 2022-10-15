@@ -63,13 +63,28 @@
     "inputFiles": [
       "wwwroot/css/addItemForm.css",
       "wwwroot/css/site.css",
-      "wwwroot/css/addCollectionForm.css"
+      "wwwroot/css/addCollectionForm.css",
+      "wwwroot/css/dropdown.css"
     ]
   },
   {
     "outputFileName": "wwwroot/js/scrollingItem.min.js",
     "inputFiles": [
       "wwwroot/js/scrollingItem.js"
-    ]
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/addItemForm.min.js",
+    "inputFiles": [
+      "wwwroot/js/dropdown.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
   }
 ]

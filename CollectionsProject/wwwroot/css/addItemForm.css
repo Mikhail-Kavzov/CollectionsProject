@@ -11,3 +11,15 @@
 	color:white;
 	font-size:16px;
 }
+
+#table-body{
+	
+}
+.table-tag{
+	max-height: 400px;
+	overflow-x: hidden;
+	overflow-y: scroll !important;
+}
+.tag-container{
+	position: relative;
+}

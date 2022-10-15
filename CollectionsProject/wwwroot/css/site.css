@@ -151,3 +151,9 @@ textarea{
     .button_send:hover {
         opacity: 1;
     }
+
+.table-collection-list{
+    overflow:scroll;
+    margin-top: 50px;
+    max-width:90vw;
+}

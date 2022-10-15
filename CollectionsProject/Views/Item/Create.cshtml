@@ -1,7 +1,7 @@
 ﻿@model ItemViewModel
 @{
     ViewBag.CssPath = "css/addItemForm.min.css";
-    //ViewBag.JsPath = "";
+    ViewBag.JsPath = "js/addItemForm.min.js";
 }
 <div class="add_item_cont container">
     <h1 class="item-header text-dark text-center">Create new Item</h1>
@@ -10,15 +10,20 @@
         <div class="item_wrapper row">
             <div class="tag-wrapper col-md-6 col-12">
                 <div class="form-group">
-                    <label class="text_label">Tags:</label>
-                    <input type="button" id="btn-add-tag" class="btn-tag btn-primary" value="Add Tag" />
-                    <table class="table table-hover table-bordered">
+                    <div class="form-group">
+                        <label class="text_label">Tags:</label>
+                        <input type="button" id="btn-add-tag" class="btn-tag btn-primary" value="Add Tag" />
+                    </div>
+                    <table class="table table-tag table-hover table-bordered">
                         <thead class="thead">
                             <tr><th>Name:</th></tr>
                         </thead>
                         <tbody id="table-body" class="info-table">
                             <tr>
-                                <td><input asp-for="Tags[0].TagName" style="width:100%" type="text" autocomplete="off" /></td>
+                                <td class="tag-container"><input class="tag-input" asp-for="Tags[0].TagName" style="width:100%" type="text" autocomplete="off" />
+                                    <ul id="dropdown" class="dropdown">
+                                    </ul>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -37,39 +42,39 @@
                         for (int i = 0; i < Fields.Count; i++)
                         {
                             var customField = Fields[i].CustomFieldViewModel;
-                                                                    <div class="form-group">
-                                                                        <input type="hidden" value="@customField.FieldId" name="AddItems[@i].CustomFieldViewModel.FieldId">
-                                                                        <input type="hidden" value="@customField.Name" name="AddItems[@i].CustomFieldViewModel.Name">
-                                                                        <input type="hidden" value="@customField.FieldType" name="AddItems[@i].CustomFieldViewModel.FieldType">
-                                                                        <p class="text_label">@customField.Name:</p>
-                                                                        @{
+                            <div class="form-group">
+                                <input type="hidden" value="@customField.FieldId" name="AddItems[@i].CustomFieldViewModel.FieldId">
+                                <input type="hidden" value="@customField.Name" name="AddItems[@i].CustomFieldViewModel.Name">
+                                <input type="hidden" value="@customField.FieldType" name="AddItems[@i].CustomFieldViewModel.FieldType">
+                                <p class="text_label">@customField.Name:</p>
+                                @{
 
                                     switch (customField.FieldType)
                                     {
                                         case CollectionFieldType.booleanField:
                                             {
-                                                                                                                                <div class="form-group">
-                                                                                                                                    <input id="checkbox-field" name="AddItems[@i].Value" type="checkbox">
-                                                                                                                                    <label class="text_label" for="checkbox-field">Yes/No</label>
-                                                                                                                                </div>
+                                                <div class="form-group">
+                                                    <input id="checkbox-field" name="AddItems[@i].Value" type="checkbox">
+                                                    <label class="text_label" for="checkbox-field">Yes/No</label>
+                                                </div>
                                                 break;
                                             }
                                         case CollectionFieldType.intField:
-                                                                                                                            <input id="num-field" name="AddItems[@i].Value" type="number" class="input_form" min="@int.MinValue" max="@int.MaxValue" autocomplete="off">
+                                            <input id="num-field" name="AddItems[@i].Value" type="number" class="input_form" min="@int.MinValue" max="@int.MaxValue" autocomplete="off">
                                             break;
 
                                         case CollectionFieldType.dateField:
-                                                                                                                            <input id="date-field" name="AddItems[@i].Value" type="date" class="input_form" autocomplete="off" required>
+                                            <input id="date-field" name="AddItems[@i].Value" type="date" class="input_form" autocomplete="off" required>
                                             break;
                                         case CollectionFieldType.multilineField:
-                                                                                                                            <textarea asp-for="AddItems[i].Value" class="input_form" maxlength="300" autocomplete="off" required></textarea>
+                                            <textarea asp-for="AddItems[i].Value" class="input_form" maxlength="300" autocomplete="off" required></textarea>
                                             break;
                                         default:
-                                                                                                                            <input asp-for="AddItems[i].Value" type="text" maxlength="15" class="input_form" autocomplete="off" required>
+                                            <input asp-for="AddItems[i].Value" type="text" maxlength="15" class="input_form" autocomplete="off" required>
                                             break;
                                     }
-                                                                        }
-                                                                    </div>
+                                }
+                            </div>
                         }
                     }
                 </div>
@@ -78,23 +83,5 @@
         </div>
     </form>
 </div>
-@section Scripts
-{
-    <script type="text/javascript">
-        let i = 1;
-        let btnTag=document.getElementById('btn-add-tag');
-        let tableBody=document.getElementById('table-body');
-        btnTag.onclick=function () {
-            let tr=document.createElement('tr');
-            let td=document.createElement('td');
-            td.appendChild(getHtmlFromStr(i));
-            tr.appendChild(td);
-            tableBody.appendChild(tr);
-            i++;
-        };
-        function getHtmlFromStr(num) {
-            let htmlElemStr = "<tr><td><input style=\"width: 100% \" type = \"text\" autocomplete = \"off\" data - val=\"true\" data - val - regex=\"Use only eng letter or numbers, length is up to 10\" data - val - regex - pattern=\" ^#[a - zA - Z0 - 9]{ 1, 10 }$\" data - val - required=\"Tag is required\" id = \"Tags_" + num + "__TagName\" name = \"Tags[" + num + "].TagName\" value = \"#\" > </td></tr>";
-            return new DOMParser().parseFromString(htmlElemStr, 'text/html').getElementsByTagName('input')[0];
-        }
-    </script>
-}
+
+

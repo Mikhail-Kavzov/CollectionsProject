@@ -57,5 +57,16 @@ namespace CollectionsProject.Controllers
             var items = await _itemRepository.GetUserItemsAsync(id * itemCount, itemCount, collectionId);
             return PartialView(items);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var item= await _itemRepository.GetItemAsync(id);
+            if (item == null)
+                return NotFound();
+            _itemRepository.Delete(item);
+            await _itemRepository.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
