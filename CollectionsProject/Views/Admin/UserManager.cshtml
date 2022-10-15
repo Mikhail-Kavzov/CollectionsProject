@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.JsPath = "js/adminPanel.min.js";
+}
+<div class="btn-group-justified toolbar">
+    <input type="button" id="BlockBtn" class="btn btn-danger" value="Block" />
+    <button class="btn btn-success" id="UnblockBtn"><i class="fa fa-unlock-alt" aria-hidden="true"></i></button>
+    <button class="btn btn-warning" id="DeleteBtn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    <button class="btn btn-warning" id="AddAdminBtn">Add Admin</button>
+    <button class="btn btn-warning" id="DeleteAdminBtn">Delete Admin</button>
+</div>
+<table class="table table-hover table-bordered">
+    <thead class="thead">
+        <tr>
+            <th><input id="checkbox_all" type="checkbox" /></th>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>Status</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+</table>
+
+@section Scripts{
+    <script type="text/javascript">
+        loadItems("/Admin/UserPage/", 'tbody');
+        $(window).scroll(function () {
+            if ((Math.trunc($(window).scrollTop())) === $(document).height() - $(window).height()) {
+                loadItems("/Admin/UserPage/", '#tableBody');
+            }
+        });</script>
+}

@@ -1,0 +1,70 @@
+@model CollectionViewModel
+@{
+    ViewBag.CssPath = "css/addCollectionForm.min.css";
+    ViewBag.JsPath = "js/addCollection.min.js";
+}
+<div class="add_collection_cont container">
+    <div class="row">
+        <h1 class="collection-header text-dark text-center">Create new collection</h1>
+        <form method="POST" enctype="multipart/form-data" asp-action="Create">
+            <div class="collection_wrapper">
+                <div class="image_wrapper col-md-6 col-12">
+                    <div class="input__wrapper">
+                        <input name="formFile" type="file" id="input__file" class="input input__file" accept=".png, .jpg, .jpeg">
+                        <input name="loadFiles" type="file" id="input__file" class="input input__file" accept=".png, .jpg, .jpeg">
+                        <label for="input__file" class="input__file-button">
+                            <p class="input__file-icon-wrapper"><i class="fa fa-folder-o" aria-hidden="true"></i></p>
+                            <span class="input__file-button-text">Choose a file</span>
+                        </label>
+                    </div>
+                    <img src="~/images/noPhoto.jpg" alt="image" id="image-photo" class="photo" />
+                </div>
+                <div class="text_wrapper col-md-6 col-12">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <div class="form-group">
+                            <label asp-for="Name" class="text_label">Collection Name:</label>
+                            <input type="text" asp-for="Name" class="input_form" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                            <label asp-for="Description" class="text_label">Description:</label>
+                            <textarea asp-for="Description" class="input_form" autocomplete="off"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                            <label asp-for="Type" class="text_label">Collection Type:</label>
+                            <select class="select" asp-for="Type" asp-items="Html.GetEnumSelectList<CollectionType>()"></select>
+                        </div>
+                        <div class="form-group">
+                            <label class="text_label">Custom Fields:</label>
+                            <table class="table table-hover table-bordered">
+                                <thead class="thead">
+                                    <tr><th>Type:</th><th>Name:</th></tr>
+                                </thead>
+                                <tbody id="table-body" class="info-table">
+                                    @{
+                                        for (int i = 0; i < 3; i++)
+                                        {
+                                            <tr>
+                                                <td><select class="select" asp-for="CustomFields[i].FieldType" asp-items="Html.GetEnumSelectList<CollectionFieldType>()"></select></td>
+                                                <td>
+                                                    <span asp-validation-for="CustomFields[i].Name" class="text-dark"></span>
+                                                    <input style="width:100%" autocomplete="off" asp-for="CustomFields[i].Name">
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <label asp-for="Type" class="text_label">Collection Type:</label>
+                        <select class="select" asp-for="Type" asp-items="Html.GetEnumSelectList<CollectionType>()"></select>
+                    </div>
+                    <input type="submit" value="Send" id="btn-send" name="submit" class="btn-primary button_send">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

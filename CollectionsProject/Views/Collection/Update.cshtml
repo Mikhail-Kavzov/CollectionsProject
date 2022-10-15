@@ -1,0 +1,46 @@
+﻿@model CollectionViewModel
+<div id="update_col_cont" style="display:none" class="update_col_cont container">
+    <div class="row">
+        <div id="update-hide" class="cross-wrapper container-fluid"><i class="fa fa-times" aria-hidden="true"></i></div>
+        <form method="POST" enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST" data-ajax-success="SuccessUpdate" asp-controller="Collection" asp-action="Update">
+            <div id="collection-wrapper" class="collection_wrapper">
+                <div class="image_wrapper col-4">
+                    <div class="input__wrapper">
+                        <input name="formFile" type="file" id="input__file" class="input input__file" accept=".png, .jpg, .jpeg">
+                        <label for="input__file" class="input__file-button">
+                            <p class="input__file-icon-wrapper"><i class="fa fa-folder-o" aria-hidden="true"></i></p>
+                            <span class="input__file-button-text">Choose a file</span>
+                        </label>
+                        <input asp-for="Id" type="hidden" />
+                    </div>
+                    <img src="~/images/noPhoto.jpg" alt="image" id="image-photo" class="photo" />
+                </div>
+                <div class="text_wrapper col-8">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <label asp-for="Name" class="text_label">Collection Name:</label>
+                        <input type="text" asp-for="Name" class="input_form" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                        <label asp-for="Description" class="text_label">Description:</label>
+                        <textarea asp-for="Description" class="input_form" autocomplete="off"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                        <label asp-for="Type" class="text_label">Collection Type:</label>
+                        <select class="select" asp-for="Type" asp-items="Html.GetEnumSelectList<CollectionType>()"></select>
+                    </div>
+                    <input type="submit" value="Update" id="btn-send" name="submit" class="btn-primary button_send">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function SuccessUpdate(data) {
+        hideForm();
+        updateItem.replaceWith(data);
+    }
+</script>

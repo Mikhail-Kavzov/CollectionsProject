@@ -1,0 +1,17 @@
+﻿@model IEnumerable<User>
+
+@{
+    if (Model != null)
+    {
+        foreach (var user in Model)
+        {
+            <tr class="info-table" id="@user.Id">
+                <td><input type="checkbox" /></td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.Status</td>
+                <td>@user.Role</td>
+            </tr>
+        }
+    }
+}

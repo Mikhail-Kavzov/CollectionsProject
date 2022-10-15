@@ -1,0 +1,12 @@
+@{
+    ViewBag.JsPath = "js/collection-view-page.min.js";
+    ViewBag.CssPath = "css/collection-view-page.min.css";
+}
+
+<div class="container">
+    <h1 class="text-dark text-center">@User.Identity.Name Collections</h1>
+    <a class="button-create d-block btn-warning text-white text-center col-4" asp-controller="Collection" asp-action="Create">Create collection</a>
+    <div id="collection-list" class="container-fluid">
+    </div>
+</div>
+@await Html.PartialAsync("Update")

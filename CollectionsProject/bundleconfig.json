@@ -1,0 +1,75 @@
+[
+  {
+    "outputFileName": "wwwroot/js/adminPanel.min.js",
+    "inputFiles": [
+      "wwwroot/js/checkbox.js",
+      "wwwroot/js/scrolling.js",
+      "wwwroot/js/site.js",
+      "wwwroot/js/adminToolbar.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/css/addCollectionForm.min.css",
+    "inputFiles": [
+      "wwwroot/css/addCollectionForm.css",
+      "wwwroot/css/selectList.css",
+      "wwwroot/css/site.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/addCollection.min.js",
+    "inputFiles": [
+      "wwwroot/js/selectList.js",
+      "wwwroot/js/addPhoto.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/collection-view-page.min.js",
+    "inputFiles": [
+      "wwwroot/js/selectList.js",
+      "wwwroot/js/scrollingCollection.js",
+      "wwwroot/js/addPhoto.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/css/collection-view-page.min.css",
+    "inputFiles": [
+      "wwwroot/css/collectionPage.css",
+      "wwwroot/css/addCollectionForm.css",
+      "wwwroot/css/selectList.css",
+      "wwwroot/css/site.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/jquery/unobstrusive.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/unobstrusive.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/addItemForm.min.css",
+    "inputFiles": [
+      "wwwroot/css/addItemForm.css",
+      "wwwroot/css/site.css",
+      "wwwroot/css/addCollectionForm.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/scrollingItem.min.js",
+    "inputFiles": [
+      "wwwroot/js/scrollingItem.js"
+    ]
+  }
+]

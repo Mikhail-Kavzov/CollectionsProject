@@ -1,0 +1,13 @@
+.add_item_cont {
+	margin-top: 50px;
+}
+.item-header{
+	font-size: 30px;
+	font-weight: 500;
+}
+.btn-tag{
+	padding: 10px 30px;
+	border-radius: 5px;
+	color:white;
+	font-size:16px;
+}

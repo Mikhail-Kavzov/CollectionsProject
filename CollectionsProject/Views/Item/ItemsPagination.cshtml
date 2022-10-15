@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Item>
+@{
+    if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr class="info-table" id="@item.ItemId">
+                <td>@item.Name</td>
+                <td>@item.CreatedDate</td>
+                @{
+                    List<string> tagNames = new(item.Tags.Count);
+                    foreach (var tag in item.Tags)
+                    {
+                        tagNames.Add(tag.TagName);
+                    }
+                }
+                <td style="word-wrap:break-word">@string.Join(" ",tagNames)</td>
+                @{
+                    foreach (var field in item.AddItems)
+                    {
+                        <td>@field.Value</td>
+                    }
+                }
+            </tr>
+        }
+    }
+}

@@ -1,0 +1,41 @@
+@model IEnumerable<Collection>
+@{
+    if (Model != null)
+    {
+        foreach (var collection in Model)
+        {
+            <div id="@collection.CollectionId" class="collection-item col-8">
+                <div class="row">
+                    <div class="collection-info col-12  col-md-8">
+                        <div class="collection-text-info">
+                            <div class="collection-name">
+                                <span class="text-dark">Name: </span>
+                                <span class="text-name text-warning">@collection.Name</span>
+                                <a class="d-block" asp-controller="Collection" asp-action="CollectionItems" asp-route-id="@collection.CollectionId">View</a>
+                            </div>
+                            <div class="collection-author">
+                                <span class="text-dark">Author: </span>
+                                <span class="text-warning">@collection.User.UserName</span>
+                            </div>
+                            <p class="collection-theme text-success">@collection.Type</p>
+                            <div class="collection-description">@collection.Description</div>
+                        </div>
+                        @{
+                            if (User.IsInRole("Admin") || User.Identity.Name == collection.User.UserName)
+                            {
+                                <div class="form-group">
+                                    <button class="btn-delete btn-danger text-white">Delete</button>
+                                    <button class="btn-update btn-primary text-white">Update</button>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="collection-image col-12 col-md-4">
+                        <img class="collection-photo" src="~/images/@collection.Image" alt="image">
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+
