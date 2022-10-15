@@ -1,11 +1,8 @@
-﻿using CollectionsProject.Models.CollectionModels;
-using CollectionsProject.Models.ItemModels;
-using CollectionsProject.Repositories;
+﻿using CollectionsProject.Repositories;
 using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace CollectionsProject.Controllers
 {
