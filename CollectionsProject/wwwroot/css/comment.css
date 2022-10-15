@@ -1,0 +1,31 @@
+.message-wrapper {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color:white;
+    padding: 0 10px;
+}
+
+.message{
+    border-bottom: 2px solid gray;
+    padding: 10px 30px;
+}
+
+.message-sender-time{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.message-sender{
+    font-size: 20px;
+    font-weight:500;
+}
+
+.message-time{
+    font-size:16px;
+    color:gray;
+}
+
+.message-body{
+    word-wrap: break-word;
+}
