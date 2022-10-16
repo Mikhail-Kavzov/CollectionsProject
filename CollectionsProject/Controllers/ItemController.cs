@@ -1,8 +1,11 @@
-﻿using CollectionsProject.Repositories;
+﻿using CollectionsProject.Models.CollectionModels;
+using CollectionsProject.Models.ItemModels;
+using CollectionsProject.Repositories;
 using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CollectionsProject.Controllers
 {
@@ -16,12 +19,12 @@ namespace CollectionsProject.Controllers
 
         private const int itemCount = 10;
 
-        public ItemController(ICollectionRepository collectionRepository, IItemRepository itemRepository,IItemService itemService)
+        public ItemController(ICollectionRepository collectionRepository, IItemRepository itemRepository, IItemService itemService)
         {
             _collectionRepository = collectionRepository;
             _itemRepository = itemRepository;
             _itemService = itemService;
-        }       
+        }
 
         [HttpGet]
         public async Task<IActionResult> Create(string id) //collectionId
@@ -39,13 +42,7 @@ namespace CollectionsProject.Controllers
             if (ModelState.IsValid)
             {
                 var collection = await _collectionRepository.GetItemIncludeFieldsAsync(model.CollectionId);
-                var tags = _itemService.CreateTags(model.Tags);
-                _itemRepository.AddTagRange(tags);
-                var item = _itemService.CreateNewItem(model.Name, collection, tags);
-                _itemRepository.Create(item);
-                var addFields = _itemService.CreateFields(model.AddItems, collection.AddFields, item);
-                _itemRepository.AddFieldRange(addFields);
-                await _itemRepository.SaveChangesAsync();
+                await _itemService.CreateNewItem(model,collection);
             }
             return View(model);
         }
@@ -62,7 +59,7 @@ namespace CollectionsProject.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(string id)
         {
-            var item= await _itemRepository.GetItemAsync(id);
+            var item = await _itemRepository.GetItemAsync(id);
             if (item == null)
                 return NotFound();
             _itemRepository.Delete(item);
@@ -74,16 +71,32 @@ namespace CollectionsProject.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ItemPage(string id)
         {
-            var item = await _itemRepository.GetItemAsync(id);
+            var item = await _itemService.GetAllItemFieldsAsync(id);
             if (item == null)
                 return NotFound();
-            var collection = await _collectionRepository.GetItemIncludeFieldsAsync(item.CollectionId.ToString());
-            var fields = collection!.AddFields;
-            for (int i=0; i < fields!.Count; i++)
-            {
-                item.AddItems[i].AddCollectionFields = new() { Name=fields[i].Name };
-            }
             return View(item);
+        }    
+
+        [HttpGet]
+        public async Task<IActionResult> Update(string id)
+        {
+            var item = await _itemService.GetAllItemFieldsAsync(id);           
+            if (item == null)
+                return NotFound();
+            var itemViewModel=_itemService.CreateItemViewModel(item);
+            return View(itemViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(ItemViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var item=await _itemService.GetAllItemFieldsAsync(model.ItemId);
+                await _itemService.UpdateItem(model, item);
+                return RedirectToAction("CollectionItems","Collection", new { id = model.CollectionId });
+            }
+            return View(model);
         }
     }
 }

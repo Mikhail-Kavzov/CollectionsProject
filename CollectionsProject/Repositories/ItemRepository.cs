@@ -46,7 +46,9 @@ namespace CollectionsProject.Repositories
 
         public async Task<Item?> GetItemAsync(string id)
         {
-            return await db.Items.Include(i => i.AddItems).Include(i => i.Tags).Include(i=>i.Comments).FirstOrDefaultAsync(i=>i.ItemId.ToString()==id);
+            return await db.Items.Include(i => i.AddItems).ThenInclude(c => c.AddCollectionFields)
+                .Include(i=>i.Collection).Include(i => i.Tags).Include(i=>i.Comments)
+                .FirstOrDefaultAsync(i=>i.ItemId.ToString()==id);
         }
 
         public Task <IEnumerable<Item>?> GetSomeItemsAsync(int itemsToSkip, int itemsToTake)
@@ -56,7 +58,9 @@ namespace CollectionsProject.Repositories
 
         public async Task<IEnumerable<Item>?> GetUserItemsAsync(int itemsToSkip, int itemsToTake, string id)
         {
-            return await db.Items.Where(i => i.CollectionId.ToString() == id).Include(i=>i.AddItems).Include(i=>i.Tags).OrderBy(i => i.ItemId).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();
+            return await db.Items.Where(i => i.CollectionId.ToString() == id)
+                .Include(i=>i.Collection.User).Include(i => i.AddItems).ThenInclude(ai=>ai.AddCollectionFields)
+                .OrderBy(i => i.ItemId).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();
         }
 
         public async Task SaveChangesAsync()
