@@ -6,7 +6,7 @@ namespace CollectionsProject.Models.ItemModels
     {
         public Guid ItemId { get; set; }
         public string Name { get; set; } = "";
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedDate { get; set; }
 
         public Guid CollectionId { get; set; }
         public Collection Collection { get; set; } = null!;

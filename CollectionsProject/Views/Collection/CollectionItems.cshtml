@@ -2,11 +2,13 @@
 @{
     ViewBag.JsPath = "js/scrollingItem.min.js";
     ViewBag.CssPath = "css/collection-view-page.min.css";
+    bool isCurrUser = User.Identity.Name == Model.User.UserName;
+    bool hasAccess = isCurrUser || User.IsInRole("Admin");
 }
 <div class="container">
     <div class="row">
         @{
-            if (User.Identity.Name == Model.User.UserName)
+            if (isCurrUser)
             {
                 <a class="button-create d-block btn-warning text-white text-center col-4" asp-controller="Item" asp-action="Create" asp-route-id="@Model.CollectionId">Create Item</a>
             }
@@ -40,12 +42,18 @@
                 <thead class="thead">
                     <tr>
                         <th>Name</th>
-                        <th>Creation Date</th>
-                        <th>Tags</th>
                         @{
                             foreach (var field in Model.AddFields)
                             {
-                                <th>@field.Name</th>
+                                if (field.Type == CollectionFieldType.stringField || field.Type == CollectionFieldType.dateField)
+                                {
+                                    <th>@field.Name</th>
+                                }
+
+                            }
+                            if (hasAccess)
+                            {
+                                <th>Action</th>
                             }
                         }
                     </tr>

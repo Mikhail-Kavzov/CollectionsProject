@@ -64,3 +64,22 @@ function getHtmlFromStr(num) {
     let htmlElemStr = "<input class=\"tag-input\" style=\"width: 100% \" type = \"text\" autocomplete = \"off\" data - val=\"true\" data - val - regex=\"Use only eng letter or numbers, length is up to 10\" data - val - regex - pattern=\" ^#[a - zA - Z0 - 9]{ 1, 10 }$\" data - val - required=\"Tag is required\" id = \"Tags_" + num + "__TagName\" name = \"Tags[" + num + "].TagName\" value = \"#\" >";
     return new DOMParser().parseFromString(htmlElemStr, 'text/html').getElementsByTagName('input')[0];
 }
+$('#btn-delete-tag').click(function () {
+    if (i === 1)
+        return;
+    i--;
+    $('#dropdown').detach().appendTo('#table-body');
+    $('.t-row').last().remove();
+});
+
+$('.checkbox-field').each(function (index) {
+    $(this).click(function () {
+        if ($(this).is(':checked')) {
+            $(this).next().text('Yes');
+            $(this).val('Yes');
+        } else {
+            $(this).next().text('No');
+            $(this).val('No');
+        }
+    });
+});

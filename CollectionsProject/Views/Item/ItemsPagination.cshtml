@@ -1,24 +1,31 @@
 ﻿@model IEnumerable<Item>
+
 @{
     if (Model != null)
     {
+        bool isAdmin = User.IsInRole("Admin");
+        bool hasAccess = isAdmin || Model.ElementAt(0).Collection.User.UserName == User.Identity.Name;
         foreach (var item in Model)
         {
-            <tr onclick="window.location.href='@Url.Action("ItemPage","Item", new{id=item.ItemId})'" class="info-table" id="@item.ItemId">
-                <td>@item.Name</td>
-                <td>@item.CreatedDate</td>
-                @{
-                    List<string> tagNames = new(item.Tags.Count);
-                    foreach (var tag in item.Tags)
-                    {
-                        tagNames.Add(tag.TagName);
-                    }
-                }
-                <td style="word-wrap:break-word">@string.Join(" ",tagNames)</td>
+            string? action =Url.Action("ItemPage", "Item", new { id = item.ItemId });
+            <tr class="info-table" id="@item.ItemId">
+                <td onclick="window.location.href='@action'">@item.Name</td>
                 @{
                     foreach (var field in item.AddItems)
                     {
-                        <td>@field.Value</td>
+                        if (field.AddCollectionFields.Type == CollectionFieldType.stringField ||
+                        field.AddCollectionFields.Type == CollectionFieldType.dateField)
+                        {
+                            <td onclick="window.location.href='@action'">@field.Value</td>
+                        }
+
+                    }
+                    if (hasAccess)
+                    {
+                        <td>
+                            <a asp-controller="Item" asp-action="Update" style="text-decoration:underline" asp-route-id="@item.ItemId">Update</a>
+                            <input type="button" class="btn-primary" value="Delete" />
+                        </td>
                     }
                 }
             </tr>

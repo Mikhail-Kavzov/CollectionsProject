@@ -15,7 +15,6 @@ function getComments(time, url) {
             dateTimeSend = new Date();        
             if (data !== '') {
                 $('#comment-wrapper').append(data);
-                console.log(data);
             }
             
             inCallBack = false;
@@ -26,9 +25,8 @@ function getComments(time, url) {
     });
 }
 OnCommentSuccess();
-//setInterval(OnCommentSuccess, timeInterval);
+setInterval(OnCommentSuccess, timeInterval);
 function OnCommentSuccess() {
-    console.log('success');
     getComments(dateTimeSend, '/Comment/CommentPage/');
 }
 $('#ItemId').val(itemIden);
