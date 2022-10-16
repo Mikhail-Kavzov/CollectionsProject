@@ -6,12 +6,13 @@ namespace CollectionsProject.Services.Interfaces
 {
     public interface IItemService
     {
-        AddItemField CreateAddField(string value, AddCollectionField collectionField, Item item);
         List<AddItemField> CreateFields(List<FieldViewModel> model, List<AddCollectionField> colField, Item item);
-        Item CreateNewItem(string name, Collection collection, List<Tag> tags);
-        FieldViewModel CreateFieldViewModel(CustomFieldViewModel custom, string id = "", string value = "");
-        CustomFieldViewModel CreateCustomFieldViewModel(string id, CollectionFieldType type, string name);
+        Task<Item> CreateNewItem(ItemViewModel model, Collection collection);
         ItemViewModel CreateItemViewModel(Collection collection);
+        ItemViewModel CreateItemViewModel(Item item);
         List<Tag> CreateTags(List<TagViewModel> tags);
+        Task<Item?> GetAllItemFieldsAsync(string id);
+        List<TagViewModel> CreateTagViewModel(List<Tag> tags);
+        Task<Item> UpdateItem(ItemViewModel model, Item item);
     }
 }

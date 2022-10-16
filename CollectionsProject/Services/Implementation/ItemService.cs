@@ -1,17 +1,19 @@
 ﻿using CollectionsProject.Models.CollectionModels;
 using CollectionsProject.Models.ItemModels;
+using CollectionsProject.Repositories;
 using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
 
 namespace CollectionsProject.Services.Implementation
 {
-    public class ItemService:IItemService
+    public class ItemService : IItemService
     {
-        private static readonly Dictionary<string, string> checkBoxState = new()
+        private readonly IItemRepository _itemRepository;
+
+        public ItemService(IItemRepository itemRepository)
         {
-            {"on","Yes"},
-            {"","No"},
-        };
+            _itemRepository = itemRepository;
+        }
 
         public AddItemField CreateAddField(string value, AddCollectionField collectionField, Item item)
         {
@@ -29,30 +31,31 @@ namespace CollectionsProject.Services.Implementation
             List<AddItemField> addItemFields = new();
             for (int i = 0; i < model.Count; i++)
             {
-                switch (model[i].CustomFieldViewModel.FieldType)
+                if (model[i].CustomFieldViewModel.FieldType == CollectionFieldType.dateField)
                 {
-                    case CollectionFieldType.booleanField:
-                        model[i].Value = checkBoxState[model[i].Value];
-                        break;
-                    case CollectionFieldType.dateField:
-                        {
-                            model[i].Value=DateTime.Parse(model[i].Value).ToShortDateString();
-                            break;
-                        }
+                    model[i].Value = DateTime.Parse(model[i].Value).ToShortDateString();
                 }
                 addItemFields.Add(CreateAddField(model[i].Value, colField[i], item));
             }
             return addItemFields;
         }
 
-        public Item CreateNewItem(string name, Collection collection, List<Tag> tags)
+        public async Task<Item> CreateNewItem(ItemViewModel model, Collection collection)
         {
+            var tags = CreateTags(model.Tags);
+            _itemRepository.AddTagRange(tags);
             Item item = new()
             {
-                Name = name,
+                Name = model.Name,
                 Collection = collection,
                 Tags = tags,
+                CreatedDate = DateTime.Now,
             };
+            _itemRepository.Create(item);
+            var addFields = CreateFields(model.AddItems, collection.AddFields, item);
+            _itemRepository.AddFieldRange(addFields);
+            item.AddItems = addFields;
+            await _itemRepository.SaveChangesAsync();
             return item;
         }
 
@@ -66,8 +69,17 @@ namespace CollectionsProject.Services.Implementation
             return tagsList;
         }
 
+        public List<TagViewModel> CreateTagViewModel(List<Tag> tags)
+        {
+            List<TagViewModel> tagsList = new();
+            foreach (var tag in tags)
+            {
+                tagsList.Add(new() { TagId = tag.TagId.ToString(), TagName = tag.TagName });
+            }
+            return tagsList;
+        }
 
-        public FieldViewModel CreateFieldViewModel(CustomFieldViewModel custom, string id = "", string value = "")
+        private FieldViewModel CreateFieldViewModel(CustomFieldViewModel custom, string id = "", string value = "")
         {
             FieldViewModel model = new()
             {
@@ -78,7 +90,7 @@ namespace CollectionsProject.Services.Implementation
             return model;
         }
 
-        public CustomFieldViewModel CreateCustomFieldViewModel(string id, CollectionFieldType type, string name)
+        private CustomFieldViewModel CreateCustomFieldViewModel(string id, CollectionFieldType type, string name)
         {
             CustomFieldViewModel model = new()
             {
@@ -89,22 +101,82 @@ namespace CollectionsProject.Services.Implementation
             return model;
         }
 
+        private List<FieldViewModel> CreateListFieldViewModel(List<AddCollectionField> fields)
+        {
+            List<FieldViewModel> fieldList = new();
+            foreach (var field in fields)
+            {
+                var custField = CreateCustomFieldViewModel(field.FieldId.ToString(), field.Type, field.Name);
+                var fieldView = CreateFieldViewModel(custField);
+                fieldList.Add(fieldView);
+            }
+            return fieldList;
+        }
+
         public ItemViewModel CreateItemViewModel(Collection collection)
         {
             ItemViewModel model = new()
             {
                 CollectionId = collection.CollectionId.ToString(),
+                AddItems = CreateListFieldViewModel(collection.AddFields),
+                Tags = new() { new() { TagName = "#" } },
             };
-            if (collection.AddFields == null)
-                throw new ArgumentNullException($"No additional fields in collection: {collection.Name}");
-            foreach (var field in collection.AddFields)
-            {
-                var customModel = CreateCustomFieldViewModel(field.FieldId.ToString(), field.Type, field.Name);
-                var fieldModel = CreateFieldViewModel(customModel);
-                model.AddItems.Add(fieldModel);
-            }
-            model.Tags = new() { new() { TagName = "#" } };
             return model;
+        }
+
+        public async Task<Item?> GetAllItemFieldsAsync(string id)
+        {
+            var item = await _itemRepository.GetItemAsync(id);
+            if (item == null)
+                return null;
+            return item;
+        }
+
+        private List<FieldViewModel> CreateListFieldViewModel(List<AddItemField> fields)
+        {
+            List<FieldViewModel> fieldList = new();
+            foreach (var field in fields)
+            {
+                var custField = CreateCustomFieldViewModel(field.FieldId.ToString(), field.AddCollectionFields.Type, field.AddCollectionFields.Name);
+                var fieldView = CreateFieldViewModel(custField, field.FieldId.ToString(), field.Value);
+                fieldList.Add(fieldView);
+            }
+            return fieldList;
+        }
+
+        public ItemViewModel CreateItemViewModel(Item item)
+        {
+            ItemViewModel model = new()
+            {
+                CollectionId = item.CollectionId.ToString(),
+                ItemId = item.ItemId.ToString(),
+                Name = item.Name,
+                AddItems = CreateListFieldViewModel(item.AddItems),
+                Tags = CreateTagViewModel(item.Tags),
+            };
+            return model;
+        }
+
+        public async Task<Item> UpdateItem(ItemViewModel model, Item item)
+        {
+            item.Tags.Clear();
+            var tags = CreateTags(model.Tags);
+            _itemRepository.AddTagRange(tags);
+            item.Tags.AddRange(tags);
+            item.Name = model.Name;
+
+            for (int i = 0; i < item.AddItems.Count; i++)
+            {
+                if (item.AddItems[i].AddCollectionFields.Type == CollectionFieldType.dateField)
+                {
+                    item.AddItems[i].Value = DateTime.Parse(model.AddItems[i].Value).ToShortDateString();
+                }
+                else
+                    item.AddItems[i].Value = model.AddItems[i].Value;
+            }
+            _itemRepository.Update(item);
+            await _itemRepository.SaveChangesAsync();
+            return item;
         }
     }
 }
