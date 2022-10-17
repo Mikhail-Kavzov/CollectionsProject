@@ -72,7 +72,7 @@ $('#btn-delete-tag').click(function () {
     $('.t-row').last().remove();
 });
 
-$('.checkbox-field').each(function (index) {
+$('.checkbox-field').each(function (index) { //
     $(this).click(function () {
         if ($(this).is(':checked')) {
             $(this).next().text('Yes');

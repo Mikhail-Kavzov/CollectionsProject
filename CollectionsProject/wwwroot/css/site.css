@@ -146,6 +146,7 @@ textarea{
     text-decoration: none;
     cursor: pointer;
     margin-top: 25px !important;
+    margin-bottom: 0;
 }
 
     .button_send:hover {

@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <span asp-validation-for="Type" class="text-danger"></span>
                         <label asp-for="Type" class="text_label">Collection Type:</label>
-                        <select class="select" asp-for="Type" asp-items="Html.GetEnumSelectList<CollectionType>()"></select>
+                        <select class="form-select" asp-for="Type" asp-items="Html.GetEnumSelectList<CollectionType>()"></select>
                     </div>
                     <input type="submit" value="Update" id="btn-send" name="submit" class="btn-primary button_send">
                 </div>

@@ -3,46 +3,51 @@
     ViewBag.JsPath = "js/scrollingItem.min.js";
     ViewBag.CssPath = "css/collection-view-page.min.css";
     bool isCurrUser = User.Identity.Name == Model.User.UserName;
-    bool hasAccess = isCurrUser || User.IsInRole("Admin");
 }
-<div class="container">
-    <div class="row">
-        @{
-            if (isCurrUser)
-            {
-                <a class="button-create d-block btn-warning text-white text-center col-4" asp-controller="Item" asp-action="Create" asp-route-id="@Model.CollectionId">Create Item</a>
-            }
+@section Create{
+    @{
+        if (isCurrUser)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="Item" asp-action="Create" asp-route-id="@Model.CollectionId">Create Item</a>
+            </li>
         }
-        <div id="@Model.CollectionId" class="collection-item col-8">
-            <div class="row">
-                <div class="collection-info col-12  col-md-8">
-                    <div class="collection-text-info">
-                        <div class="collection-name">
-                            <span class="text-dark">Name: </span>
-                            <span class="text-name text-warning">@Model.Name</span>
+    }
 
+ }
+    <div class="container">
+        <div class="row">
+
+            <div id="@Model.CollectionId" class="collection-item col-8">
+                <div class="row">
+                    <div class="collection-info col-12  col-md-8">
+                        <div class="collection-text-info">
+                            <div class="collection-name">
+                                <span class="text-dark">Name: </span>
+                                <span class="text-name text-warning">@Model.Name</span>
+
+                            </div>
+                            <div class="collection-author">
+                                <span class="text-dark">Author: </span>
+                                <span class="text-warning">@Model.User.UserName</span>
+                            </div>
+                            <p class="collection-theme text-success">@Model.Type</p>
+                            <div class="collection-description">@Model.Description</div>
                         </div>
-                        <div class="collection-author">
-                            <span class="text-dark">Author: </span>
-                            <span class="text-warning">@Model.User.UserName</span>
-                        </div>
-                        <p class="collection-theme text-success">@Model.Type</p>
-                        <div class="collection-description">@Model.Description</div>
                     </div>
-                </div>
-                <div class="collection-image col-12 col-md-4">
-                    <img class="collection-photo" src="~/images/@Model.Image" alt="image">
+                    <div class="collection-image col-12 col-md-4">
+                        <img class="collection-photo" src="~/images/@Model.Image" alt="image">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="item-list" class="container">
-        <div class="row">
-            <table class="col-8 table-collection-list table table-hover table-bordered">
-                <thead class="thead">
-                    <tr>
-                        <th>Name</th>
-                        @{
+        <div id="item-list" class="container">
+            <div class="row">
+                <table class="col-8 table-collection-list table table-hover table-bordered text-center">
+                    <thead class="bg-info">
+                        <tr>
+                            <th>Name</th>
+                            @{
                             foreach (var field in Model.AddFields)
                             {
                                 if (field.Type == CollectionFieldType.stringField || field.Type == CollectionFieldType.dateField)
@@ -51,14 +56,11 @@
                                 }
 
                             }
-                            if (hasAccess)
-                            {
-                                <th>Action</th>
-                            }
+                            <th>Action</th>
                         }
                     </tr>
                 </thead>
-                <tbody id="tableBody">
+                <tbody class="bg-light" id="tableBody">
                 </tbody>
             </table>
         </div>

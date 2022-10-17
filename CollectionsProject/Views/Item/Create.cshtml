@@ -61,17 +61,17 @@
                                                 break;
                                             }
                                         case CollectionFieldType.intField:
-                                            <input class="num-field" name="AddItems[@i].Value" type="number" class="input_form" min="@int.MinValue" max="@int.MaxValue" autocomplete="off">
+                                            <input class="num-field input_form form-control" name="AddItems[@i].Value" type="number" min="@int.MinValue" max="@int.MaxValue" autocomplete="off">
                                             break;
 
                                         case CollectionFieldType.dateField:
-                                            <input class="date-field" name="AddItems[@i].Value" type="date" class="input_form" autocomplete="off" required>
+                                            <input class="date-field input_form form-control" name="AddItems[@i].Value" type="date" autocomplete="off" required>
                                             break;
                                         case CollectionFieldType.multilineField:
-                                            <textarea asp-for="AddItems[i].Value" class="input_form" maxlength="300" autocomplete="off" required></textarea>
+                                            <textarea asp-for="AddItems[i].Value" class="input_form form-control" maxlength="300" autocomplete="off" required></textarea>
                                             break;
                                         default:
-                                            <input asp-for="AddItems[i].Value" type="text" maxlength="15" class="input_form" autocomplete="off" required>
+                                            <input asp-for="AddItems[i].Value" type="text" maxlength="15" class="input_form form-control" autocomplete="off" required>
                                             break;
                                     }
                                 }
@@ -79,7 +79,7 @@
                         }
                     }
                 </div>
-                <input type="submit" value="Send" id="btn-send" name="submit" class="btn-primary button_send">
+                <input type="submit" value="Create" id="btn-send" name="submit" class="btn-primary button_send">
             </div>
         </div>
     </form>

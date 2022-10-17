@@ -1,3 +1,0 @@
-$('select').styler({
-	selectSearch: true
-});

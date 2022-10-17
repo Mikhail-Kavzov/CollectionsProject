@@ -16,14 +16,12 @@
     "outputFileName": "wwwroot/css/addCollectionForm.min.css",
     "inputFiles": [
       "wwwroot/css/addCollectionForm.css",
-      "wwwroot/css/selectList.css",
       "wwwroot/css/site.css"
     ]
   },
   {
     "outputFileName": "wwwroot/js/addCollection.min.js",
     "inputFiles": [
-      "wwwroot/js/selectList.js",
       "wwwroot/js/addPhoto.js"
     ],
     "minify": {
@@ -34,7 +32,6 @@
   {
     "outputFileName": "wwwroot/js/collection-view-page.min.js",
     "inputFiles": [
-      "wwwroot/js/selectList.js",
       "wwwroot/js/scrollingCollection.js",
       "wwwroot/js/addPhoto.js"
     ],
@@ -48,7 +45,6 @@
     "inputFiles": [
       "wwwroot/css/collectionPage.css",
       "wwwroot/css/addCollectionForm.css",
-      "wwwroot/css/selectList.css",
       "wwwroot/css/site.css"
     ]
   },

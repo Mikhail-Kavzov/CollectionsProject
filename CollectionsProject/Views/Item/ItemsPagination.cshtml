@@ -7,26 +7,29 @@
         bool hasAccess = isAdmin || Model.ElementAt(0).Collection.User.UserName == User.Identity.Name;
         foreach (var item in Model)
         {
-            string? action =Url.Action("ItemPage", "Item", new { id = item.ItemId });
-            <tr class="info-table" id="@item.ItemId">
-                <td onclick="window.location.href='@action'">@item.Name</td>
+            <tr id="@item.ItemId">
+                <td>@item.Name</td>
                 @{
                     foreach (var field in item.AddItems)
                     {
                         if (field.AddCollectionFields.Type == CollectionFieldType.stringField ||
                         field.AddCollectionFields.Type == CollectionFieldType.dateField)
                         {
-                            <td onclick="window.location.href='@action'">@field.Value</td>
+                            <td>@field.Value</td>
                         }
 
                     }
-                    if (hasAccess)
-                    {
-                        <td>
-                            <a asp-controller="Item" asp-action="Update" style="text-decoration:underline" asp-route-id="@item.ItemId">Update</a>
-                            <input type="button" class="btn-primary" value="Delete" />
-                        </td>
-                    }
+
+                    <td class="d-flex justify-content-around">
+                        <a asp-controller="Item" class="text-dark" asp-action="ItemPage" style="text-decoration:underline" asp-route-id="@item.ItemId">Details</a>
+                        @{
+                            if (hasAccess)
+                            {
+                                <a asp-controller="Item" class="text-dark" asp-action="Update" style="text-decoration:underline" asp-route-id="@item.ItemId">Update</a>
+                                <a class="delete-link text-dark" style="text-decoration:underline">Delete</a>
+                            }
+                        }
+                    </td>
                 }
             </tr>
         }
