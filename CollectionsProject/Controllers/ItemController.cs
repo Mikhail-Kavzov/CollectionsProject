@@ -17,7 +17,7 @@ namespace CollectionsProject.Controllers
         private readonly ICollectionRepository _collectionRepository;
         private readonly IItemService _itemService;
 
-        private const int itemCount = 10;
+        private const int itemCount = 5;
 
         public ItemController(ICollectionRepository collectionRepository, IItemRepository itemRepository, IItemService itemService)
         {

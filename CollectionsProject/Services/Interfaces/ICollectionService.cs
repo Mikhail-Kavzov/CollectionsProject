@@ -10,5 +10,6 @@ namespace CollectionsProject.Services.Interfaces
         Collection CreateNewCollection(CollectionViewModel model, User user);
         AddCollectionField CreateAddField(CustomFieldViewModel model, Collection collection);
         List<AddCollectionField> CreateAddFields(List<CustomFieldViewModel> model, Collection collection);
+        Task<int> GetItemCountAsync(string collectionId);
     }
 }

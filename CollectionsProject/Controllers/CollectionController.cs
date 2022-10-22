@@ -1,7 +1,7 @@
 using CollectionsProject.Models.UserModels;
 using CollectionsProject.Repositories;
 using CollectionsProject.Services.Interfaces;
-﻿using CollectionsProject.Models;
+using CollectionsProject.Models;
 using CollectionsProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,7 +20,7 @@ namespace CollectionsProject.Controllers
         private const int itemsCount = 5;
         private const string noPhoto = "noPhoto.jpg";
 
-        public CollectionController(ICollectionRepository collectionRepository, UserManager<User> userManager, IFileService fileService,ICollectionService collectionService)
+        public CollectionController(ICollectionRepository collectionRepository, UserManager<User> userManager, IFileService fileService, ICollectionService collectionService)
         {
             _collectionRepository = collectionRepository;
             _userManager = userManager;
@@ -61,7 +61,7 @@ namespace CollectionsProject.Controllers
             return View(model);
         }
 
-        private static Collection CreateNewCollection(CollectionViewModel model,User user)
+        private static Collection CreateNewCollection(CollectionViewModel model, User user)
         {
             Collection collection = new()
             {
@@ -113,8 +113,15 @@ namespace CollectionsProject.Controllers
         public async Task<IActionResult> CollectionPage(int id = 0)
         {
             var user = await _userManager.GetUserAsync(User);
-            var collections = await _collectionRepository.GetUserItemsAsync(id * itemsCount, itemsCount,user.Id);
+            var collections = await _collectionRepository.GetUserItemsAsync(id * itemsCount, itemsCount, user.Id);
             return PartialView("CollectionPage", collections);
+        }
+
+        private int CountPagesInItems(int collectionCount)
+        {
+            if (collectionCount % itemsCount == 0)
+                return collectionCount / itemsCount;
+            return collectionCount / itemsCount + 1;
         }
 
         [HttpGet]
@@ -123,6 +130,8 @@ namespace CollectionsProject.Controllers
             var result = await _collectionRepository.GetItemAsync(id);
             if (result == null)
                 return NotFound();
+            var count = await _collectionService.GetItemCountAsync(id);
+            ViewBag.ItemPerPage = CountPagesInItems(count);
             return View(result);
         }
 
@@ -130,7 +139,7 @@ namespace CollectionsProject.Controllers
         public async Task<IActionResult> GetCollectionPage(int Page = 0)
         {
             var collections = await _collectionRepository.GetSomeItemsAsync(Page * itemsCount, itemsCount);
-            return PartialView("CollectionPage",collections);
+            return PartialView("CollectionPage", collections);
         }
     }
 }

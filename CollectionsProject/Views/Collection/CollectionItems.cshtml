@@ -64,6 +64,9 @@
                 </tbody>
             </table>
         </div>
+        <div class="row">
+            @await Html.PartialAsync("~/Views/Pagination.cshtml",(int)ViewBag.ItemPerPage)
+        </div>
     </div>
 </div>
 

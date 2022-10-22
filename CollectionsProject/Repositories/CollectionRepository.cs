@@ -33,16 +33,6 @@ namespace CollectionsProject.Repositories
             db.Collections.Remove(item);
         }
 
-        public async Task<IEnumerable<Collection>> GetAllAsync()
-        {
-            return await db.Collections.Include(c=>c.User).ToListAsync();
-        }
-
-        public async Task<int> GetCountAsync()
-        {
-            return await db.Collections.CountAsync();
-        }
-
         public async Task<Collection?> GetItemAsync(string id)
         {
             return await db.Collections.Include(c=>c.User).Include(c=>c.AddFields).FirstOrDefaultAsync(c => c.CollectionId.ToString() == id);

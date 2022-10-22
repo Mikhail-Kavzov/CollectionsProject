@@ -1,36 +1,66 @@
-
-let page = -1;
-let _inCallback = false;
-let pageFlag = false;
-let firstFlag = true;
 let colId = $('.collection-item').first().attr('id');
-function loadItems(url, element) {
-    if (!pageFlag && !_inCallback) {
-        _inCallback = true;
-        page++;
-        $.ajax({
-            type: 'POST',
-            url: url + colId + '/' + page,
-            dataType: 'html',
-            success: function (data, textstatus) {
-                if (data !== '') {
-
-                    $(element).append(data);
-                }
-                else {
-                    pageFlag = true;
-
-                }
-                _inCallback = false;
-                firstFlag = false;
+let pageCount = Number($('#max-page-value').val());
+let minPage = 1;
+let currentPage = minPage;
+const LabelWidth = 37;
+let offset = 0;
+const overflowPages = 6;
+const isOverflow = pageCount > overflowPages;
+let maxPage = overflowPages;
+function loadItems(url, element, page) {
+    $.ajax({
+        type: 'POST',
+        url: url + colId + '/' + page,
+        dataType: 'html',
+        success: function (data, textstatus) {
+            if (data !== '') {
+                $(element).children().remove();
+                $(element).append(data);
             }
 
-        });
-    }
+        }
+
+    });
 };
-loadItems("/Item/ItemsPagination/", '#tableBody');
-$(window).scroll(function () {
-    if ((Math.trunc($(window).scrollTop())) === $(document).height() - $(window).height()) {
-        loadItems("/Item/ItemsPagination/", '#tableBody');
+if (pageCount > 0) {
+    loadItems("/Item/ItemsPagination/", '#tableBody', currentPage - 1);
+    $('#href-left').click(moveLeft);
+    $('#href-right').click(moveRight);
+    let radios = $('.p-radio');
+    let pageWrapper = document.getElementById('pagination-wrapper');
+    radios.each(function (index) {
+        $(this).click(function () {
+            let newPage = Number($(this).val());
+            if (newPage !== currentPage) {
+                currentPage = newPage;
+                loadItems("/Item/ItemsPagination/", '#tableBody', currentPage - 1);
+            }
+        });
+    });
+    function moveLeft() {
+        if (currentPage === 1)
+            return;
+        if (currentPage === minPage && isOverflow) { // if it's left border
+            --minPage;
+            --maxPage;
+            offset += LabelWidth;
+            pageWrapper.style.left = offset + 'px';
+        }
+        currentPage--;
+        $('.p-radio').eq(currentPage - 1).prop('checked', true);
+        loadItems("/Item/ItemsPagination/", '#tableBody', currentPage - 1);
     }
-});
+    function moveRight() {
+        if (currentPage === pageCount)
+            return;
+        if (currentPage === maxPage && isOverflow) { //if it's right border
+            ++minPage;
+            ++maxPage;
+            offset -= LabelWidth;
+            pageWrapper.style.left = offset + 'px';
+        }
+        currentPage++;
+        $('.p-radio').eq(currentPage - 1).prop('checked', true);
+        loadItems("/Item/ItemsPagination/", '#tableBody', currentPage - 1);
+    }
+}

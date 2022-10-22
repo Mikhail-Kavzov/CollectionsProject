@@ -1,5 +1,6 @@
 ﻿using CollectionsProject.Models.CollectionModels;
 using CollectionsProject.Models.UserModels;
+using CollectionsProject.Repositories;
 using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
 
@@ -7,6 +8,18 @@ namespace CollectionsProject.Services.Implementation
 {
     public class CollectionService:ICollectionService
     {
+        private readonly IItemRepository _itemRepository;
+
+        public CollectionService(IItemRepository itemRepository)
+        {
+            _itemRepository = itemRepository;
+        }
+
+        public async Task<int> GetItemCountAsync(string collectionId)
+        {
+            return await _itemRepository.GetItemCountAsync(collectionId);
+        }
+
         public Collection CreateNewCollection(CollectionViewModel model, User user)
         {
             Collection collection = new()
