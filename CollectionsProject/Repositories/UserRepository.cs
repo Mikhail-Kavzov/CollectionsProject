@@ -24,16 +24,6 @@ namespace CollectionsProject.Repositories
             db.Users.Remove(item);
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync()
-        {
-            return await db.Users.ToListAsync();
-        }
-
-        public async Task<int> GetCountAsync()
-        {
-            return await db.Users.CountAsync();
-        }
-
         public async Task<User?> GetItemAsync(string id)
         {
             return await db.Users.FirstOrDefaultAsync();

@@ -45,7 +45,8 @@
     "inputFiles": [
       "wwwroot/css/collectionPage.css",
       "wwwroot/css/addCollectionForm.css",
-      "wwwroot/css/site.css"
+      "wwwroot/css/site.css",
+      "wwwroot/css/pagination.css"
     ]
   },
   {

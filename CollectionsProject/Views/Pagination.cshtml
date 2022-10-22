@@ -1,0 +1,26 @@
+﻿@model int
+@{
+    <input type="hidden" id="max-page-value" value="@Model">
+    if (Model > 0)
+    {
+        <div class="col-8 pagination-containter" id="pagination-list">
+
+            <button class="Forward_Back_Pages" id="href-left">&lt</button>
+            <div class="pagination-overflow-wrapper" >
+                <div class="pagination-wrapper" id="pagination-wrapper">
+                    @{
+                        <input class="p-radio" id="page_1" type="radio" name="page" value="1" checked>
+                        <label class="page_numb" for="page_1">1</label>
+
+                        for (int i = 2; i <= Model; i++)
+                        {
+                            <input class="p-radio" id="page_@i" type="radio" name="page" value="@i">
+                            <label class="page_numb" for="page_@i">@i</label>
+                        }
+                    }
+                </div>
+            </div>
+            <button class="Forward_Back_Pages" id="href-right">&gt</button>
+        </div>
+    }
+}

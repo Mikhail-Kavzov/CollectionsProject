@@ -23,16 +23,6 @@ namespace CollectionsProject.Repositories
             db.Tags.Remove(item);
         }
 
-        public async Task<IEnumerable<Tag>> GetAllAsync()
-        {
-            return await db.Tags.ToListAsync();
-        }
-
-        public async Task<int> GetCountAsync()
-        {
-            return await db.Tags.CountAsync();
-        }
-
         public async Task<IEnumerable<string>> GetTagNamesAsync()
         {
            return await db.Tags.Select(t => t.TagName).Distinct().ToListAsync();
