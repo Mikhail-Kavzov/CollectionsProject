@@ -14,5 +14,6 @@ namespace CollectionsProject.Services.Interfaces
         Task<Item?> GetAllItemFieldsAsync(string id);
         List<TagViewModel> CreateTagViewModel(List<Tag> tags);
         Task<Item> UpdateItem(ItemViewModel model, Item item);
+        IEnumerable<Item>? SortItems(IEnumerable<Item> items, string sortRule="Name");
     }
 }

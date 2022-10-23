@@ -4,7 +4,6 @@
     margin-top: 45px;
     padding: 15px;
     background-color: white;
-    width: 100%;
 }
 
 .Forward_Back_Pages {
@@ -61,4 +60,23 @@
     cursor: pointer;
     color: rgb(111, 155, 155);
     font-weight: 400;
+}
+
+.attribSort:hover{
+    color: yellow;
+    background-color:skyblue;
+}
+#btn-filter{
+    padding: 10px 30px;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight:500;
+    border-radius:5px;
+    letter-spacing:1px;
+}
+.filter-wrapper {
+    margin-top: 40px;
+    background-color: #d3d3a0;
+    padding: 10px;
+    border-radius: 5px;
 }

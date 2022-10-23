@@ -6,6 +6,7 @@ using CollectionsProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CollectionsProject.Controllers
 {
@@ -48,11 +49,11 @@ namespace CollectionsProject.Controllers
         }
 
         [HttpPost]
-        [Route("{collectionId}/{id?}")]
         [AllowAnonymous]
-        public async Task<IActionResult> ItemsPagination(string collectionId, int id = 0)
+        public async Task<IActionResult> ItemsPagination(string collectionId, int id = 0,string sortRule="Name",string searchString="")
         {
-            var items = await _itemRepository.GetUserItemsAsync(id * itemCount, itemCount, collectionId);
+            var items = await _itemRepository.Filter(id * itemCount, itemCount, collectionId, searchString);
+            items=_itemService.SortItems(items,sortRule);
             return PartialView(items);
         }
 

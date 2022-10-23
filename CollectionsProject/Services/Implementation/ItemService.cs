@@ -3,6 +3,7 @@ using CollectionsProject.Models.ItemModels;
 using CollectionsProject.Repositories;
 using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace CollectionsProject.Services.Implementation
 {
@@ -177,6 +178,28 @@ namespace CollectionsProject.Services.Implementation
             _itemRepository.Update(item);
             await _itemRepository.SaveChangesAsync();
             return item;
+        }
+
+        public IEnumerable<Item>? SortItems(IEnumerable<Item> items, string sortRule="Name")
+        {
+            if (string.IsNullOrEmpty(sortRule) || items==null)
+                return items;
+            switch (sortRule)
+            {
+                case "Name_Desc": return items.OrderByDescending(i => i.Name);
+                case "Name": return items.OrderBy(i => i.Name);
+                default:
+                    {
+                        if (sortRule.Contains("_Desc"))
+                        {
+                            sortRule = sortRule.Replace("_Desc", "");
+                            return items.OrderByDescending(i => i.AddItems.Where(ai => ai.AddCollectionFields.Name == sortRule)
+                        .Select(ai => ai.Value).ElementAt(0));
+                        }
+                        return items.OrderBy(i => i.AddItems.Where(ai => ai.AddCollectionFields.Name == sortRule)
+                        .Select(ai => ai.Value).ElementAt(0));
+                    }
+            }
         }
     }
 }

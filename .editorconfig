@@ -51,6 +51,9 @@ dotnet_naming_style.pascal_case.required_suffix =
 dotnet_naming_style.pascal_case.word_separator = 
 dotnet_naming_style.pascal_case.capitalization = pascal_case
 
+# CS8620: Аргумент запрещено использовать для параметра из-за различий в отношении допустимости значений NULL для ссылочных типов.
+dotnet_diagnostic.CS8620.severity = suggestion
+
 [*.vb]
 #### Стили именования ####
 

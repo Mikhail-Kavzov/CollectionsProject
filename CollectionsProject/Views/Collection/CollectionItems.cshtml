@@ -3,6 +3,7 @@
     ViewBag.JsPath = "js/scrollingItem.min.js";
     ViewBag.CssPath = "css/collection-view-page.min.css";
     bool isCurrUser = User.Identity.Name == Model.User.UserName;
+    int CountItems = ViewBag.ItemPerPage;
 }
 @section Create{
     @{
@@ -41,32 +42,43 @@
                 </div>
             </div>
         </div>
-        <div id="item-list" class="container">
-            <div class="row">
-                <table class="col-8 table-collection-list table table-hover table-bordered text-center">
-                    <thead class="bg-info">
-                        <tr>
-                            <th>Name</th>
-                            @{
-                            foreach (var field in Model.AddFields)
-                            {
-                                if (field.Type == CollectionFieldType.stringField || field.Type == CollectionFieldType.dateField)
-                                {
-                                    <th>@field.Name</th>
-                                }
+        @{
+        if (CountItems > 0)
+        {
+            <div class="filter-form row d-flex justify-content-center">
+                <div class="filter-wrapper col-md-8 col-lg-6 col-12">
+                    <input type="text" class="form-control" maxlength="15" id="filter-input" placeholder="Search..." autocomplete="off">
+                    <button class="btn-success" id="btn-filter"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <div id="item-list" class="container">
+                <div class="row">
+                    <table class="col-8 table-collection-list table table-hover table-bordered text-center">
+                        <thead class="bg-info">
+                            <tr>
+                                <th class="attribSort" data-sort="Name">Name</th>
+                                @{
+                                    foreach (var field in Model.AddFields)
+                                    {
+                                        if (field.Type == CollectionFieldType.stringField || field.Type == CollectionFieldType.dateField)
+                                        {
+                                            <th class="attribSort" data-sort="@field.Name">@field.Name</th>
+                                        }
 
-                            }
-                            <th>Action</th>
-                        }
-                    </tr>
-                </thead>
-                <tbody class="bg-light" id="tableBody">
-                </tbody>
-            </table>
-        </div>
-        <div class="row">
-            @await Html.PartialAsync("~/Views/Pagination.cshtml",(int)ViewBag.ItemPerPage)
-        </div>
-    </div>
+                                    }
+                                    <th>Action</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody class="bg-light" id="tableBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    @await Html.PartialAsync("~/Views/Pagination.cshtml",CountItems)
+                </div>
+            </div>
+        }
+    }
 </div>
 
