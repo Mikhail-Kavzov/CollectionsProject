@@ -4,20 +4,20 @@
     ViewBag.JsPath = "js/addItemForm.min.js";
 }
 <div class="add_item_cont container">
-    <h1 class="item-header text-dark text-center">Create new Item</h1>
+    <h1 class="item-header text-dark text-center">@Loc["Create new Item"]</h1>
     <form method="POST" asp-controller="Item" asp-action="Create">
         <input type="hidden" id="@Model.CollectionId" asp-for="CollectionId" />
         <div class="item_wrapper row">
             <div class="tag-wrapper col-md-6 col-12">
                 <div class="form-group">
                     <div class="form-group">
-                        <label class="text_label">Tags:</label>
-                        <input type="button" id="btn-add-tag" class="btn-tag btn-primary" value="Add Tag" />
-                        <input type="button" id="btn-delete-tag" class="btn-tag btn-danger" value="Delete Tag" />
+                        <label class="text_label">@Loc["Tags"]</label>
+                        <input type="button" id="btn-add-tag" class="btn-tag btn-primary" value="@Loc["Add Tag"]" />
+                        <input type="button" id="btn-delete-tag" class="btn-tag btn-danger" value="@Loc["Delete Tag"]" />
                     </div>
                     <table class="table table-tag table-hover table-bordered">
                         <thead class="thead">
-                            <tr><th>Name:</th></tr>
+                            <tr><th>@Loc["Table_Name"]</th></tr>
                         </thead>
                         <tbody id="table-body" class="info-table">
                             <ul id="dropdown" class="dropdown">
@@ -34,7 +34,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <span asp-validation-for="Name" class="text-danger"></span>
-                    <label asp-for="Name" class="text_label">Item Name:</label>
+                    <label asp-for="Name" class="text_label">@Loc["Name"]</label>
                     <input type="text" asp-for="Name" class="input_form" autocomplete="off">
                 </div>
                 <div class="form-group">
@@ -79,7 +79,7 @@
                         }
                     }
                 </div>
-                <input type="submit" value="Create" id="btn-send" name="submit" class="btn-primary button_send">
+                <input type="submit" value="@Loc["Create"]" id="btn-send" name="submit" class="btn-primary button_send">
             </div>
         </div>
     </form>

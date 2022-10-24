@@ -10,7 +10,7 @@
         if (isCurrUser)
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-controller="Item" asp-action="Create" asp-route-id="@Model.CollectionId">Create Item</a>
+                <a class="nav-link text-dark" asp-controller="Item" asp-action="Create" asp-route-id="@Model.CollectionId">@Loc["Create_Item"]</a>
             </li>
         }
     }
@@ -24,12 +24,12 @@
                     <div class="collection-info col-12  col-md-8">
                         <div class="collection-text-info">
                             <div class="collection-name">
-                                <span class="text-dark">Name: </span>
+                                <span class="text-dark">@Loc["Name"]</span>
                                 <span class="text-name text-warning">@Model.Name</span>
 
                             </div>
                             <div class="collection-author">
-                                <span class="text-dark">Author: </span>
+                                <span class="text-dark">@Loc["Author"]</span>
                                 <span class="text-warning">@Model.User.UserName</span>
                             </div>
                             <p class="collection-theme text-success">@Model.Type</p>
@@ -60,7 +60,7 @@
                     <table class="col-8 table-collection-list table table-hover table-bordered text-center">
                         <thead class="bg-info">
                             <tr>
-                                <th class="attribSort" data-sort="Name">Name</th>
+                                <th class="attribSort" data-sort="Name">@Loc["Name_Table"]</th>
                                 @{
                                     foreach (var field in Model.AddFields)
                                     {
@@ -70,7 +70,7 @@
                                         }
 
                                     }
-                                    <th>Action</th>
+                                    <th>@Loc["Action"]</th>
                                 }
                             </tr>
                         </thead>

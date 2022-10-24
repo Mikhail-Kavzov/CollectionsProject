@@ -1,28 +1,25 @@
 ﻿@model LoginViewModel
-@{
-   
-}
 <div class="form-container col-md-6">
-    <p class="text-center info-account">Sign In Your Account</p>
+    <p class="text-center info-account">@Loc["Sign_In"]</p>
     <form role="form" method="POST" asp-action="Login">
         <div class="validation text-danger" asp-validation-summary="ModelOnly"></div>
         <div class="form-group form-elements">
-            <label class="control-label labels-account" asp-for="Email">Email: </label>
-            <input type="email" asp-for="Email" class="form-control" placeholder="Email..." />
+            <label class="control-label labels-account" asp-for="Email">@Loc["Email"]</label>
+            <input type="email" asp-for="Email" class="form-control" placeholder="@Loc["Email Placeholder"]" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-group form-elements">
-            <label class="control-label labels-account" asp-for="Password">Password: </label>
-            <input type="password" asp-for="Password" class="form-control" placeholder="Password..." />
+            <label class="control-label labels-account" asp-for="Password">@Loc["Password"]</label>
+            <input type="password" asp-for="Password" class="form-control" placeholder="@Loc["Password Placeholder"]" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
         <div class="form-group form-elements">
-            <label asp-for="RememberMe"></label><br />
+            <label asp-for="RememberMe">@Loc["Remember"]</label><br />
             <input asp-for="RememberMe" />
         </div>
         <div class="btn-group-justified form-elements">
-            <input class="btn btn-success btn-app" type="button" value="Register" onclick="location.href='@Url.Action("Register", "Account")'" />
-            <input type="submit" class="btn btn-primary btn-app" id="submit-btn" value="Log In" />
+            <input class="btn btn-success btn-app" type="button" value="@Loc["Register"]" onclick="location.href='@Url.Action("Register", "Account")'" />
+            <input type="submit" class="btn btn-primary btn-app" id="submit-btn" value="@Loc["Log In"]" />
         </div>
     </form>
 </div>

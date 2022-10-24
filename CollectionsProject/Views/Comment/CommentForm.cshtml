@@ -3,11 +3,11 @@
 <form method="POST" data-ajax-method="POST" data-ajax="true" asp-controller="Comment" asp-action="Create" data-ajax-success="OnCommentSuccess">
     <div class="form-group form-elements">
         <input type="hidden" asp-for="ItemId" />
-        <label class="control-label labels-account" asp-for="Text">Comment: </label>
+        <label class="control-label labels-account" asp-for="Text">@Loc["Comment"]</label>
         <textarea asp-for="Text" class="form-control"></textarea>
         <span asp-validation-for="Text" class="text-danger"></span>
     </div>
     <div class="btn-group-justified form-elements">
-        <input type="submit" class="btn btn-primary btn-app" id="submit-btn" value="Send" />
+        <input type="submit" class="btn btn-primary btn-app" id="submit-btn" value="@Loc["Send"]" />
     </div>
 </form>

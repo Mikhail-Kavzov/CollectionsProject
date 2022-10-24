@@ -9,7 +9,7 @@
                         <input name="formFile" type="file" id="input__file" class="input input__file" accept=".png, .jpg, .jpeg">
                         <label for="input__file" class="input__file-button">
                             <p class="input__file-icon-wrapper"><i class="fa fa-folder-o" aria-hidden="true"></i></p>
-                            <span class="input__file-button-text">Choose a file</span>
+                            <span class="input__file-button-text">@Loc["Choose a file"]</span>
                         </label>
                         <input asp-for="Id" type="hidden" />
                     </div>
@@ -19,20 +19,20 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <span asp-validation-for="Name" class="text-danger"></span>
-                        <label asp-for="Name" class="text_label">Collection Name:</label>
+                        <label asp-for="Name" class="text_label">@Loc["Collection Name"]</label>
                         <input type="text" asp-for="Name" class="input_form" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <span asp-validation-for="Description" class="text-danger"></span>
-                        <label asp-for="Description" class="text_label">Description:</label>
+                        <label asp-for="Description" class="text_label">@Loc["Description"]</label>
                         <textarea asp-for="Description" class="input_form" autocomplete="off"></textarea>
                     </div>
                     <div class="form-group">
                         <span asp-validation-for="Type" class="text-danger"></span>
-                        <label asp-for="Type" class="text_label">Collection Type:</label>
+                        <label asp-for="Type" class="text_label">@Loc["Collection Type"]</label>
                         <select class="form-select" asp-for="Type" asp-items="Html.GetEnumSelectList<CollectionType>()"></select>
                     </div>
-                    <input type="submit" value="Update" id="btn-send" name="submit" class="btn-primary button_send">
+                    <input type="submit" value="@Loc["Update"]" id="btn-send" name="submit" class="btn-primary button_send">
                 </div>
             </div>
         </form>

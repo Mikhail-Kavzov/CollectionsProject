@@ -4,20 +4,20 @@
     int UserCount = ViewBag.UserCount;
 }
 <div class="btn-group-justified toolbar">
-    <input type="button" id="BlockBtn" class="btn btn-danger" value="Block" />
+    <input type="button" id="BlockBtn" class="btn btn-danger" value="@Loc["Block"]" />
     <button class="btn btn-success" id="UnblockBtn"><i class="fa fa-unlock-alt" aria-hidden="true"></i></button>
     <button class="btn btn-warning" id="DeleteBtn"><i class="fa fa-trash" aria-hidden="true"></i></button>
-    <button class="btn btn-warning" id="AddAdminBtn">Add Admin</button>
-    <button class="btn btn-warning" id="DeleteAdminBtn">Delete Admin</button>
+    <button class="btn btn-warning" id="AddAdminBtn">@Loc["Add"]</button>
+    <button class="btn btn-warning" id="DeleteAdminBtn">@Loc["Delete"]</button>
 </div>
 <table class="table table-hover table-bordered text-center">
     <thead class="thead">
         <tr>
             <th><input id="checkbox_all" type="checkbox" /></th>
-            <th>Name</th>
-            <th>E-mail</th>
-            <th>Status</th>
-            <th>Role</th>
+            <th>@Loc["Name"]</th>
+            <th>@Loc["Email"]</th>
+            <th>@Loc["Status"]</th>
+            <th>@Loc["Role"]</th>
         </tr>
     </thead>
     <tbody id="tableBody">

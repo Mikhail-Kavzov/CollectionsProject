@@ -5,12 +5,12 @@
 @section Create{
     @{
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Collection" asp-action="Create">Create Collection</a>
+            <a class="nav-link text-dark" asp-controller="Collection" asp-action="Create">@Loc["Create"]</a>
         </li>
     }
  }
     <div class="container">
-        <h1 class="text-dark text-center">@User.Identity.Name Collections</h1>
+        <h1 class="text-dark text-center">@User.Identity.Name @Loc["Collections"]</h1>
         <div id="collection-list" class="container-fluid">
         </div>
     </div>
