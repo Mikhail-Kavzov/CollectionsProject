@@ -3,6 +3,7 @@ using CollectionsProject.Models.CollectionModels;
 using CollectionsProject.Models.ItemModels;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 
 namespace CollectionsProject.Repositories
 {
@@ -81,6 +82,11 @@ namespace CollectionsProject.Repositories
         public Task<IEnumerable<Item>?> GetUserItemsAsync(int itemsToSkip, int itemsToTake, string id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Item>> GetLastItemsAsync(int count)
+        {
+           return await db.Items.Include(i=>i.Collection).ThenInclude(c=>c.User).OrderByDescending(i => i.CreatedDate).Take(count).ToListAsync();
         }
     }
 }

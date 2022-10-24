@@ -43,6 +43,11 @@ namespace CollectionsProject.Repositories
             return await db.Collections.Include(c => c.AddFields).FirstOrDefaultAsync(c => c.CollectionId.ToString() == id);
         }
 
+        public async Task<IEnumerable<Collection>> GetLargestCollections(int count)
+        {
+            return await db.Collections.Include(c => c.User).OrderByDescending(c => c.Items.Count).Take(count).ToListAsync();
+        }
+
         public async Task<IEnumerable<Collection>?> GetSomeItemsAsync(int itemsToSkip, int itemsToTake)
         {
             return await db.Collections.Include(c => c.User).OrderBy(c => c.CollectionId).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();

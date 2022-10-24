@@ -8,5 +8,6 @@ namespace CollectionsProject.Repositories
         void AddTagRange(IEnumerable<Tag> tags);
         Task<int> GetItemCountAsync(string collectionId);
         Task<IEnumerable<Item>?> Filter(int itemsToSkip, int itemsToTake, string collectionId, string searchString = "");
+        Task<IEnumerable<Item>> GetLastItemsAsync(int count);
     }
 }

@@ -33,7 +33,11 @@
                                 <span class="text-warning">@Model.User.UserName</span>
                             </div>
                             <p class="collection-theme text-success">@Model.Type</p>
-                            <div class="collection-description">@Model.Description</div>
+                            <div class="collection-description">
+                                <markdown normalize-whitespace="true">
+                                    @Model.Description
+                                </markdown>
+                            </div>
                         </div>
                     </div>
                     <div class="collection-image col-12 col-md-4">

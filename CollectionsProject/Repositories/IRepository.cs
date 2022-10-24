@@ -2,9 +2,9 @@
 {
     public interface IRepository<T>
     {
-        public void Create(T item);
-        public void Delete(T item);
-        public void Update(T item);
-        public Task SaveChangesAsync();
+        void Create(T item);
+        void Delete(T item);
+        void Update(T item);
+        Task SaveChangesAsync();
     }
 }

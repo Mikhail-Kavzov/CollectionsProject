@@ -14,6 +14,11 @@ namespace CollectionsProject.Repositories
             db= appContext;
         }
 
+        public async Task<int> CountUsersAsync()
+        {
+            return await db.Users.CountAsync();
+        }
+
         public void Create(User item)
         {
             db.Users.Add(item);

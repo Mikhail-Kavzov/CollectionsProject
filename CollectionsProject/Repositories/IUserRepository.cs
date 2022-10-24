@@ -4,6 +4,7 @@ namespace CollectionsProject.Repositories
 {
     public interface IUserRepository:IPagingRepository<User>
     {
-        public Task<IEnumerable<User>> GetUsersAsync(string[] id);
+       Task<IEnumerable<User>> GetUsersAsync(string[] id);
+       Task<int> CountUsersAsync();
     }
 }

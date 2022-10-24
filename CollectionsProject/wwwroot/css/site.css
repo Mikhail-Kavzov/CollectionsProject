@@ -4,6 +4,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
 ::-webkit-scrollbar {
     width: 7px;
 }
@@ -33,12 +34,15 @@ html {
     position: relative;
     min-height: 100%;
 }
-li{
+
+li {
     list-style-type: none;
 }
-a{
+
+a {
     text-decoration: none;
 }
+
 img {
     display: block;
     vertical-align: top;
@@ -46,6 +50,7 @@ img {
     height: 100%;
     width: 100%;
 }
+
 body {
     margin-bottom: 60px;
     background-color: rgb(220,255,255);
@@ -54,9 +59,11 @@ body {
 input, textarea {
     outline: none;
 }
-textarea{
-    resize:none;
+
+textarea {
+    resize: none;
 }
+
 .info-account {
     font-size: 30px;
     font-weight: 700;
@@ -96,41 +103,47 @@ textarea{
     background-color: white;
 }
 
-.button-create{
+.button-create {
     padding: 20px 10px;
-    border:1px solid orange;
+    border: 1px solid orange;
     border-radius: 10px;
     font-size: 20px;
     font-weight: 500;
     margin: 0 auto;
 }
-.button-create:hover{
-    color:red !important;
-    background-color:white;
-}
-#collection-list{
+
+    .button-create:hover {
+        color: red !important;
+        background-color: white;
+    }
+
+#collection-list {
     margin-top: 30px;
 }
-#update_col_cont{
-    display:block;
-    position:fixed;
-    top:0;
+
+#update_col_cont {
+    display: block;
+    position: fixed;
+    top: 0;
     margin: 0 auto;
-    background-color:white;
+    background-color: white;
     padding: 20px;
-    height:100vh;
-    max-height:100vh;
+    height: 100vh;
+    max-height: 100vh;
     z-index: 10000;
-    overflow:hidden;
+    overflow: hidden;
 }
-#collection-wrapper{
+
+#collection-wrapper {
     margin-top: 0;
 }
-.cross-wrapper{
+
+.cross-wrapper {
     display: flex;
     justify-content: flex-end;
-    align-items:center;
+    align-items: center;
 }
+
 .button_send {
     appearance: none;
     background-color: #f4511e;
@@ -153,8 +166,39 @@ textarea{
         opacity: 1;
     }
 
-.table-collection-list{
-    overflow:scroll;
+.table-collection-list {
+    overflow: scroll;
     margin-top: 50px;
-    max-width:90vw;
+    max-width: 90vw;
 }
+
+.item-link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#tagcloud {
+    display: flex;
+    justify-content: space-around;
+    word-wrap: break-word;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid black;
+    overflow-wrap: break-word;
+    border-radius: 5px;
+}
+
+.tag_links {
+    display: inline-block;
+    color:black;
+    text-decoration: none;
+    transition: color 0.2s linear;
+    font-size: 24px;
+    text-align: justify;
+    font-style:italic;
+}
+
+    .tag_links:hover {
+        color: rgb(55,55,150);
+        text-decoration:underline;
+    }

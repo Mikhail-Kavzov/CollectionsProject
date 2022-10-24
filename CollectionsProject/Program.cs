@@ -5,8 +5,10 @@ using CollectionsProject.Services.Implementation;
 using CollectionsProject.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Owin.Security.Cookies;
+using System.Globalization;
 
 internal class Program
 {
@@ -17,7 +19,23 @@ internal class Program
         // Add services to the container.
         string connection = builder.Configuration.GetConnectionString("DefaultConnection");
         ServerVersion version = ServerVersion.AutoDetect(connection);
-        builder.Services.AddControllersWithViews();
+        builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+        builder.Services.AddControllersWithViews()
+            .AddDataAnnotationsLocalization()
+            .AddViewLocalization();
+
+        builder.Services.Configure<RequestLocalizationOptions>(options =>
+        {
+            var supportedCultures = new[]
+            {
+                    new CultureInfo("en"),
+                    new CultureInfo("pl")
+                };
+
+            options.DefaultRequestCulture = new RequestCulture("en");
+            options.SupportedCultures = supportedCultures;
+            options.SupportedUICultures = supportedCultures;
+        });
         builder.Services.AddDbContext<ApplicationContext>(options => options.UseMySql(connection, version));
         builder.Services.AddIdentity<User, IdentityRole>(opts =>
         {
@@ -43,6 +61,7 @@ internal class Program
         builder.Services.AddScoped<IItemRepository, ItemRepository>();
         builder.Services.AddScoped<ITagRepository, TagRepository>();
         builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+        builder.Services.AddScoped<IHomeService, HomeService>();
 
         var app = builder.Build();
 

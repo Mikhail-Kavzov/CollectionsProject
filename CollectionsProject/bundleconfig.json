@@ -3,7 +3,7 @@
     "outputFileName": "wwwroot/js/adminPanel.min.js",
     "inputFiles": [
       "wwwroot/js/checkbox.js",
-      "wwwroot/js/scrolling.js",
+      "wwwroot/js/pagingAdmin.js",
       "wwwroot/js/site.js",
       "wwwroot/js/adminToolbar.js"
     ],
@@ -15,8 +15,7 @@
   {
     "outputFileName": "wwwroot/css/addCollectionForm.min.css",
     "inputFiles": [
-      "wwwroot/css/addCollectionForm.css",
-      "wwwroot/css/site.css"
+      "wwwroot/css/addCollectionForm.css"
     ]
   },
   {
@@ -45,7 +44,6 @@
     "inputFiles": [
       "wwwroot/css/collectionPage.css",
       "wwwroot/css/addCollectionForm.css",
-      "wwwroot/css/site.css",
       "wwwroot/css/pagination.css"
     ]
   },
@@ -59,7 +57,6 @@
     "outputFileName": "wwwroot/css/addItemForm.min.css",
     "inputFiles": [
       "wwwroot/css/addItemForm.css",
-      "wwwroot/css/site.css",
       "wwwroot/css/addCollectionForm.css",
       "wwwroot/css/dropdown.css"
     ]
@@ -94,8 +91,45 @@
   {
     "outputFileName": "wwwroot/css/itemCommentPage.min.css",
     "inputFiles": [
-      "wwwroot/css/site.css",
       "wwwroot/css/comment.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/adminPanel.min.css",
+    "inputFiles": [
+      "wwwroot/css/pagination.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/home.min.css",
+    "inputFiles": [
+      "wwwroot/css/collectionPage.css",
+      "wwwroot/css/addCollectionForm.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/home.min.js",
+    "inputFiles": [
+      "wwwroot/js/addPhoto.js",
+      "wwwroot/js/site.js",
+      "wwwroot/js/CRUDhome.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/tagList.min.js",
+    "inputFiles": [
+      "wwwroot/js/tagList.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/tag.min.js",
+    "inputFiles": [
+      "wwwroot/js/tagList.js",
+      "wwwroot/js/site.js"
     ]
   }
 ]

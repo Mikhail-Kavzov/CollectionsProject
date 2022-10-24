@@ -1,5 +1,8 @@
 @model IEnumerable<Collection>
 @{
+    bool isAdmin = User.IsInRole("Admin");
+}
+@{
     if (Model != null)
     {
         foreach (var collection in Model)
@@ -18,10 +21,14 @@
                                 <span class="text-warning">@collection.User.UserName</span>
                             </div>
                             <p class="collection-theme text-success">@collection.Type</p>
-                            <div class="collection-description">@collection.Description</div>
+                            <div class="collection-description">
+                                <markdown normalize-whitespace="true">
+                                    @collection.Description
+                                </markdown>
+                            </div>
                         </div>
                         @{
-                            if (User.IsInRole("Admin") || User.Identity.Name == collection.User.UserName)
+                            if (isAdmin || User.Identity.Name == collection.User.UserName)
                             {
                                 <div class="form-group">
                                     <button class="btn-delete btn-danger text-white">Delete</button>

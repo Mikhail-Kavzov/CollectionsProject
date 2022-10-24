@@ -1,5 +1,7 @@
 ﻿@{
     ViewBag.JsPath = "js/adminPanel.min.js";
+    ViewBag.CssPath = "css/adminPanel.min.css";
+    int UserCount = ViewBag.UserCount;
 }
 <div class="btn-group-justified toolbar">
     <input type="button" id="BlockBtn" class="btn btn-danger" value="Block" />
@@ -21,13 +23,6 @@
     <tbody id="tableBody">
     </tbody>
 </table>
-
-@section Scripts{
-    <script type="text/javascript">
-        loadItems("/Admin/UserPage/", 'tbody');
-        $(window).scroll(function () {
-            if ((Math.trunc($(window).scrollTop())) === $(document).height() - $(window).height()) {
-                loadItems("/Admin/UserPage/", '#tableBody');
-            }
-        });</script>
-}
+<div class="row d-flex justify-content-center">
+    @await Html.PartialAsync("~/Views/Pagination.cshtml",UserCount)
+</div>

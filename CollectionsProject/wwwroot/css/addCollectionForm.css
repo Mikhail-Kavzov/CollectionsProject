@@ -70,6 +70,10 @@
 .add_collection_cont{
      margin-top: 100px;
 }
+#collection-wrapper {
+    min-height: inherit;
+}
+
 .collection_wrapper, .add_collection_cont {
     display: flex;
     justify-content: space-between;

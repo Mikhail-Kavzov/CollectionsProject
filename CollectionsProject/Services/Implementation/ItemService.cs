@@ -32,9 +32,19 @@ namespace CollectionsProject.Services.Implementation
             List<AddItemField> addItemFields = new();
             for (int i = 0; i < model.Count; i++)
             {
-                if (model[i].CustomFieldViewModel.FieldType == CollectionFieldType.dateField)
+                switch (model[i].CustomFieldViewModel.FieldType)
                 {
-                    model[i].Value = DateTime.Parse(model[i].Value).ToShortDateString();
+                    case CollectionFieldType.dateField:
+                        {
+                            model[i].Value = DateTime.Parse(model[i].Value).ToShortDateString();
+                            break;
+                        }
+                    case CollectionFieldType.booleanField:
+                        {
+                            if (string.IsNullOrEmpty(model[i].Value))
+                                model[i].Value = "No";
+                            break;
+                        }
                 }
                 addItemFields.Add(CreateAddField(model[i].Value, colField[i], item));
             }
@@ -168,21 +178,32 @@ namespace CollectionsProject.Services.Implementation
 
             for (int i = 0; i < item.AddItems.Count; i++)
             {
-                if (item.AddItems[i].AddCollectionFields.Type == CollectionFieldType.dateField)
+                switch (item.AddItems[i].AddCollectionFields.Type)
                 {
-                    item.AddItems[i].Value = DateTime.Parse(model.AddItems[i].Value).ToShortDateString();
+                    case CollectionFieldType.dateField:
+                        {
+                            item.AddItems[i].Value = DateTime.Parse(model.AddItems[i].Value).ToShortDateString();
+                            break;
+                        }
+                    case CollectionFieldType.booleanField:
+                        {
+                            if (string.IsNullOrEmpty(model.AddItems[i].Value))
+                                item.AddItems[i].Value = "No";
+                            break;
+                        }
+                    default:
+                        item.AddItems[i].Value = model.AddItems[i].Value;
+                        break;
                 }
-                else
-                    item.AddItems[i].Value = model.AddItems[i].Value;
             }
             _itemRepository.Update(item);
             await _itemRepository.SaveChangesAsync();
             return item;
         }
 
-        public IEnumerable<Item>? SortItems(IEnumerable<Item> items, string sortRule="Name")
+        public IEnumerable<Item>? SortItems(IEnumerable<Item> items, string sortRule = "Name")
         {
-            if (string.IsNullOrEmpty(sortRule) || items==null)
+            if (string.IsNullOrEmpty(sortRule) || items == null)
                 return items;
             switch (sortRule)
             {

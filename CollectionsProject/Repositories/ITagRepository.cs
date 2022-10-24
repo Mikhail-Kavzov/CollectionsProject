@@ -4,6 +4,8 @@ namespace CollectionsProject.Repositories
 {
     public interface ITagRepository:IRepository<Tag>
     {
-        public Task<IEnumerable<string>> GetTagNamesAsync();
+        Task<IEnumerable<string>> GetTagNamesAsync();
+        Task<IEnumerable<string>> GetTagList(int count);
+        Task<IEnumerable<Item>> GetTagItems(string tagName, int itemsToSkip, int itemsToTake);
     }
 }

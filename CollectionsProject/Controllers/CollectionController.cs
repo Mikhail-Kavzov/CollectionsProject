@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Collection = CollectionsProject.Models.CollectionModels.Collection;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CollectionsProject.Controllers
 {
@@ -90,7 +91,7 @@ namespace CollectionsProject.Controllers
         public IActionResult Update() => PartialView();
 
         [HttpPost]
-        public async Task<IActionResult> Update(CollectionViewModel model, IFormFile formFile)
+        public async Task<IActionResult> Update(CollectionViewModel model, IFormFile? formFile=null)
         {
             if (ModelState.IsValid)
             {
@@ -117,7 +118,7 @@ namespace CollectionsProject.Controllers
             return PartialView("CollectionPage", collections);
         }
 
-        private int CountPagesInItems(int collectionCount)
+        private static int CountPagesInItems(int collectionCount)
         {
             if (collectionCount % itemsCount == 0)
                 return collectionCount / itemsCount;

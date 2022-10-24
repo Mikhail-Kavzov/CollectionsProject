@@ -4,8 +4,10 @@ namespace CollectionsProject.Repositories
 {
     public interface ICollectionRepository:IPagingRepository<Collection>
     {
-        public void AddFieldsRange(IEnumerable<AddCollectionField> fields);
-        public Task<string?> CheckIdAsync(string id);
-        public Task<Collection?> GetItemIncludeFieldsAsync(string id);
+        void AddFieldsRange(IEnumerable<AddCollectionField> fields);
+        Task<string?> CheckIdAsync(string id);
+        Task<Collection?> GetItemIncludeFieldsAsync(string id);
+        Task<IEnumerable<Collection>> GetLargestCollections(int count);
+
     }
 }

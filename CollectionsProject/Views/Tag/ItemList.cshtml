@@ -1,0 +1,23 @@
+﻿@model string
+@{
+    ViewBag.JsPath = "js/tag.min.js";
+    ViewBag.CssPath = "css/home.min.css";
+}
+<div class="container">
+    <div class="row">
+        <input type="hidden" id="name-tag" value="@Model" />
+        <h1 class="text-left" style="margin-bottom:5px">Items: @Model</h1>
+        <table style="margin-top:0" class="col-8 table-collection-list table table-hover table-bordered text-center">
+            <thead class="bg-info">
+                <tr>
+                    <th>Name</th>
+                    <th>Collection Name</th>
+                    <th>Author</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="bg-light" id="tableBody">
+            </tbody>
+        </table>
+    </div>
+</div>

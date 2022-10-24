@@ -5,7 +5,7 @@ namespace CollectionsProject.Repositories
 {
     public interface ICommentRepository:IRepository<Comment>
     {
-        public void AddUserComment(User user, Comment comment);
-        public Task<IEnumerable<Comment>> GetCommentsByTimeAsync(DateTime time, string itemId);
+        void AddUserComment(User user, Comment comment);
+        Task<IEnumerable<Comment>> GetCommentsByTimeAsync(DateTime time, string itemId);
     }
 }

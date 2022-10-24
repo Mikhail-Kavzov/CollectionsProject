@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Item>
+@{
+    bool isAdmin = User.IsInRole("Admin");
+}
+@{
+    if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr id="@item.ItemId">
+                <td>@item.Name</td>
+                <td>@item.Collection.Name</td>
+                <td>@item.Collection.User.UserName</td>
+                <td class="d-flex justify-content-around">
+                    <a asp-controller="Item" class="text-success item-link" asp-action="ItemPage" asp-route-id="@item.ItemId">Details</a>
+                    @{
+                        if (isAdmin || User.Identity.Name == item.Collection.User.UserName)
+                        {
+                            <a asp-controller="Item" class="text-danger item-link" asp-action="Update" asp-route-id="@item.ItemId">Update</a>
+                            <a class="delete-link text-warning item-link" onclick="deleteItem('/Item/Delete/','#@item.ItemId','@item.ItemId')">Delete</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    }
+}

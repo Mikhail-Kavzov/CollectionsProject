@@ -20,9 +20,21 @@ namespace CollectionsProject.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult UserManager() => View();
+        public async Task<IActionResult> UserManager()
+        {
+            int count = await _userRepository.CountUsersAsync();
+            ViewBag.UserCount=CountPagesInUsers(count);
+            return View();
+        }
 
-        [HttpGet]
+        private static int CountPagesInUsers(int collectionCount)
+        {
+            if (collectionCount % usersCount == 0)
+                return collectionCount / usersCount;
+            return collectionCount / usersCount + 1;
+        }
+
+        [HttpPost]
         public async Task<IActionResult> UserPage(int Page = 0)
         {
             var users = await _userRepository.GetSomeItemsAsync(Page * usersCount, usersCount);

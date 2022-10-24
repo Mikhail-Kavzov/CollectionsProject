@@ -21,12 +21,12 @@
                     }
 
                     <td class="d-flex justify-content-around">
-                        <a asp-controller="Item" class="text-success" asp-action="ItemPage" style="text-decoration:underline" asp-route-id="@item.ItemId">Details</a>
+                        <a asp-controller="Item" class="text-success item-link" asp-action="ItemPage" asp-route-id="@item.ItemId">Details</a>
                         @{
                             if (hasAccess)
                             {
-                                <a asp-controller="Item" class="text-danger" asp-action="Update" style="text-decoration:underline" asp-route-id="@item.ItemId">Update</a>
-                                <a class="delete-link text-warning" style="text-decoration:underline">Delete</a>
+                                <a asp-controller="Item" class="text-danger item-link" asp-action="Update" asp-route-id="@item.ItemId">Update</a>
+                                <a class="delete-link text-warning item-link" onclick="deleteItem('/Item/Delete/','#@item.ItemId','@item.ItemId')">Delete</a>
                             }
                         }
                     </td>
