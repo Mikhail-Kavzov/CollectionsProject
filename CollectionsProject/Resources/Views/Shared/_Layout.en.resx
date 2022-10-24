@@ -117,22 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Action" xml:space="preserve">
-    <value>Akcja</value>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
   </data>
-  <data name="Author" xml:space="preserve">
-    <value>Autor:</value>
+  <data name="Log Out" xml:space="preserve">
+    <value>Log Out</value>
   </data>
-  <data name="Create_Item" xml:space="preserve">
-    <value>Utwórz przedmiot</value>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Nazwa:</value>
+  <data name="Personal Page" xml:space="preserve">
+    <value>Personal Page</value>
   </data>
-  <data name="Name_Table" xml:space="preserve">
-    <value>Nazwa</value>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>Szukaj</value>
+  <data name="User Panel" xml:space="preserve">
+    <value>User Panel</value>
   </data>
 </root>

@@ -132,4 +132,7 @@
   <data name="Name_Table" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
 </root>

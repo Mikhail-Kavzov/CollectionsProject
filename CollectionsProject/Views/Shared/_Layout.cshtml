@@ -14,37 +14,42 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse d-inline-flex justify-content-between">
+                    <ul class="navbar-nav">
                         @if (User.Identity.IsAuthenticated)
                         {
+                            @await RenderSectionAsync("Create", required: false)
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Admin" asp-action="UserManager">User Panel</a>
+                                    <a class="nav-link text-dark" asp-controller="Admin" asp-action="UserManager">@Loc["User Panel"]</a>
                                 </li>
                             }
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Collection" asp-action="Index">Personal Page</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">@Loc["Home"]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Log Out</a>
+                                <a class="nav-link text-dark" asp-controller="Collection" asp-action="Index">@Loc["Personal Page"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">@Loc["Log Out"]</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">@Loc["Register"]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">@Loc["Login"]</a>
                             </li>
                         }
-                        @await RenderSectionAsync("Create", required: false)
-                    </ul>                   
+                    </ul>       
+                    <div class="language-form">
+                        @await Html.PartialAsync("_SelectLanguagePartial")
+                    </div>
                 </div>
-                @await Html.PartialAsync("_SelectLanguagePartial")
-            </div>
+            </div>           
         </nav>
     </header>
     <div class="container">
