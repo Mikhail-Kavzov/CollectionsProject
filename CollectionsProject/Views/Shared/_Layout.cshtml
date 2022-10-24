@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CollectionsProject</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CollectionsProject.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/@ViewBag.CssPath" asp-append-version="true" />
@@ -16,6 +16,9 @@
             <div class="container-fluid">
                 <div class="navbar-collapse collapse d-inline-flex justify-content-between">
                     <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">@Loc["Home"]</a>
+                        </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             @await RenderSectionAsync("Create", required: false)
@@ -25,9 +28,6 @@
                                     <a class="nav-link text-dark" asp-controller="Admin" asp-action="UserManager">@Loc["User Panel"]</a>
                                 </li>
                             }
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">@Loc["Home"]</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Collection" asp-action="Index">@Loc["Personal Page"]</a>
                             </li>
@@ -44,12 +44,12 @@
                                 <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">@Loc["Login"]</a>
                             </li>
                         }
-                    </ul>       
+                    </ul>
                     <div class="language-form">
                         @await Html.PartialAsync("_SelectLanguagePartial")
                     </div>
                 </div>
-            </div>           
+            </div>
         </nav>
     </header>
     <div class="container">
