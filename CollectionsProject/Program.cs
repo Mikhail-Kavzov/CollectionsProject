@@ -4,9 +4,12 @@ using CollectionsProject.Repositories;
 using CollectionsProject.Services.Implementation;
 using CollectionsProject.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.Owin.Security.Cookies;
 using System.Globalization;
 
@@ -19,22 +22,20 @@ internal class Program
         // Add services to the container.
         string connection = builder.Configuration.GetConnectionString("DefaultConnection");
         ServerVersion version = ServerVersion.AutoDetect(connection);
+        // 1. 
         builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+        // 2. 
         builder.Services.AddControllersWithViews()
-            .AddDataAnnotationsLocalization()
-            .AddViewLocalization();
+            .AddViewLocalization
+            (LanguageViewLocationExpanderFormat.SubFolder)
+            .AddDataAnnotationsLocalization();
 
-        builder.Services.Configure<RequestLocalizationOptions>(options =>
-        {
-            var supportedCultures = new[]
-            {
-                    new CultureInfo("en"),
-                    new CultureInfo("pl")
-                };
-
-            options.DefaultRequestCulture = new RequestCulture("en");
-            options.SupportedCultures = supportedCultures;
-            options.SupportedUICultures = supportedCultures;
+        // 3. 
+        builder.Services.Configure<RequestLocalizationOptions>(options => {
+            var supportedCultures = new[] { "en", "pl"};
+            options.SetDefaultCulture(supportedCultures[0])
+                .AddSupportedCultures(supportedCultures)
+                .AddSupportedUICultures(supportedCultures);
         });
         builder.Services.AddDbContext<ApplicationContext>(options => options.UseMySql(connection, version));
         builder.Services.AddIdentity<User, IdentityRole>(opts =>
@@ -96,6 +97,15 @@ internal class Program
         app.UseAuthentication();
 
         app.UseAuthorization();
+        var supportedCultures = new[] { "en", "pl"};
+        // 5. 
+        // Culture from the HttpRequest
+        var localizationOptions = new RequestLocalizationOptions()
+            .SetDefaultCulture(supportedCultures[0])
+            .AddSupportedCultures(supportedCultures)
+            .AddSupportedUICultures(supportedCultures);
+
+        app.UseRequestLocalization(localizationOptions);
 
         app.MapControllerRoute(
             name: "default",

@@ -7,14 +7,14 @@
 
 <div class="home-container container">
     <div class="row">
-        <h1 class="text-left" style="margin-bottom:5px">The latest items:</h1>
+        <h1 class="text-left" style="margin-bottom:5px">@Loc["Header_Item"]</h1>
         <table style="margin-top:0" class="col-8 table-collection-list table table-hover table-bordered text-center">
             <thead class="bg-info">
                 <tr>
-                    <th>Name</th>
-                    <th>Collection Name</th>
-                    <th>Author</th>
-                    <th>Action</th>
+                    <th>@Loc["Item_Name"]</th>
+                    <th>@Loc["Collection_Name"]</th>
+                    <th>@Loc["Author"]</th>
+                    <th>@Loc["Action"]</th>
                 </tr>
             </thead>
             <tbody class="bg-light" id="tableBody">
@@ -23,18 +23,18 @@
         </table>
     </div>
     <div id="collection-list" class="container-fluid">
-        <h1 class="text-left" style="margin-bottom:5px">The largest collections:</h1>
+        <h1 class="text-left" style="margin-bottom:5px">@Loc["Header_Collection"]</h1>
         @await Html.PartialAsync("~/Views/Collection/CollectionPage.cshtml",Model.Collections)
     </div>
     @{
         if (Model.Tags != null)
         {
-            <h1 class="text-left">Tags:</h1>
+            <h1 class="text-left">@Loc["Header_Tags"]</h1>
             <div id="tagcloud" class="cloud-tags">
                 @{
                     foreach (var tag in Model.Tags)
                     {
-                        <a href="@Url.Action("ItemList","Tag",new{id=tag})">@tag</a>
+                        <a asp-controller="Tag" asp-action="ItemList" asp-route-id="@tag">@tag</a>
                     }
                 }
             </div>

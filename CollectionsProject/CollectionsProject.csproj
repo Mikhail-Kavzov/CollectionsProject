@@ -30,6 +30,12 @@
     <PackageReference Include="Westwind.AspnetCore.Markdown" Version="3.9.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Views\Home\Index.pl.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties bundleconfig_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

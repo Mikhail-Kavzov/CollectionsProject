@@ -9,7 +9,7 @@ function loadItems(url, element) {
         $.ajax({
             type: 'POST',
             url: url,
-            data: { Page: page, tagName: tag },
+            data: { TagName: tag, Page: page },
             dataType: 'html',
             success: function (data, textstatus) {
                 if (data !== '') {

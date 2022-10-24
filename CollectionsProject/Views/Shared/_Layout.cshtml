@@ -41,8 +41,9 @@
                             </li>
                         }
                         @await RenderSectionAsync("Create", required: false)
-                    </ul>
+                    </ul>                   
                 </div>
+                @await Html.PartialAsync("_SelectLanguagePartial")
             </div>
         </nav>
     </header>

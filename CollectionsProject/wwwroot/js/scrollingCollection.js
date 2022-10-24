@@ -26,11 +26,8 @@ function loadItems(url, element) {
                             let item = $(this).closest('.collection-item');
                             updateItem = item;
                             $('#Id').val(item.attr('id'));
-
                             let oldNameVal = item.find('.text-name').first().text();
-                            console.log(oldNameVal);
                             let oldDescVal = item.find('.collection-description').first().html();
-                            console.log(oldDescVal);
                             let oldTypeVal = item.find('.collection-theme').first().text();
                             let oldPhotoSrc = item.find('.collection-photo').first().attr('src');
                             $('#Name').val(oldNameVal);
