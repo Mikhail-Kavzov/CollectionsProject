@@ -35,10 +35,17 @@ namespace CollectionsProject.Repositories
             db.Comments.Remove(item);
         }
 
+        public async Task<IEnumerable<Comment>> GetPreviousCommentsAsync(string itemId, DateTime time, int itemsToSkip, int ItemsToTake)
+        {
+            return await db.Comments.Where(c => c.ItemId.ToString() == itemId && c.CreatedDate < time)
+                .OrderByDescending(c => c.CreatedDate).Skip(itemsToSkip).Take(ItemsToTake)
+                .Include(c => c.UserComments).ThenInclude(uc=>uc.User).ToListAsync();
+        }
+
         public async Task<IEnumerable<Comment>> GetCommentsByTimeAsync(DateTime time, string itemId)
         {
-            return await db.Comments.Where(c => c.ItemId.ToString() == itemId && c.CreatedDate > time)
-                .Include(c => c.UserComments).Include(c => c.Users).ToListAsync();
+            return await db.Comments.Where(c => c.ItemId.ToString() == itemId && c.CreatedDate >= time)
+                .Include(c => c.UserComments).ThenInclude(uc=>uc.User).ToListAsync();
         }
 
         public async Task SaveChangesAsync()
@@ -49,6 +56,21 @@ namespace CollectionsProject.Repositories
         public void Update(Comment item)
         {
             db.Comments.Update(item);
+        }
+
+        public async Task<UserComment?> TryGetUserComment(string userId, Guid commentId)
+        {
+            return await db.UserComments.FirstOrDefaultAsync(uc => uc.UserId == userId && uc.CommentId == commentId);
+        }
+
+        public void AddUserComment(UserComment userComment)
+        {
+            db.UserComments.Add(userComment);
+        }
+
+        public void UpdateUserComment(UserComment userComment)
+        {
+            db.UserComments.Update(userComment);
         }
     }
 }

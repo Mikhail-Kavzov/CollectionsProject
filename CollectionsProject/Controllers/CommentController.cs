@@ -1,7 +1,5 @@
-﻿using CollectionsProject.Converter;
-using CollectionsProject.Models.ItemModels;
-using CollectionsProject.Models.UserModels;
-using CollectionsProject.Repositories;
+﻿using CollectionsProject.Models.UserModels;
+using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,25 +10,13 @@ namespace CollectionsProject.Controllers
     [Authorize]
     public class CommentController : Controller
     {
-        private readonly ICommentRepository _commentRepository;
+        private readonly ICommentService _commentService;
         private readonly UserManager<User> _userManager;
 
-        public CommentController(ICommentRepository commentRepository, UserManager<User> userManager)
+        public CommentController(ICommentService commentService, UserManager<User> userManager)
         {
-            _commentRepository = commentRepository;
+            _commentService = commentService;
             _userManager = userManager;
-        }
-
-        private static Comment CreateComment(CommentViewModel model)
-        {
-            Comment comment = new()
-            {
-                CommentText = model.Text,
-                CreatedDate = DateTime.Now,
-                Author = model.UserName,
-                ItemId = Guid.Parse(model.ItemId),
-            };
-            return comment;
         }
 
         [HttpPost]
@@ -39,11 +25,7 @@ namespace CollectionsProject.Controllers
             if (ModelState.IsValid)
             {
                 var currentUser = await _userManager.GetUserAsync(User);
-                model.UserName = currentUser.UserName;
-                var comment = CreateComment(model);
-                _commentRepository.Create(comment);
-                _commentRepository.AddUserComment(currentUser, comment);
-                await _commentRepository.SaveChangesAsync();
+                await _commentService.CreateComment(currentUser, model);
             }
             return Ok();
         }
@@ -52,9 +34,24 @@ namespace CollectionsProject.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> CommentPage(string itemId, string Time)
         {
-            var time = TimeConverter.ConvertFromUTCTime(Time);
-            var comments = await _commentRepository.GetCommentsByTimeAsync(time, itemId);
+            var comments = await _commentService.GetNewComments(itemId, Time);
             return PartialView(comments);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> PreviousPage(string itemId, string Time, int Page = 0)
+        {
+            var comments = await _commentService.GetPreviousPage(itemId, Time, Page);
+            return PartialView("CommentPage", comments);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateLike(string commentId, bool oldLikeState)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            await _commentService.UpdateUserLike(currentUser.Id, Guid.Parse(commentId), oldLikeState);
+            return Ok();
         }
     }
 }

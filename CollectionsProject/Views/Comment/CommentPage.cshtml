@@ -1,15 +1,46 @@
 ﻿@model IEnumerable<Comment>
 @{
+    bool isAuthenticated = User.Identity.IsAuthenticated;
+    string currName = User.Identity.Name;
+}
+@{
     if (Model != null)
     {
         foreach (var comment in Model)
         {
-            <div class="message" id="@comment.CommentId" >
+            <div class="message" id="@comment.CommentId">
                 <div class="message-sender-time">
                     <span class="message-sender">@comment.Author</span>
                     <span class="message-time">@comment.CreatedDate</span>
                 </div>
+                @{
+                    int likesCount = comment.UserComments.Where(uc => uc.IsLiked == true).Count();
+                    bool isUserLiked = comment.UserComments.Any(uc => uc.IsLiked == true && uc.User.UserName == currName);
+                }
                 <p class="message-body">@comment.CommentText</p>
+                <div class="likes-wrapper d-flex justify-content-end">
+                    <div class="likes">
+                        <span class="text-like">@likesCount</span>
+                        @{
+                            if (isAuthenticated)
+                            {
+                                if (isUserLiked)
+                                {
+                                    <i class="comment-thumb liked fa fa-thumbs-o-up" onclick="updateLike(event)" aria-hidden="true"></i>
+                                }
+                                else
+                                {
+                                    <i class="comment-thumb fa fa-thumbs-o-up" onclick="updateLike(event)" aria-hidden="true"></i>
+                                }
+                            }
+                            else
+                            {
+                                <i class="comment-thumb fa fa-thumbs-o-up" aria-hidden="true"></i>
+                            }
+                        }
+
+                    </div>
+                </div>
             </div>
         }
     }
