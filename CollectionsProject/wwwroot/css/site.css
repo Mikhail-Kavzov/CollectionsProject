@@ -5,18 +5,18 @@
     box-sizing: border-box;
 }
 
-::-webkit-scrollbar {
+body::-webkit-scrollbar, ::-webkit-scrollbar {
     width: 7px;
 }
 
-::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track, ::-webkit-scrollbar-track {
     -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
     background-color: rgb(46,51,56);
     border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb {
-    background-color: rgb(32,34,37);
+body::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
+    background-color: gray;
     border-radius: 10px;
 }
 

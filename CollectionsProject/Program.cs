@@ -63,6 +63,7 @@ internal class Program
         builder.Services.AddScoped<ITagRepository, TagRepository>();
         builder.Services.AddScoped<ICommentRepository, CommentRepository>();
         builder.Services.AddScoped<IHomeService, HomeService>();
+        builder.Services.AddScoped<ICommentService, CommentService>();
 
         var app = builder.Build();
 

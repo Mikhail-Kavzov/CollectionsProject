@@ -126,6 +126,7 @@ namespace CollectionsProject.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> CollectionItems(string id)
         {
             var result = await _collectionRepository.GetItemAsync(id);
@@ -137,6 +138,7 @@ namespace CollectionsProject.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetCollectionPage(int Page = 0)
         {
             var collections = await _collectionRepository.GetSomeItemsAsync(Page * itemsCount, itemsCount);

@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace CollectionsProject.Controllers
 {
     [Authorize]
-    [Route("[controller]/[action]")]
     public class ItemController : Controller
     {
         private readonly IItemRepository _itemRepository;

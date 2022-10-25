@@ -29,6 +29,6 @@ namespace CollectionsProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult ItemList(string id) => View("ItemList",id);
+        public IActionResult ItemList(string id) => View("ItemList", id);
     }
 }

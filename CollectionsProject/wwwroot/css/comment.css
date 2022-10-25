@@ -52,3 +52,32 @@
 .labels-account{
     margin-bottom: 10px;
 }
+#comment-wrapper::-webkit-scrollbar {
+    width: 7px;
+}
+
+#comment-wrapper::-webkit-scrollbar-track {
+    -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
+    background-color: gray;
+    border-radius: 10px;
+}
+
+#comment-wrapper::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 10px;
+}
+.likes{
+    font-size: 16px;
+    
+}
+.comment-thumb {
+    font-size: 18px;
+    cursor: pointer;
+}
+.comment-thumb:hover{
+    color: dodgerblue;
+}
+.liked{
+    font-size: 20px;
+    color: red;
+}

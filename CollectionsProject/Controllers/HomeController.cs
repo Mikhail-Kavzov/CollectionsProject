@@ -29,7 +29,6 @@ namespace CollectionsProject.Controllers
                     IsEssential = true
                 }
             );
-
             return LocalRedirect(returnUrl);
         }
     }
