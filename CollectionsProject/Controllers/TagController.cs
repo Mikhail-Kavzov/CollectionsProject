@@ -1,5 +1,4 @@
-﻿using CollectionsProject.Repositories;
-using Microsoft.AspNetCore.Authorization;
+﻿using CollectionsProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollectionsProject.Controllers

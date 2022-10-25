@@ -1,6 +1,6 @@
 ﻿using CollectionsProject.Models.CollectionModels;
 using CollectionsProject.Models.UserModels;
-using CollectionsProject.Repositories;
+using CollectionsProject.Repositories.Interfaces;
 using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
 

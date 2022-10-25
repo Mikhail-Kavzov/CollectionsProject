@@ -1,4 +1,4 @@
-﻿namespace CollectionsProject.Repositories
+﻿namespace CollectionsProject.Repositories.Interfaces
 {
     public interface IRepository<T>
     {

@@ -1,8 +1,8 @@
 ﻿using CollectionsProject.Models.ItemModels;
 
-namespace CollectionsProject.Repositories
+namespace CollectionsProject.Repositories.Interfaces
 {
-    public interface ITagRepository:IRepository<Tag>
+    public interface ITagRepository : IRepository<Tag>
     {
         Task<IEnumerable<string>> GetTagNamesAsync();
         Task<IEnumerable<string>> GetTagList(int count);

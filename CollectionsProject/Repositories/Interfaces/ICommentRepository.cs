@@ -1,7 +1,7 @@
 ﻿using CollectionsProject.Models.ItemModels;
 using CollectionsProject.Models.UserModels;
 
-namespace CollectionsProject.Repositories
+namespace CollectionsProject.Repositories.Interfaces
 {
     public interface ICommentRepository : IRepository<Comment>
     {

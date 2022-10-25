@@ -1,13 +1,11 @@
 using CollectionsProject.Models.UserModels;
-using CollectionsProject.Repositories;
 using CollectionsProject.Services.Interfaces;
-using CollectionsProject.Models;
 using CollectionsProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Collection = CollectionsProject.Models.CollectionModels.Collection;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using CollectionsProject.Repositories.Interfaces;
 
 namespace CollectionsProject.Controllers
 {

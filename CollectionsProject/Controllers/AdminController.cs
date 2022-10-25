@@ -1,6 +1,5 @@
-﻿using CollectionsProject.Hash;
-using CollectionsProject.Models.UserModels;
-using CollectionsProject.Repositories;
+﻿using CollectionsProject.Models.UserModels;
+using CollectionsProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

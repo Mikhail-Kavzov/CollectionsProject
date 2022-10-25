@@ -1,8 +1,8 @@
 ﻿using CollectionsProject.Models.CollectionModels;
 
-namespace CollectionsProject.Repositories
+namespace CollectionsProject.Repositories.Interfaces
 {
-    public interface ICollectionRepository:IPagingRepository<Collection>
+    public interface ICollectionRepository : IPagingRepository<Collection>
     {
         void AddFieldsRange(IEnumerable<AddCollectionField> fields);
         Task<string?> CheckIdAsync(string id);

@@ -1,9 +1,10 @@
 ﻿using CollectionsProject.Context;
 using CollectionsProject.Models.UserModels;
+using CollectionsProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace CollectionsProject.Repositories
+namespace CollectionsProject.Repositories.Implementation
 {
     public class UserRepository : IUserRepository
     {
@@ -11,7 +12,7 @@ namespace CollectionsProject.Repositories
 
         public UserRepository(ApplicationContext appContext)
         {
-            db= appContext;
+            db = appContext;
         }
 
         public async Task<int> CountUsersAsync()
@@ -36,7 +37,7 @@ namespace CollectionsProject.Repositories
 
         public async Task<IEnumerable<User>?> GetSomeItemsAsync(int itemsToSkip, int itemsToTake)
         {
-           
+
             return await db.Users.OrderBy(u => u.Id).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();
         }
 

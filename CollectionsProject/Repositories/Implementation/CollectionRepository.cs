@@ -1,16 +1,17 @@
 ﻿using CollectionsProject.Context;
 using CollectionsProject.Models.CollectionModels;
+using CollectionsProject.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace CollectionsProject.Repositories
+namespace CollectionsProject.Repositories.Implementation
 {
-    public class CollectionRepository:ICollectionRepository
+    public class CollectionRepository : ICollectionRepository
     {
         private readonly ApplicationContext db;
 
         public CollectionRepository(ApplicationContext appContext)
         {
-            db=appContext;
+            db = appContext;
         }
 
         public void AddFieldsRange(IEnumerable<AddCollectionField> fields)
@@ -35,7 +36,7 @@ namespace CollectionsProject.Repositories
 
         public async Task<Collection?> GetItemAsync(string id)
         {
-            return await db.Collections.Include(c=>c.User).Include(c=>c.AddFields).FirstOrDefaultAsync(c => c.CollectionId.ToString() == id);
+            return await db.Collections.Include(c => c.User).Include(c => c.AddFields).FirstOrDefaultAsync(c => c.CollectionId.ToString() == id);
         }
 
         public async Task<Collection?> GetItemIncludeFieldsAsync(string id)
@@ -53,9 +54,9 @@ namespace CollectionsProject.Repositories
             return await db.Collections.Include(c => c.User).OrderBy(c => c.CollectionId).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();
         }
 
-        public async Task<IEnumerable<Collection>?> GetUserItemsAsync(int itemsToSkip, int itemsToTake,string id)
+        public async Task<IEnumerable<Collection>?> GetUserItemsAsync(int itemsToSkip, int itemsToTake, string id)
         {
-            return await db.Collections.Include(c => c.User).Where(c=>c.UserId==id).OrderBy(c => c.CollectionId).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();
+            return await db.Collections.Include(c => c.User).Where(c => c.UserId == id).OrderBy(c => c.CollectionId).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();
         }
 
         public async Task SaveChangesAsync()

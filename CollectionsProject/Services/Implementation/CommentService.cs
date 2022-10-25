@@ -1,7 +1,7 @@
 ﻿using CollectionsProject.Converter;
 using CollectionsProject.Models.ItemModels;
 using CollectionsProject.Models.UserModels;
-using CollectionsProject.Repositories;
+using CollectionsProject.Repositories.Interfaces;
 using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;

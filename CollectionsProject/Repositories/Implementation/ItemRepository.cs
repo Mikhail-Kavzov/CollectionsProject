@@ -1,11 +1,12 @@
 ﻿using CollectionsProject.Context;
 using CollectionsProject.Models.CollectionModels;
 using CollectionsProject.Models.ItemModels;
+using CollectionsProject.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 
-namespace CollectionsProject.Repositories
+namespace CollectionsProject.Repositories.Implementation
 {
     public class ItemRepository : IItemRepository
     {
@@ -86,7 +87,7 @@ namespace CollectionsProject.Repositories
 
         public async Task<IEnumerable<Item>> GetLastItemsAsync(int count)
         {
-           return await db.Items.Include(i=>i.Collection).ThenInclude(c=>c.User).OrderByDescending(i => i.CreatedDate).Take(count).ToListAsync();
+            return await db.Items.Include(i => i.Collection).ThenInclude(c => c.User).OrderByDescending(i => i.CreatedDate).Take(count).ToListAsync();
         }
     }
 }

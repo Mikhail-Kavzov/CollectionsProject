@@ -1,8 +1,9 @@
 ﻿using CollectionsProject.Context;
 using CollectionsProject.Models.ItemModels;
+using CollectionsProject.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace CollectionsProject.Repositories
+namespace CollectionsProject.Repositories.Implementation
 {
     public class TagRepository : ITagRepository
     {

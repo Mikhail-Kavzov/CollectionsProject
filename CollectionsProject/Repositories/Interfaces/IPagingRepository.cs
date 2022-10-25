@@ -1,8 +1,8 @@
 ﻿using CollectionsProject.Models;
 
-namespace CollectionsProject.Repositories
+namespace CollectionsProject.Repositories.Interfaces
 {
-    public interface IPagingRepository<T>:IRepository<T>
+    public interface IPagingRepository<T> : IRepository<T>
     {
         Task<IEnumerable<T>?> GetSomeItemsAsync(int itemsToSkip, int itemsToTake);
         Task<IEnumerable<T>?> GetUserItemsAsync(int itemsToSkip, int itemsToTake, string id);

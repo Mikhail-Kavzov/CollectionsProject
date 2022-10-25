@@ -1,9 +1,10 @@
 ﻿using CollectionsProject.Context;
 using CollectionsProject.Models.ItemModels;
 using CollectionsProject.Models.UserModels;
+using CollectionsProject.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace CollectionsProject.Repositories
+namespace CollectionsProject.Repositories.Implementation
 {
     public class CommentRepository : ICommentRepository
     {
@@ -39,13 +40,13 @@ namespace CollectionsProject.Repositories
         {
             return await db.Comments.Where(c => c.ItemId.ToString() == itemId && c.CreatedDate < time)
                 .OrderByDescending(c => c.CreatedDate).Skip(itemsToSkip).Take(ItemsToTake)
-                .Include(c => c.UserComments).ThenInclude(uc=>uc.User).ToListAsync();
+                .Include(c => c.UserComments).ThenInclude(uc => uc.User).ToListAsync();
         }
 
         public async Task<IEnumerable<Comment>> GetCommentsByTimeAsync(DateTime time, string itemId)
         {
             return await db.Comments.Where(c => c.ItemId.ToString() == itemId && c.CreatedDate >= time)
-                .Include(c => c.UserComments).ThenInclude(uc=>uc.User).ToListAsync();
+                .Include(c => c.UserComments).ThenInclude(uc => uc.User).ToListAsync();
         }
 
         public async Task SaveChangesAsync()

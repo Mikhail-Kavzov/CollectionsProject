@@ -1,6 +1,7 @@
 using CollectionsProject.Context;
 using CollectionsProject.Models.UserModels;
-using CollectionsProject.Repositories;
+using CollectionsProject.Repositories.Implementation;
+using CollectionsProject.Repositories.Interfaces;
 using CollectionsProject.Services.Implementation;
 using CollectionsProject.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
