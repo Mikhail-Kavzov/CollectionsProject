@@ -20,7 +20,7 @@
 
                     }
 
-                    <td class="d-flex justify-content-around">
+                    <td class="d-flex flex-wrap justify-content-around">
                         <a asp-controller="Item" class="text-success item-link" asp-action="ItemPage" asp-route-id="@item.ItemId">@Loc["Details"]</a>
                         @{
                             if (hasAccess)

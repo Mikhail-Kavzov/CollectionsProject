@@ -1,6 +1,6 @@
 let userList = new Array();
-let timeInterval=20000;
-const urlController='/Tag/GetAllTags/';
+let timeInterval = 20000;
+const urlController = '/Tag/GetAllTags/';
 function updateUserList(url) {
     $.ajax({
         url: url,
@@ -14,8 +14,8 @@ function updateUserList(url) {
     });
 }
 updateUserList(urlController);
-setInterval(updateUserList,timeInterval,urlController);
-function appendDropdown(list,target) {
+setInterval(updateUserList, timeInterval, urlController);
+function appendDropdown(list, target) {
     if (list.length === 0)
         return;
     $.each(list, function (key, value) {
@@ -28,9 +28,9 @@ $('.tag-container').last().keyup(keyUpDropdown);
 
 function keyUpDropdown(e) {
     $('#dropdown').children().remove();
-    let inputTarget=$(e.target);
+    let inputTarget = $(e.target);
     let textVal = $(inputTarget).val();
-    if (textVal === ''|| textVal==='#')
+    if (textVal === '' || textVal === '#')
         return;
     $('#dropdown').detach().appendTo(inputTarget.parent());
     let newList = new Array();
@@ -38,7 +38,7 @@ function keyUpDropdown(e) {
         if (value.startsWith(textVal))
             newList.push(value);
     });
-    appendDropdown(newList,inputTarget);
+    appendDropdown(newList, inputTarget);
 }
 $(document).mouseup(function (e) {
     if (!e.target.classList.contains('tag-input'))
@@ -54,6 +54,7 @@ btnTag.onclick = function () {
     let tr = document.createElement('tr');
     let td = document.createElement('td');
     td.classList.add('tag-container');
+    tr.classList.add('t-row');
     td.appendChild(getHtmlFromStr(i));
     tr.appendChild(td);
     tableBody.appendChild(tr);
@@ -61,7 +62,7 @@ btnTag.onclick = function () {
     i++;
 };
 function getHtmlFromStr(num) {
-    let htmlElemStr = "<input class=\"tag-input\" style=\"width: 100% \" type = \"text\" autocomplete = \"off\" data - val=\"true\" data - val - regex=\"Use only eng letter or numbers, length is up to 10\" data - val - regex - pattern=\" ^#[a - zA - Z0 - 9]{ 1, 10 }$\" data - val - required=\"Tag is required\" id = \"Tags_" + num + "__TagName\" name = \"Tags[" + num + "].TagName\" value = \"#\" >";
+    let htmlElemStr = "<input class=\"tag-input\" style=\"width: 100%\" type=\"text\" autocomplete=\"off\" data-val=\"true\" data-val-regex=\"Use only eng letter or numbers, length is up to 10\" data-val-regex-pattern=\"^#\\w{ 1, 10 }$\" data-val-required=\"Tag is required\" id=\"Tags_" + num + "__TagName\" name=\"Tags[" + num + "].TagName\" value=\"#\" >";
     return new DOMParser().parseFromString(htmlElemStr, 'text/html').getElementsByTagName('input')[0];
 }
 $('#btn-delete-tag').click(function () {
@@ -72,7 +73,7 @@ $('#btn-delete-tag').click(function () {
     $('.t-row').last().remove();
 });
 
-$('.checkbox-field').each(function (index) { //
+$('.checkbox-field').each(function (index) { 
     $(this).click(function () {
         if ($(this).is(':checked')) {
             $(this).next().text('Yes');

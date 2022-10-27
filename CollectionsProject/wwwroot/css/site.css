@@ -22,17 +22,14 @@ body::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
 
 html {
     font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
     html {
         font-size: 16px;
     }
-}
-
-html {
-    position: relative;
-    min-height: 100%;
 }
 
 li {
@@ -52,8 +49,8 @@ img {
 }
 
 body {
-    margin-bottom: 60px;
-    background-color: rgb(220,255,255);
+    background-color: white;
+    height: 75vh;
 }
 
 input, textarea {
@@ -169,7 +166,6 @@ textarea {
 .table-collection-list {
     overflow: scroll;
     margin-top: 50px;
-    max-width: 90vw;
 }
 
 .item-link {
@@ -186,19 +182,49 @@ textarea {
     border: 1px solid black;
     overflow-wrap: break-word;
     border-radius: 5px;
+    flex-wrap:wrap;
 }
 
 .tag_links {
     display: inline-block;
-    color:black;
+    color: black;
     text-decoration: none;
-    transition: color 0.2s linear;
+    transition: all ease 200ms;
     font-size: 24px;
     text-align: justify;
-    font-style:italic;
+    font-style: italic;
+    padding: 0 20px;
 }
 
     .tag_links:hover {
         color: rgb(55,55,150);
-        text-decoration:underline;
+        text-decoration:underline !important;
     }
+.wrapper{
+    min-width: 380px;
+    height: 100%;
+}
+#update-hide{
+    font-size: 20px;
+}
+#update-hide i:hover {
+    color:red;
+    cursor:pointer;
+}
+.footer {
+    height: 80px;
+    margin-top: 30px;
+    padding: 5px;
+}
+.content {
+    min-height: 100%;
+}
+.nav-item{
+    transition: all ease 400ms;
+    
+}
+.nav-link:hover {
+     color: rgb(55,55,150) !important;    
+     font-weight: 500;
+}
+

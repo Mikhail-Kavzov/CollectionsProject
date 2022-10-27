@@ -9,8 +9,7 @@
                 <td>@item.Name</td>
                 <td>@item.CreatedDate</td>
                 @{
-                    List<string> tagNames = new(item.Tags.Count);
-                    item.Tags.ForEach(t => tagNames.Add(t.TagName));
+                    List<string> tagNames = item.Tags.Select(t => t.TagName).ToList();                 
                 }
                 <td style="word-wrap:break-word">@string.Join(" ",tagNames)</td>
                 @{

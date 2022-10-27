@@ -1,6 +1,6 @@
-$('#input__file').change(function(){
+$('#input__file').change(function () {
     if (!this.files)
-    return;
+        return;
     $('#image-photo').attr('src',URL.createObjectURL(this.files[0]));
 });
 

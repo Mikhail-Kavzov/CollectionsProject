@@ -1,4 +1,5 @@
-﻿@model ItemViewModel
+﻿@using System.Globalization
+@model ItemViewModel
 @{
     ViewBag.CssPath = "css/addItemForm.min.css";
     ViewBag.JsPath = "js/addItemForm.min.js";
@@ -85,7 +86,7 @@
                                             break;
 
                                         case CollectionFieldType.dateField:
-                                            <input class="date-field input_form form-control" value="@DateTime.Parse(Fields[i].Value).ToString("yyyy-MM-dd")" name="AddItems[@i].Value" type="date" autocomplete="off" required>
+                                            <input class="date-field input_form form-control" value="@DateTime.ParseExact(Fields[i].Value,"dd.mm.yyyy",CultureInfo.InvariantCulture).ToString("yyyy-mm-dd")" name="AddItems[@i].Value" type="date" autocomplete="off" required>
                                             break;
                                         case CollectionFieldType.multilineField:
                                             <textarea asp-for="AddItems[i].Value" class="input_form" maxlength="300" autocomplete="off" required>@Fields[i].Value</textarea>

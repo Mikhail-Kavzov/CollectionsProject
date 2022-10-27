@@ -31,6 +31,8 @@
   {
     "outputFileName": "wwwroot/js/collection-view-page.min.js",
     "inputFiles": [
+      "wwwroot/js/scrolling.js",
+      "wwwroot/js/Update-DeleteCollection.js",
       "wwwroot/js/scrollingCollection.js",
       "wwwroot/js/addPhoto.js"
     ],
@@ -112,7 +114,7 @@
     "inputFiles": [
       "wwwroot/js/addPhoto.js",
       "wwwroot/js/site.js",
-      "wwwroot/js/CRUDhome.js"
+      "wwwroot/js/Update-DeleteCollection.js"
     ],
     "minify": {
       "enabled": true,

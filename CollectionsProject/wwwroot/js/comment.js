@@ -10,20 +10,12 @@ function getComments(time, url) {
     if (inCallBack)
         return;
     inCallBack = true;
-    $.ajax({
-        url: url,
-        method: 'post',
-        dataType: 'html',
-        data: { itemId: itemIden, Time: time.toJSON() },
-        success: function (data) {
-            dateTimeSend = new Date();
-            if (data !== '') {
-                $('#comment-wrapper').append(data);
-                
-            }
-
-            inCallBack = false;
+    $.post(url, { itemId: itemIden, Time: time.toJSON() }, function (data) {
+        dateTimeSend = new Date();
+        if (data !== '') {
+            $('#comment-wrapper').append(data);
         }
+        inCallBack = false;
     });
 }
 function OnCommentSuccess() {
@@ -33,17 +25,11 @@ function PrevPage(url, timeJSON) {
     if (isEnd)
         return;
     page++;
-    $.ajax({
-        url: url,
-        method: 'post',
-        dataType: 'html',
-        data: { itemId: itemIden, Time: timeJSON, Page: page },
-        success: function (data) {
-            if (data !== '') {
-                $('#comment-wrapper').prepend(data);
-            } else {
-                isEnd = true;
-            }
+    $.post(url, { itemId: itemIden, Time: timeJSON, Page: page }, function (data) {
+        if (data !== '') {
+            $('#comment-wrapper').prepend(data);
+        } else {
+            isEnd = true;
         }
     });
 }
@@ -67,7 +53,7 @@ function updateLike(e) {
         --oldCounterVal
     }
     else {
-        ++oldCounterVal      
+        ++oldCounterVal
     }
     counterLike.text(oldCounterVal);
     target.toggleClass(liked);

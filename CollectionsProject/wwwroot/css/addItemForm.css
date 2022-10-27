@@ -12,13 +12,16 @@
 	font-size:16px;
 }
 
-#table-body{
-	
+.table-tag {
+	width: 100%;
+	table-layout: fixed;
 }
-.table-tag{
-	max-height: 400px;
-	overflow-x: hidden;
-	overflow-y: scroll !important;
+.table-tag > thead, tbody,th, tr, td{
+	display:block;
+}
+#table-body{
+	max-height: 390px;
+	overflow-x: auto;
 }
 .tag-container{
 	position: relative;

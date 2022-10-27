@@ -1,7 +1,7 @@
 function SelectedCheckbox() {
     var selectedItems = new Array();
     $(".selected").each(function (index) { selectedItems.push(this.id); });
-    return (selectedItems);
+    return selectedItems;
 }
 $('#BlockBtn').click(() => queryPutToolbar('Blocked', '/Admin/BlockUsers/',updateStatus));
 $('#UnblockBtn').click(() => queryPutToolbar('Active', '/Admin/UnBlockUsers/',updateStatus));

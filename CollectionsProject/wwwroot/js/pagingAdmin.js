@@ -8,15 +8,10 @@ const overflowPages = 6;
 const isOverflow = pageCount > overflowPages;
 let maxPage = overflowPages;
 function loadItems(url, element, currPage) {
-    $.ajax({
-        type: 'POST',
-        url: url,
-        data: { Page: currPage },
-        success: function (data, textstatus) {
-            if (data !== '') {
-                $(element).children().remove();
-                $(element).append(data);
-            }
+    $.post(url, { Page: currPage }, function (data, textstatus) {
+        if (data !== '') {
+            $(element).children().remove();
+            $(element).append(data);
         }
     });
 }

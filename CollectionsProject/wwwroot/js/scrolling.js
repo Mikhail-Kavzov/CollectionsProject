@@ -1,8 +1,6 @@
-
 let page = -1;
 let _inCallback = false;
 let pageFlag=false;
-let firstFlag = true;
 function loadItems(url,element) {
     if (!pageFlag && !_inCallback) {
         _inCallback = true;
@@ -18,7 +16,6 @@ function loadItems(url,element) {
                     pageFlag=true;
                 }
                 _inCallback = false;
-                firstFlag = false;
             }
         });
     }

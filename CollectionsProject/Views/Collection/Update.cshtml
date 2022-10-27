@@ -1,6 +1,6 @@
 ﻿@model CollectionViewModel
 <div id="update_col_cont" style="display:none" class="update_col_cont container">
-    <div style="height:100%" class="row">
+    <div style="height:95%" class="row">
         <div id="update-hide" class="cross-wrapper container-fluid"><i class="fa fa-times" aria-hidden="true"></i></div>
         <form method="POST" enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST" data-ajax-success="SuccessUpdate" asp-controller="Collection" asp-action="Update" style="min-height:100%">
             <div id="collection-wrapper" class="collection_wrapper">
@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <span asp-validation-for="Type" class="text-danger"></span>
                         <label asp-for="Type" class="text_label">@Loc["Collection Type"]</label>
-                        <select class="form-select" asp-for="Type" asp-items="Html.GetEnumSelectList<CollectionType>()"></select>
+                        <select id="selector-type" class="form-select" asp-for="Type" asp-items="Html.GetEnumSelectList<CollectionType>()"></select>
                     </div>
                     <input type="submit" value="@Loc["Update"]" id="btn-send" name="submit" class="btn-primary button_send">
                 </div>
@@ -38,9 +38,3 @@
         </form>
     </div>
 </div>
-<script type="text/javascript">
-    function SuccessUpdate(data) {
-        hideForm();
-        updateItem.replaceWith(data);
-    }
-</script>

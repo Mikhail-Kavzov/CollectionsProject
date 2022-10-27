@@ -11,7 +11,7 @@
                 <td>@item.Name</td>
                 <td>@item.Collection.Name</td>
                 <td>@item.Collection.User.UserName</td>
-                <td class="d-flex justify-content-around">
+                <td class="d-flex flex-wrap justify-content-around">
                     <a asp-controller="Item" class="text-success item-link" asp-action="ItemPage" asp-route-id="@item.ItemId">@Loc["Details"]</a>
                     @{
                         if (isAdmin || User.Identity.Name == item.Collection.User.UserName)
