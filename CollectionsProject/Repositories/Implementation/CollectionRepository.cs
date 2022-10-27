@@ -5,23 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CollectionsProject.Repositories.Implementation
 {
-    public class CollectionRepository : ICollectionRepository
+    public class CollectionRepository : AbstractRepository<Collection>, ICollectionRepository
     {
-        private readonly ApplicationContext db;
-
-        public CollectionRepository(ApplicationContext appContext)
+        public CollectionRepository(ApplicationContext appContext) : base(appContext)
         {
-            db = appContext;
         }
 
         public void AddFieldsRange(IEnumerable<AddCollectionField> fields)
         {
             db.AddCollectionFields.AddRange(fields);
-        }
-
-        public async Task<string?> CheckIdAsync(string id)
-        {
-            return await db.Collections.Select(c => c.CollectionId.ToString()).FirstOrDefaultAsync(guid => guid == id);
         }
 
         public void Create(Collection item)
@@ -34,16 +26,19 @@ namespace CollectionsProject.Repositories.Implementation
             db.Collections.Remove(item);
         }
 
+        //Get collection include User and additional Fields properties without values
         public async Task<Collection?> GetItemAsync(string id)
         {
             return await db.Collections.Include(c => c.User).Include(c => c.AddFields).FirstOrDefaultAsync(c => c.CollectionId.ToString() == id);
         }
 
+        //Get collection include additional Fields without values
         public async Task<Collection?> GetItemIncludeFieldsAsync(string id)
         {
             return await db.Collections.Include(c => c.AddFields).FirstOrDefaultAsync(c => c.CollectionId.ToString() == id);
         }
 
+        //The largest collections (for main page)
         public async Task<IEnumerable<Collection>> GetLargestCollections(int count)
         {
             return await db.Collections.Include(c => c.User).OrderByDescending(c => c.Items.Count).Take(count).ToListAsync();
@@ -54,14 +49,10 @@ namespace CollectionsProject.Repositories.Implementation
             return await db.Collections.Include(c => c.User).OrderBy(c => c.CollectionId).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();
         }
 
+        //Get collections for personal user page
         public async Task<IEnumerable<Collection>?> GetUserItemsAsync(int itemsToSkip, int itemsToTake, string id)
         {
             return await db.Collections.Include(c => c.User).Where(c => c.UserId == id).OrderBy(c => c.CollectionId).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await db.SaveChangesAsync();
         }
 
         public void Update(Collection item)

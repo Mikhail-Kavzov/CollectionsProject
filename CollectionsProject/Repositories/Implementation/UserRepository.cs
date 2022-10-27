@@ -6,13 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CollectionsProject.Repositories.Implementation
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : AbstractRepository<User>, IUserRepository
     {
-        private readonly ApplicationContext db;
-
-        public UserRepository(ApplicationContext appContext)
+        public UserRepository(ApplicationContext appContext) : base(appContext)
         {
-            db = appContext;
         }
 
         public async Task<int> CountUsersAsync()
@@ -41,19 +38,9 @@ namespace CollectionsProject.Repositories.Implementation
             return await db.Users.OrderBy(u => u.Id).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();
         }
 
-        public Task<IEnumerable<User>?> GetUserItemsAsync(int itemsToSkip, int itemsToTake, string id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<User>> GetUsersAsync(string[] id)
         {
             return await db.Users.Where(u => id.Contains(u.Id)).ToListAsync();
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await db.SaveChangesAsync();
         }
 
         public void Update(User item)

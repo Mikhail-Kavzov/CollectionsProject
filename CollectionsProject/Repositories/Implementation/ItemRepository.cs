@@ -8,13 +8,10 @@ using System.Runtime.CompilerServices;
 
 namespace CollectionsProject.Repositories.Implementation
 {
-    public class ItemRepository : IItemRepository
+    public class ItemRepository : AbstractRepository<Item>, IItemRepository
     {
-        private readonly ApplicationContext db;
-
-        public ItemRepository(ApplicationContext context)
+        public ItemRepository(ApplicationContext context) : base(context)
         {
-            db = context;
         }
 
         public void AddFieldRange(IEnumerable<AddItemField> fields)
@@ -49,12 +46,6 @@ namespace CollectionsProject.Repositories.Implementation
             return await db.Items.Where(i => i.CollectionId.ToString() == collectionId).CountAsync();
         }
 
-        public Task<IEnumerable<Item>?> GetSomeItemsAsync(int itemsToSkip, int itemsToTake)
-        {
-            throw new NotImplementedException();
-        }
-
-
         public async Task<IEnumerable<Item>?> Filter(int itemsToSkip, int itemsToTake, string collectionId, string searchString = "")
         {
             IQueryable<Item> query = db.Items.Where(i => i.CollectionId.ToString() == collectionId)
@@ -70,19 +61,9 @@ namespace CollectionsProject.Repositories.Implementation
             return await query.OrderBy(i => i.Name).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();
         }
 
-        public async Task SaveChangesAsync()
-        {
-            await db.SaveChangesAsync();
-        }
-
         public void Update(Item item)
         {
             db.Items.Update(item);
-        }
-
-        public Task<IEnumerable<Item>?> GetUserItemsAsync(int itemsToSkip, int itemsToTake, string id)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Item>> GetLastItemsAsync(int count)

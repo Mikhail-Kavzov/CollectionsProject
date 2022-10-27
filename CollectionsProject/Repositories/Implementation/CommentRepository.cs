@@ -6,13 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CollectionsProject.Repositories.Implementation
 {
-    public class CommentRepository : ICommentRepository
+    public class CommentRepository : AbstractRepository<Comment>, ICommentRepository
     {
-        private readonly ApplicationContext db;
-
-        public CommentRepository(ApplicationContext db)
+        public CommentRepository(ApplicationContext db) : base(db)
         {
-            this.db = db;
         }
 
         public void AddUserComment(User user, Comment comment)
@@ -47,11 +44,6 @@ namespace CollectionsProject.Repositories.Implementation
         {
             return await db.Comments.Where(c => c.ItemId.ToString() == itemId && c.CreatedDate >= time)
                 .Include(c => c.UserComments).ThenInclude(uc => uc.User).ToListAsync();
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await db.SaveChangesAsync();
         }
 
         public void Update(Comment item)
