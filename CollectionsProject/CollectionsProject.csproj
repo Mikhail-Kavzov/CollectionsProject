@@ -28,6 +28,7 @@
     <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.2.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
     <PackageReference Include="Westwind.AspnetCore.Markdown" Version="3.9.2" />
+    <PackageReference Include="Yandex.Cloud.SDK" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>

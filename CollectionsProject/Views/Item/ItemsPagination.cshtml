@@ -10,16 +10,12 @@
             <tr id="@item.ItemId">
                 <td>@item.Name</td>
                 @{
-                    foreach (var field in item.AddItems)
+                    var fieldsToOutput = item.AddItems.Where(ai => ai.AddCollectionFields.Type == CollectionFieldType.stringField
+                    || ai.AddCollectionFields.Type == CollectionFieldType.dateField);
+                    foreach (var field in fieldsToOutput)
                     {
-                        if (field.AddCollectionFields.Type == CollectionFieldType.stringField ||
-                        field.AddCollectionFields.Type == CollectionFieldType.dateField)
-                        {
-                            <td>@field.Value</td>
-                        }
-
+                        <td>@field.Value</td>
                     }
-
                     <td class="d-flex flex-wrap justify-content-around">
                         <a asp-controller="Item" class="text-success item-link" asp-action="ItemPage" asp-route-id="@item.ItemId">@Loc["Details"]</a>
                         @{

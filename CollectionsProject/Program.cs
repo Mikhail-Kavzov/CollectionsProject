@@ -4,22 +4,15 @@ using CollectionsProject.Repositories.Implementation;
 using CollectionsProject.Repositories.Interfaces;
 using CollectionsProject.Services.Implementation;
 using CollectionsProject.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.Owin.Security.Cookies;
-using System.Globalization;
+using Microsoft.EntityFrameworkCore; 
 
 internal class Program
 {
     private static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
         // Add services to the container.
         string connection = builder.Configuration.GetConnectionString("DefaultConnection");
         ServerVersion version = ServerVersion.AutoDetect(connection);
@@ -65,6 +58,7 @@ internal class Program
         builder.Services.AddScoped<ICommentRepository, CommentRepository>();
         builder.Services.AddScoped<IHomeService, HomeService>();
         builder.Services.AddScoped<ICommentService, CommentService>();
+        builder.Services.AddScoped<IFullTextSearch, MySQLFullTextSearch>();
 
         var app = builder.Build();
 

@@ -1,0 +1,23 @@
+﻿
+@{
+    IEnumerable<SearchModel> Collections = ViewBag.Collections;
+    foreach (var collection in Collections)
+    {
+        <li class="search-element">
+            <a class="search-link" asp-controller="Collection" asp-action="CollectionItems" asp-route-id="@collection.Id">@collection.Name</a>
+        </li>
+    }
+    IEnumerable<SearchModel> Items = ViewBag.Items;
+    bool isNotFound = Items.Count() == 0 && Collections.Count() == 0;
+    foreach (var item in Items)
+    {
+        <li class="search-element">
+            <a class="search-link" asp-controller="Item" asp-action="ItemPage" asp-route-id="@item.Id">@item.Name</a>
+        </li>
+    }
+    if (isNotFound){
+        <li class="search-element">
+            <a class="search-link text-danger">@Loc["SearchNotFound"]</a>
+        </li>
+    }
+}

@@ -4,7 +4,6 @@
     "inputFiles": [
       "wwwroot/js/checkbox.js",
       "wwwroot/js/pagingAdmin.js",
-      "wwwroot/js/site.js",
       "wwwroot/js/adminToolbar.js"
     ],
     "minify": {
@@ -86,7 +85,6 @@
   {
     "outputFileName": "wwwroot/js/itemCommentPage.min.js",
     "inputFiles": [
-      "wwwroot/js/site.js",
       "wwwroot/js/comment.js"
     ]
   },
@@ -113,7 +111,6 @@
     "outputFileName": "wwwroot/js/home.min.js",
     "inputFiles": [
       "wwwroot/js/addPhoto.js",
-      "wwwroot/js/site.js",
       "wwwroot/js/Update-DeleteCollection.js"
     ],
     "minify": {
@@ -130,8 +127,7 @@
   {
     "outputFileName": "wwwroot/js/tag.min.js",
     "inputFiles": [
-      "wwwroot/js/tagList.js",
-      "wwwroot/js/site.js"
+      "wwwroot/js/tagList.js"
     ]
   }
 ]

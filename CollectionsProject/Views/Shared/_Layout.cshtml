@@ -40,6 +40,19 @@
                                 </li>
                             }
                         </ul>
+                        <div class="search-form">
+                            <form method="GET" data-ajax-method="GET" data-ajax="true" asp-controller="Search" asp-action="Search" data-ajax-success="OnSearchSuccess">
+                                <div class="form-group form-elements input-form-el">
+                                    <label for="search-input">@Loc["Search"]:</label>
+                                    <div id="search-group">
+                                        <input type="text" id="search-input" name="searchString" autocomplete="off" required />
+                                        <ul id="search-list">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-app" id="search-btn"><i class="fa fa-search" aria-hidden="true"hi></i></button>
+                            </form>
+                        </div>
                         <div class="link-language">
                             <ul class="navbar-nav">
                                 @{
@@ -78,6 +91,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery/unobstrusive.js"></script>
     <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/@ViewBag.JsPath" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

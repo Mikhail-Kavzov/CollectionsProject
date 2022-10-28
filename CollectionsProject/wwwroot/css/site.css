@@ -225,6 +225,7 @@ textarea {
 }
 .nav-link{
     color:black;
+    text-align:center;
 }
 .nav-link:hover {
      color: rgb(55,55,150) !important;    
@@ -240,4 +241,52 @@ textarea {
         flex-direction:column;
     }
 }
+.navbar-nav{
+    align-items:center;
+}
+.header-navbar{
+    justify-content:space-between;
+}
+.input-form-el{
+    display:inline-block;
+}
+#search-btn{
+    height:30px;
+    font-size:12px;
+    border-radius:initial;
+    margin-bottom:3px;
+}
+#search-group{
+    position:relative;
+}
+.search-link {
+    display: block;
+    color: black;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+}
+
+    .search-link:hover {
+        background-color: wheat;
+        color: white;
+        text-decoration: underline;
+    }
+#search-list{
+    position:absolute;
+    top:30px;
+    background-color: lightcyan;
+    overflow-y:scroll;
+    max-height: 100px;
+    width:100%;
+    padding-left:0;
+}
+.search-element {
+    cursor: pointer;
+}
+    .search-element:not(:last-child) {
+        border-bottom: 1px solid wheat;
+    }
+
 

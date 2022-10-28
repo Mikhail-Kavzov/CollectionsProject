@@ -138,4 +138,10 @@
   <data name="User Panel" xml:space="preserve">
     <value>Panel Użytkownika</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Szukaj</value>
+  </data>
+  <data name="FindElements" xml:space="preserve">
+    <value>Odnaleźć</value>
+  </data>
 </root>
