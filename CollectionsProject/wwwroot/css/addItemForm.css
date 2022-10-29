@@ -21,8 +21,13 @@
 }
 #table-body{
 	max-height: 390px;
-	overflow-y: scroll;
+	overflow:auto;
 }
 .tag-container{
 	position: relative;
+}
+.overflow-add-fields{
+	overflow:auto;
+	max-height: 400px;
+	height: 400px;
 }

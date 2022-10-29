@@ -168,7 +168,6 @@ textarea {
     }
 
 .table-collection-list {
-    overflow: scroll;
     margin-top: 50px;
 }
 
@@ -273,7 +272,7 @@ textarea {
     position:absolute;
     top:30px;
     background-color: lightcyan;
-    overflow-y:scroll;
+    overflow:auto;
     max-height: 100px;
     width:100%;
     padding-left:0;
@@ -408,3 +407,24 @@ input:checked + .slider:before {
         display: none;
     }
 }
+
+.overflow-table {
+    overflow: auto;
+    position: relative;
+    max-width:100%;
+}
+
+    .overflow-table table {
+        vertical-align: top;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+.overflow-cell{
+    height:100px;
+    overflow:auto;
+    word-break: break-word;
+}
+.overflow-table::-webkit-scrollbar{
+    height: 7px;
+}
+

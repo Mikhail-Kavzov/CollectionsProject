@@ -64,8 +64,8 @@
                 </div>
             </div>
             <div id="item-list" class="flex-column-container container">
-                <div class="row">
-                    <table class="col-8 table-collection-list table table-hover table-bordered text-center">
+                <div class="row overflow-table">
+                    <table class="col-8 table-scroll table-collection-list table table-hover table-bordered text-center">
                         <thead class="bg-info">
                             <tr>
                                 <th class="attribSort" data-sort="Name">@Loc["Name_Table"]</th>
@@ -82,7 +82,7 @@
                                 }
                             </tr>
                         </thead>
-                        <tbody class="bg-light" id="tableBody">
+                        <tbody class="table-scroll-body bg-light" id="tableBody">
                         </tbody>
                     </table>
                     <h2 id="item-not-found" class="col-8 Not-Found-Item bg-light">@Loc["No Result"]</h2>

@@ -3,9 +3,6 @@
     ViewBag.CssPath = "css/addCollectionForm.min.css";
     ViewBag.JsPath = "js/addCollection.min.js";
 }
-@{
-
-}
 <div class="add_collection_cont container">
     <div class="row" style="width:100%">
         <form method="POST" enctype="multipart/form-data" asp-action="Create">
@@ -45,14 +42,16 @@
                                 <input type="button" id="btn-add-field" class="btn-app btn-primary" value="@Loc["Add Field"]" />
                                 <input type="button" id="btn-remove-field" class="btn-app btn-danger" value="@Loc["Remove Field"]">
                             </div>
-                            <table class="table table-hover table-bordered">
-                                <thead class="thead">
-                                    <tr><th>@Loc["Type"]</th><th>@Loc["Name"]</th></tr>
-                                </thead>
-                                <tbody id="table-body" class="bg-light info-table">
-                                    @await Html.PartialAsync("AddNewField",0)
-                                </tbody>
-                            </table>
+                            <div class="overflow-table overflow-collection-table">
+                                <table class="table-scroll table table-hover table-bordered">
+                                    <thead class="thead">
+                                        <tr><th>@Loc["Type"]</th><th>@Loc["Name"]</th></tr>
+                                    </thead>
+                                    <tbody id="table-body" class="table-scroll-body bg-light info-table">
+                                        @await Html.PartialAsync("AddNewField",0)
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <input type="submit" value="@Loc["Send"]" id="btn-send" name="submit" class="btn-primary button_send">

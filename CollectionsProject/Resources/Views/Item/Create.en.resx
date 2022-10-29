@@ -138,4 +138,7 @@
   <data name="Tags" xml:space="preserve">
     <value>Tags:</value>
   </data>
+  <data name="Yes/No" xml:space="preserve">
+    <value>Yes/No</value>
+  </data>
 </root>

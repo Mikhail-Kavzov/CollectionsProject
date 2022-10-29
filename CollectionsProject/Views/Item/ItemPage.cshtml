@@ -6,9 +6,9 @@
 }
 <div class="container">
     <div id="@Model.ItemId-page" class="container">
-        <div class="row">
+        <div class="row overflow-table">
             <input type="hidden" id="ItemIdentificator" value="@Model.ItemId">
-            <table class="col-8 table-collection-list table table-hover table-bordered text-center">
+            <table class="col-8 table-scroll table-collection-list table table-hover table-bordered text-center">
                 <thead class="bg-info">
                     <tr>
                         <th>@Loc["Name"]</th>
@@ -22,7 +22,7 @@
                         }
                     </tr>
                 </thead>
-                <tbody id="tableBody" class="bg-light">
+                <tbody id="tableBody" class="table-scroll-body bg-light">
                     @await Html.PartialAsync("ItemsElement",new List<Item>(){Model})
                 </tbody>
             </table>

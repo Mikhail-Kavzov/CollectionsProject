@@ -138,4 +138,7 @@
   <data name="Update Item" xml:space="preserve">
     <value>Aktualizuj element</value>
   </data>
+  <data name="Yes/No" xml:space="preserve">
+    <value>Tak/Nie</value>
+  </data>
 </root>
