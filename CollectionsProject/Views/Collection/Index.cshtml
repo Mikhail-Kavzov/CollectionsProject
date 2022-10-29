@@ -3,11 +3,14 @@
     ViewBag.CssPath = "css/collection-view-page.min.css";
 }
 @section Create{
-    @{
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Collection" asp-action="Create">@Loc["Create"]</a>
-        </li>
-    }
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Collection" asp-action="Create">@Loc["Create"]</a>
+    </li>
+ }
+    @section CreatePopUp{
+    <li class="pop-up-item">
+        <a class="pop-up-link" asp-controller="Collection" asp-action="Create">@Loc["Create"]</a>
+    </li>
  }
     <div class="container">
         <h1 class="text-center">@User.Identity.Name @Loc["Collections"]</h1>
@@ -15,3 +18,13 @@
         </div>
     </div>
     @await Html.PartialAsync("Update")
+    @section Scripts{
+    <script>
+        loadItems("/Collection/PersonalPage/", '#collection-list');
+        $(window).scroll(function () {
+            if ((Math.trunc($(window).scrollTop())) === $(document).height() - $(window).height()) {
+                loadItems("/Collection/PersonalPage/", '#collection-list');
+            }
+        });
+    </script>
+    }

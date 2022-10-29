@@ -130,18 +130,21 @@
     <value>Login</value>
   </data>
   <data name="Personal Page" xml:space="preserve">
-    <value>Personal Page</value>
+    <value>My Collections</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
   <data name="User Panel" xml:space="preserve">
-    <value>User Panel</value>
+    <value>Admin</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
   <data name="FindElements" xml:space="preserve">
     <value>Find</value>
+  </data>
+  <data name="Collection List" xml:space="preserve">
+    <value>Collections</value>
   </data>
 </root>

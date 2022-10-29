@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.JsPath = "js/collection-view-page.min.js";
+    ViewBag.CssPath = "css/collection-view-page.min.css";
+}
+<div class="container">
+    <h1 class="text-center">@Loc["Collection List"]</h1>
+    <div id="collection-list" class="container-fluid">
+    </div>
+</div>
+@section Scripts{
+    <script>
+        loadItems("/Collection/CollectionPage/", '#collection-list');
+        $(window).scroll(function () {
+            if ((Math.trunc($(window).scrollTop())) === $(document).height() - $(window).height()) {
+                loadItems("/Collection/CollectionPage/", '#collection-list');
+            }
+        });
+    </script>
+}

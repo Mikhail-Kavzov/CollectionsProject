@@ -135,4 +135,7 @@
   <data name="Search" xml:space="preserve">
     <value>Szukaj</value>
   </data>
+  <data name="No Result" xml:space="preserve">
+    <value>Nie znaleziono przedmiotów</value>
+  </data>
 </root>

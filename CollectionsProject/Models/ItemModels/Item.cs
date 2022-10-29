@@ -11,7 +11,7 @@ namespace CollectionsProject.Models.ItemModels
         public Guid CollectionId { get; set; }
         public Collection Collection { get; set; } = null!;
 
-        public List<AddItemField>? AddItems { get; set; }
+        public List<AddItemField> AddItems { get; set; } = new();
         public List<Comment>? Comments { get; set; }
         public List<Tag> Tags { get; set; } = null!;
     }

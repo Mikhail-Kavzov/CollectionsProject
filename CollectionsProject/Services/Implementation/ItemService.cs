@@ -4,6 +4,7 @@ using CollectionsProject.Repositories.Interfaces;
 using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace CollectionsProject.Services.Implementation
 {
@@ -32,19 +33,9 @@ namespace CollectionsProject.Services.Implementation
             List<AddItemField> addItemFields = new();
             for (int i = 0; i < model.Count; i++)
             {
-                switch (model[i].CustomFieldViewModel.FieldType)
+                if (model[i].CustomFieldViewModel.FieldType == CollectionFieldType.dateField)
                 {
-                    case CollectionFieldType.dateField:
-                        {
-                            model[i].Value = DateTime.Parse(model[i].Value).ToShortDateString();
-                            break;
-                        }
-                    case CollectionFieldType.booleanField:
-                        {
-                            if (string.IsNullOrEmpty(model[i].Value))
-                                model[i].Value = "No";
-                            break;
-                        }
+                    model[i].Value = DateTime.ParseExact(model[i].Value, "yyyy-mm-dd", CultureInfo.InvariantCulture).ToString("dd.mm.yyyy");
                 }
                 addItemFields.Add(CreateAddField(model[i].Value, colField[i], item));
             }
@@ -178,22 +169,13 @@ namespace CollectionsProject.Services.Implementation
 
             for (int i = 0; i < item.AddItems.Count; i++)
             {
-                switch (item.AddItems[i].AddCollectionFields.Type)
+                if (item.AddItems[i].AddCollectionFields.Type == CollectionFieldType.dateField)
                 {
-                    case CollectionFieldType.dateField:
-                        {
-                            item.AddItems[i].Value = DateTime.Parse(model.AddItems[i].Value).ToShortDateString();
-                            break;
-                        }
-                    case CollectionFieldType.booleanField:
-                        {
-                            if (string.IsNullOrEmpty(model.AddItems[i].Value))
-                                item.AddItems[i].Value = "No";
-                            break;
-                        }
-                    default:
-                        item.AddItems[i].Value = model.AddItems[i].Value;
-                        break;
+                    item.AddItems[i].Value = DateTime.ParseExact(model.AddItems[i].Value, "yyyy-mm-dd", CultureInfo.InvariantCulture).ToString("dd.mm.yyyy");
+                }
+                else
+                {
+                    item.AddItems[i].Value = model.AddItems[i].Value;
                 }
             }
             _itemRepository.Update(item);

@@ -9,13 +9,28 @@
                 <td>@item.Name</td>
                 <td>@item.CreatedDate</td>
                 @{
-                    List<string> tagNames = item.Tags.Select(t => t.TagName).ToList();                 
+                    List<string> tagNames = item.Tags.Select(t => t.TagName).ToList();
                 }
                 <td style="word-wrap:break-word">@string.Join(" ",tagNames)</td>
                 @{
                     foreach (var field in item.AddItems)
                     {
-                        <td>@field.Value</td>
+
+                        if (field.AddCollectionFields.Type == CollectionFieldType.booleanField)
+                        {
+                            if (field.Value == "on")
+                            {
+                                <td>@Loc["Yes Val"]</td>
+                            }
+                            else
+                            {
+                                <td>@Loc["No Val"]</td>
+                            }
+                        }
+                        else
+                        {
+                            <td>@field.Value</td>
+                        }
                     }
                 }
             </tr>

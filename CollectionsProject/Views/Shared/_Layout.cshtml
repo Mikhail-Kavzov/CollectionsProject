@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    bool isAdmin = User.IsInRole("Admin");
+    bool isAuthenticated = User.Identity!.IsAuthenticated;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,7 +10,7 @@
     <title>@ViewData["Title"] - CollectionsProject</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/@ViewBag.CssPath" asp-append-version="true" />
 </head>
 <body class="light-body">
@@ -15,36 +19,85 @@
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
                 <div class="container-fluid">
                     <div class="navbar-collapse collapse d-inline-flex justify-content-between">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Home" asp-action="Index">@Loc["Home"]</a>
-                            </li>
-                            @if (User.Identity!.IsAuthenticated)
-                            {
-                                @await RenderSectionAsync("Create", required: false)
+                        <div class="nav-theme-wrapper">
+                            <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Collection" asp-action="Index">@Loc["Personal Page"]</a>
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">@Loc["Home"]</a>
                                 </li>
-                                @if (User.IsInRole("Admin"))
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Collection" asp-action="CollectionList">@Loc["Collection List"]</a>
+                                </li>
+                                @if (isAuthenticated)
                                 {
+                                    @await RenderSectionAsync("Create", required: false)
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Admin" asp-action="UserManager">@Loc["User Panel"]</a>
+                                        <a class="nav-link" asp-controller="Collection" asp-action="Index">@Loc["Personal Page"]</a>
+                                    </li>
+                                    @if (isAdmin)
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" asp-controller="Admin" asp-action="UserManager">@Loc["User Panel"]</a>
+                                        </li>
+                                    }
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Account" asp-action="Logout">@Loc["Log Out"]</a>
                                     </li>
                                 }
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Account" asp-action="Logout">@Loc["Log Out"]</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Account" asp-action="Register">@Loc["Register"]</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Account" asp-action="Login">@Loc["Login"]</a>
-                                </li>
-                            }
-                        </ul>
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Account" asp-action="Register">@Loc["Register"]</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Account" asp-action="Login">@Loc["Login"]</a>
+                                    </li>
+                                }
+                            </ul>
+                            <nav id="pop-up-menu" class="pop-up-menu">
+                                <ul class="pop-up-list">
+                                    <li class="pop-up-item">
+                                        <a class="pop-up-link" asp-controller="Home" asp-action="Index">@Loc["Home"]</a>
+                                    </li>
+                                    <li class="pop-up-item">
+                                        <a class="pop-up-link" asp-controller="Collection" asp-action="CollectionList">@Loc["Collection List"]</a>
+                                    </li>
+                                    @if (isAuthenticated)
+                                    {
+                                        @await RenderSectionAsync("CreatePopUp", required: false)
+                                        <li class="pop-up-item">
+                                            <a class="pop-up-link" asp-controller="Collection" asp-action="Index">@Loc["Personal Page"]</a>
+                                        </li>
+                                        @if (isAdmin)
+                                        {
+                                            <li class="pop-up-item">
+                                                <a class="pop-up-link" asp-controller="Admin" asp-action="UserManager">@Loc["User Panel"]</a>
+                                            </li>
+                                        }
+                                        <li class="pop-up-item">
+                                            <a class="pop-up-link" asp-controller="Account" asp-action="Logout">@Loc["Log Out"]</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="pop-up-item">
+                                            <a class="pop-up-link" asp-controller="Account" asp-action="Register">@Loc["Register"]</a>
+                                        </li>
+                                        <li class="pop-up-item">
+                                            <a class="pop-up-link" asp-controller="Account" asp-action="Login">@Loc["Login"]</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </nav>
+                            <div id="pop-up-icon" class="pop-up_menu_sign">
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                            </div>
+                            <div class="change-mode">
+                                <label class="switch">
+                                    <input type="checkbox" class="form-check" id="theme-switcher" />
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
                         <div class="search-form">
                             <form method="GET" data-ajax-method="GET" data-ajax="true" asp-controller="Search" asp-action="Search" data-ajax-success="OnSearchSuccess">
                                 <div class="form-group form-elements input-form-el">
@@ -57,12 +110,6 @@
                                 </div>
                                 <button type="submit" class="btn btn-success btn-app" id="search-btn"><i class="fa fa-search" aria-hidden="true" hi></i></button>
                             </form>
-                        </div>
-                        <div class="change-mode">
-                            <label class="switch">
-                                <input type="checkbox" class="form-check" id="theme-switcher" />
-                                <span class="slider round"></span>
-                            </label>
                         </div>
                         <div class="link-language">
                             @await Html.PartialAsync("_SelectLanguagePartial")
@@ -84,11 +131,9 @@
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/jquery/unobstrusive.js"></script>
+    <script src="~/lib//site-unobstrusive-dark.min.js" asp-append-version="true"></script>
     <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/DarkMode/DarkMode.js" asp-append-version="true"></script>
-    <script src="~/@ViewBag.JsPath" asp-append-version="true"></script>   
+    <script src="~/@ViewBag.JsPath" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

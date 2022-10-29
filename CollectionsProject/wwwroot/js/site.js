@@ -9,6 +9,9 @@ function deleteItem(url, element, id) {
             if (textstatus === "success") {
                 $(element).remove();
             }
+            if (!$('#tableBody').children().length) {
+                location.reload();
+            }
         }
     });
 };
@@ -24,10 +27,19 @@ $('#search-input').on('input',(function () {
     if ($(this).val() === '')
         RemoveSearchList();
 }));
-$(document).click(function (e) {
-    let targetId = $(e.target).attr('id');
-    let isTargetSearch = targetId === 'search-input' || targetId === 'search-btn';
+$(document).on('click', (function (e) {
+    let target=$(e.target);
+    let isTargetSearch = target.is('#search-input') || target.is('#search-btn');
     if (!isTargetSearch)
         RemoveSearchList();
-})
-
+}));
+$('#pop-up-icon').click(function () {
+    $('#pop-up-menu').toggleClass('hider');
+});
+$(document).on('click', (function (e) {
+    let target = $(e.target);
+    if (target.closest('#pop-up-icon').length) // if click in icon block
+        return;
+    if (!target.closest('#pop-up-menu').length) // if click not in list
+        $('#pop-up-menu').removeClass('hider');
+}));

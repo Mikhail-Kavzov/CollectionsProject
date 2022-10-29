@@ -5,7 +5,7 @@ let currentPage = minPage;
 const LabelWidth = 37;
 let offset = 0;
 const overflowPages = 6;
-const isOverflow = pageCount > overflowPages;
+let isOverflow = pageCount > overflowPages;
 let maxPage = overflowPages;
 const desc = "_Desc";
 let currentSortAttr = "Name";
@@ -17,11 +17,14 @@ function loadItems(url, element, page, sortOrder="",searchString="") {
         data: {collectionId:colId, id:page, sortRule:sortOrder, searchString:searchString},
         dataType: 'html',
         success: function (data, textstatus) {
-            if (data !== '') {
-                $(element).children().remove();
+            $('#item-not-found').hide();
+            $(element).children().remove();
+            if (data.length>2) {
                 $(element).append(data);
             }
-
+            else {
+                $('#item-not-found').show();
+            }
         }
 
     });
@@ -55,7 +58,7 @@ if (pageCount > 0) {
         loadItems("/Item/ItemsPagination/", '#tableBody', currentPage - 1,currentSortAttr,currSearchString);
     }
     function moveRight() {
-        if (currentPage === pageCount)
+        if (currentPage >= pageCount)
             return;
         if (currentPage === maxPage && isOverflow) { //if it's right border
             ++minPage;

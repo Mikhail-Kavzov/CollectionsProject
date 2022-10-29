@@ -2,11 +2,11 @@
 @{
     ViewBag.JsPath = "js/scrollingItem.min.js";
     ViewBag.CssPath = "css/collection-view-page.min.css";
-    bool isCurrUser = User.Identity.Name == Model.User.UserName;
+    bool isCurrUser = User.Identity!.Name == Model.User.UserName;
     int CountItems = ViewBag.ItemPerPage;
 }
 @{
-    if (isCurrUser)
+    if (isCurrUser || User.IsInRole("Admin"))
     {
         @section Create
         {
@@ -15,12 +15,18 @@
             <a class="nav-link" asp-controller="Item" asp-action="Create" asp-route-id="@Model.CollectionId">@Loc["Create_Item"]</a>
         </li>
     }
+        @section CreatePopUp
+        {
+
+        <li class="pop-up-item">
+            <a class="pop-up-link" asp-controller="Item" asp-action="Create" asp-route-id="@Model.CollectionId">@Loc["Create_Item"]</a>
+        </li>
+    }
     }
 
 }
 <div class="container">
     <div class="row">
-
         <div id="@Model.CollectionId" class="bg-light collection-item col-8">
             <div class="row">
                 <div class="collection-info col-12  col-md-8">
@@ -57,7 +63,7 @@
                     <button class="btn-success" id="btn-filter"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </div>
             </div>
-            <div id="item-list" class="container">
+            <div id="item-list" class="flex-column-container container">
                 <div class="row">
                     <table class="col-8 table-collection-list table table-hover table-bordered text-center">
                         <thead class="bg-info">
@@ -79,10 +85,9 @@
                         <tbody class="bg-light" id="tableBody">
                         </tbody>
                     </table>
+                    <h2 id="item-not-found" class="col-8 Not-Found-Item bg-light">@Loc["No Result"]</h2>
                 </div>
-                <div class="row d-flex justify-content-center">
-                    @await Html.PartialAsync("~/Views/Pagination.cshtml",CountItems)
-                </div>
+                @await Html.PartialAsync("~/Views/Pagination.cshtml",CountItems)
             </div>
         }
     }

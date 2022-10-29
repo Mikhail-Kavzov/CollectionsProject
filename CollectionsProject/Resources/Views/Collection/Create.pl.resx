@@ -141,4 +141,10 @@
   <data name="Type" xml:space="preserve">
     <value>Typ</value>
   </data>
+  <data name="Add Field" xml:space="preserve">
+    <value>Dodać</value>
+  </data>
+  <data name="Remove Field" xml:space="preserve">
+    <value>Usunąć</value>
+  </data>
 </root>

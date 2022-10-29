@@ -61,10 +61,13 @@
     cursor: pointer;
     margin: 0 auto;
   }
-
+.btns-fields{
+    display: inline-flex;
+    align-items:center;
+}
 /*----------------------------------------------------*/
-.add_collection_cont{
-     margin-top: 70px;
+.add_collection_cont {
+    margin-top: 70px;
 }
 #collection-wrapper {
     min-height: inherit;
@@ -116,4 +119,24 @@
 }
 .form-table{
     margin-top: 15px;
+}
+#btn-add-field, #btn-remove-field{
+    padding: 10px 20px;
+    margin: 5px;
+    font-size:16px;
+}
+.table > tbody {
+    display: block;
+}
+
+#table-body td input {
+    width: 100%;
+}
+#table-body tr{
+    width:100%;
+}
+
+#table-body {
+    max-height: 100px;
+    overflow-y: scroll;
 }

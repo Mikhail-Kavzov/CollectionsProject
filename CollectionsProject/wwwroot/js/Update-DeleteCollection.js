@@ -39,6 +39,13 @@ function updateCollection(e) {
 function hideForm() {
     $('#update_col_cont').hide();
 }
+$(document).on('click', function (e) {
+    let target = $(e.target);
+    if (target.is('.btn-update'))
+        return;
+    if (!target.closest('#update_col_cont').length)
+        hideForm();
+});
 $('#update-hide').click(hideForm);
 function SuccessUpdate(data) {
     hideForm();

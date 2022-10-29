@@ -17,6 +17,8 @@ function updateRole(role){
 }
 function queryPutToolbar(status, Url,callBack) {
     let idCheckBoxes = SelectedCheckbox();
+    if (!idCheckBoxes.length)
+        return;
     $.ajax({
         url: Url,
         method: 'put',
@@ -33,6 +35,8 @@ function queryPutToolbar(status, Url,callBack) {
 
 function queryDeleteToolbar(Url) {
     let idCheckBoxes = SelectedCheckbox();
+    if (!idCheckBoxes.length)
+        return;
     $.ajax({
         url: Url,
         method: 'delete',

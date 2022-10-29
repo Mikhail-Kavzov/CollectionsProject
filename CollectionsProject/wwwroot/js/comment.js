@@ -5,6 +5,7 @@ const timeInterval = 5000;
 let inCallBack = false;
 let page = -1;
 let isEnd = false;
+let callBackPrev = false;
 const liked = "liked";
 function getComments(time, url) {
     if (inCallBack)
@@ -22,8 +23,9 @@ function OnCommentSuccess() {
     getComments(dateTimeSend, '/Comment/CommentPage/');
 }
 function PrevPage(url, timeJSON) {
-    if (isEnd)
+    if (isEnd || callBackPrev)
         return;
+    callBackPrev = true;
     page++;
     $.post(url, { itemId: itemIden, Time: timeJSON, Page: page }, function (data) {
         if (data !== '') {
@@ -31,13 +33,14 @@ function PrevPage(url, timeJSON) {
         } else {
             isEnd = true;
         }
+        callBackPrev = false;
     });
 }
 PrevPage('/Comment/PreviousPage/', dateTimeLoad);
 setInterval(OnCommentSuccess, timeInterval);
 $('#ItemId').val(itemIden);
 $('#comment-wrapper').scroll(function () {
-    if (Math.trunc($('#comment-wrapper').scrollTop() === 0)) {
+    if ($('#comment-wrapper').scrollTop() < 10) {
         PrevPage('/Comment/PreviousPage/', dateTimeLoad);
     }
 });

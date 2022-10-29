@@ -20,7 +20,8 @@
   {
     "outputFileName": "wwwroot/js/addCollection.min.js",
     "inputFiles": [
-      "wwwroot/js/addPhoto.js"
+      "wwwroot/js/addPhoto.js",
+      "wwwroot/js/fields.js"
     ],
     "minify": {
       "enabled": true,
@@ -32,7 +33,6 @@
     "inputFiles": [
       "wwwroot/js/scrolling.js",
       "wwwroot/js/Update-DeleteCollection.js",
-      "wwwroot/js/scrollingCollection.js",
       "wwwroot/js/addPhoto.js"
     ],
     "minify": {
@@ -111,7 +111,8 @@
     "outputFileName": "wwwroot/js/home.min.js",
     "inputFiles": [
       "wwwroot/js/addPhoto.js",
-      "wwwroot/js/Update-DeleteCollection.js"
+      "wwwroot/js/Update-DeleteCollection.js",
+      "wwwroot/lib/TagCloud/TagCloud.js"
     ],
     "minify": {
       "enabled": true,
@@ -128,6 +129,20 @@
     "outputFileName": "wwwroot/js/tag.min.js",
     "inputFiles": [
       "wwwroot/js/tagList.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/site-unobstrusive-dark.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/unobstrusive.js",
+      "wwwroot/js/site.js",
+      "wwwroot/lib/DarkMode/DarkMode.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css"
     ]
   }
 ]

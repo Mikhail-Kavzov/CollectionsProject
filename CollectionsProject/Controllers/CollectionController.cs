@@ -27,10 +27,20 @@ namespace CollectionsProject.Controllers
             _collectionService = collectionService;
         }
 
+        //Personal page of collection
+        [HttpGet]
         public IActionResult Index() => View();
 
         [HttpGet]
         public IActionResult Create() => View();
+
+        //List of collections to view
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult CollectionList() => View();
+
+        [HttpGet]
+        public IActionResult AddNewField(int i = 0) => PartialView("AddNewField", i);
 
         private async Task<User> CheckCurrentUser(string name)
         {
@@ -51,9 +61,11 @@ namespace CollectionsProject.Controllers
                     model.Image = await _fileService.CreateFileAsync(formFile);
                 var collection = _collectionService.CreateNewCollection(model, currentUser);
                 _collectionRepository.Create(collection);
-
-                var fields = _collectionService.CreateAddFields(model.CustomFields, collection);
-                _collectionRepository.AddFieldsRange(fields);
+                if (model.CustomFields != null)
+                {
+                    var fields = _collectionService.CreateAddFields(model.CustomFields, collection);
+                    _collectionRepository.AddFieldsRange(fields);
+                }
                 await _collectionRepository.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -89,7 +101,7 @@ namespace CollectionsProject.Controllers
         public IActionResult Update() => PartialView();
 
         [HttpPost]
-        public async Task<IActionResult> Update(CollectionViewModel model, IFormFile? formFile=null)
+        public async Task<IActionResult> Update(CollectionViewModel model, IFormFile? formFile = null)
         {
             if (ModelState.IsValid)
             {
@@ -105,17 +117,19 @@ namespace CollectionsProject.Controllers
                 await _collectionRepository.SaveChangesAsync();
                 return PartialView("CollectionPage", new List<Collection>() { collection });
             }
-            return BadRequest();
+            return Ok();
         }
 
+        //Personal Page controller of current user
         [HttpGet]
-        public async Task<IActionResult> CollectionPage(int id = 0)
+        public async Task<IActionResult> PersonalPage(int id = 0)
         {
             var user = await _userManager.GetUserAsync(User);
             var collections = await _collectionRepository.GetUserItemsAsync(id * itemsCount, itemsCount, user.Id);
             return PartialView("CollectionPage", collections);
         }
 
+        //Calculate Pages for items in pagination
         private static int CountPagesInItems(int collectionCount)
         {
             if (collectionCount % itemsCount == 0)
@@ -123,6 +137,7 @@ namespace CollectionsProject.Controllers
             return collectionCount / itemsCount + 1;
         }
 
+        //Items of corresponding collection
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> CollectionItems(string id)
@@ -135,11 +150,12 @@ namespace CollectionsProject.Controllers
             return View(result);
         }
 
+        //Page of collections ordered by Id
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetCollectionPage(int Page = 0)
+        public async Task<IActionResult> CollectionPage(int id = 0)
         {
-            var collections = await _collectionRepository.GetSomeItemsAsync(Page * itemsCount, itemsCount);
+            var collections = await _collectionRepository.GetSomeItemsAsync(id * itemsCount, itemsCount);
             return PartialView("CollectionPage", collections);
         }
     }

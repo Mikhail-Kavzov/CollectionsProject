@@ -72,15 +72,3 @@ $('#btn-delete-tag').click(function () {
     $('#dropdown').detach().appendTo('#table-body');
     $('.t-row').last().remove();
 });
-
-$('.checkbox-field').each(function (index) { 
-    $(this).click(function () {
-        if ($(this).is(':checked')) {
-            $(this).next().text('Yes');
-            $(this).val('Yes');
-        } else {
-            $(this).next().text('No');
-            $(this).val('No');
-        }
-    });
-});

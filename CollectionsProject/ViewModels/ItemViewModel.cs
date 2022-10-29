@@ -15,7 +15,7 @@ namespace CollectionsProject.ViewModels
         [Required]
         public string CollectionId { get; set; } = null!;
 
-        public List<FieldViewModel> AddItems { get; set; } = new(3);
+        public List<FieldViewModel> AddItems { get; set; } = new();
 
         public List<TagViewModel> Tags { get; set; } = new(1);
 

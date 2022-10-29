@@ -3,6 +3,9 @@
     ViewBag.CssPath = "css/addCollectionForm.min.css";
     ViewBag.JsPath = "js/addCollection.min.js";
 }
+@{
+
+}
 <div class="add_collection_cont container">
     <div class="row" style="width:100%">
         <form method="POST" enctype="multipart/form-data" asp-action="Create">
@@ -19,7 +22,7 @@
                 </div>
                 <div class="text_wrapper col-md-6 col-12">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">                      
+                    <div class="form-group">
                         <div class="form-group">
                             <label asp-for="Name" class="text_label">@Loc["Collection Name"]</label>
                             <input type="text" asp-for="Name" class="input_form" autocomplete="none">
@@ -31,30 +34,23 @@
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            
+
                             <label asp-for="Type" class="text_label">@Loc["Collection Type"]</label>
                             <select class="form-select" asp-for="Type" asp-items="Html.GetEnumSelectList<CollectionType>()"></select>
                             <span asp-validation-for="Type" class="text-danger"></span>
                         </div>
                         <div class="form-group form-table">
                             <label class="text_label">@Loc["Custom Fields"]</label>
+                            <div class="btns-fields">
+                                <input type="button" id="btn-add-field" class="btn-app btn-primary" value="@Loc["Add Field"]" />
+                                <input type="button" id="btn-remove-field" class="btn-app btn-danger" value="@Loc["Remove Field"]">
+                            </div>
                             <table class="table table-hover table-bordered">
                                 <thead class="thead">
                                     <tr><th>@Loc["Type"]</th><th>@Loc["Name"]</th></tr>
                                 </thead>
                                 <tbody id="table-body" class="bg-light info-table">
-                                    @{
-                                        for (int i = 0; i < 3; i++)
-                                        {
-                                            <tr>
-                                                <td><select class="form-select" asp-for="CustomFields[i].FieldType" asp-items="Html.GetEnumSelectList<CollectionFieldType>()"></select></td>
-                                                <td>    
-                                                    <input style="width:100%" autocomplete="off" asp-for="CustomFields[i].Name">
-                                                    <span asp-validation-for="CustomFields[i].Name" class="text-danger"></span>
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
+                                    @await Html.PartialAsync("AddNewField",0)
                                 </tbody>
                             </table>
                         </div>

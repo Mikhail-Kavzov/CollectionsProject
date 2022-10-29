@@ -1,6 +1,7 @@
 ﻿using CollectionsProject.Models.ItemModels;
 using CollectionsProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CollectionsProject.Controllers
 {
@@ -18,8 +19,9 @@ namespace CollectionsProject.Controllers
         {
             if (string.IsNullOrEmpty(searchString))
                 return Ok();
-            ViewBag.Items = await _fullTextSearch.SearchInItems(searchString);
-            ViewBag.Collections = await _fullTextSearch.SearchInCollections(searchString);
+            string requireWord = '+' + searchString;
+            ViewBag.Items = await _fullTextSearch.SearchInItems(requireWord);
+            ViewBag.Collections = await _fullTextSearch.SearchInCollections(requireWord);
             return PartialView();
         }
     }

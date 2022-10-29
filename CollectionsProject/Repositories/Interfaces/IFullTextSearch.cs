@@ -1,4 +1,5 @@
 ﻿using CollectionsProject.Models.ItemModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace CollectionsProject.Repositories.Interfaces
 {
@@ -8,12 +9,12 @@ namespace CollectionsProject.Repositories.Interfaces
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        Task<IEnumerable<SearchModel>> SearchInCollections(string searchString);
+        Task<IEnumerable<SearchModel>> SearchInCollections(string searchString, MySqlMatchSearchMode mode = MySqlMatchSearchMode.Boolean);
         /// <summary>
         /// Find items that contains SearchString in fields
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        Task<IEnumerable<SearchModel>> SearchInItems(string searchString);
+        Task<IEnumerable<SearchModel>> SearchInItems(string searchString, MySqlMatchSearchMode mode = MySqlMatchSearchMode.Boolean);
     }
 }

@@ -1,0 +1,7 @@
+﻿@model int
+<tr>
+    <td><select class="form-select" id="CustomFields[@Model].FieldType" name="CustomFields[@Model].FieldType" asp-items="Html.GetEnumSelectList<CollectionFieldType>()"></select></td>
+    <td>
+        <input style="width:100%" autocomplete="none" id="CustomFields[@Model].Name" name="CustomFields[@Model].Name" maxlength="15" required>
+    </td>
+</tr>

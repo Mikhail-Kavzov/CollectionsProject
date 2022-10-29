@@ -20,6 +20,6 @@ namespace CollectionsProject.ViewModels
 
         public string? Image { get; set; }
 
-        public List<CustomFieldViewModel> CustomFields { get; set; } = new(3);
+        public List<CustomFieldViewModel>? CustomFields { get; set; }
     }
 }
