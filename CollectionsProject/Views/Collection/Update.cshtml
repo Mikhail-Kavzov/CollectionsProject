@@ -18,19 +18,19 @@
                 <div class="text_wrapper col-8">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
-                        <span asp-validation-for="Name" class="text-danger"></span>
                         <label asp-for="Name" class="text_label">@Loc["Collection Name"]</label>
-                        <input type="text" asp-for="Name" class="input_form" autocomplete="off">
+                        <input type="text" asp-for="Name" class="input_form" autocomplete="none">
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <span asp-validation-for="Description" class="text-danger"></span>
                         <label asp-for="Description" class="text_label">@Loc["Description"]</label>
-                        <textarea asp-for="Description" class="input_form" autocomplete="off"></textarea>
+                        <textarea asp-for="Description" class="input_form" autocomplete="none"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <span asp-validation-for="Type" class="text-danger"></span>
                         <label asp-for="Type" class="text_label">@Loc["Collection Type"]</label>
                         <select id="selector-type" class="form-select" asp-for="Type" asp-items="Html.GetEnumSelectList<CollectionType>()"></select>
+                        <span asp-validation-for="Type" class="text-danger"></span>
                     </div>
                     <input type="submit" value="@Loc["Update"]" id="btn-send" name="submit" class="btn-primary button_send">
                 </div>

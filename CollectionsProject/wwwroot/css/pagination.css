@@ -4,32 +4,30 @@
     justify-content: center;
     margin-top: 45px;
     padding: 15px;
-    background-color: white;
 }
 
 .Forward_Back_Pages {
     appearance: none;
     display: inline-block;
-    background-color: white;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 18px;
     height: 15px;
     font-weight: 700;
-    color: rgb(35,35,35);
+    color:inherit;
     text-decoration: none;
     margin-left: 15px;
     margin-right: 15px;
     border:none;
+    background-color:inherit;
 }
     .Forward_Back_Pages:hover {
-        color: rgb(146,16,38);
+        color: darkgoldenrod;
     }
 
 .page_numb {
     flex: none;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 18px;
-    color: rgb(35,35,35);
     font-weight: 300;
     margin-left: 10px;
     margin-right: 10px;
@@ -53,7 +51,7 @@
 }
 .pagination-wrapper input:hover + label {
     cursor: pointer;
-    color: rgb(146,16,38);
+    color: darkgoldenrod;
     font-weight: 400;
 }
 

@@ -62,7 +62,7 @@ btnTag.onclick = function () {
     i++;
 };
 function getHtmlFromStr(num) {
-    let htmlElemStr = "<input class=\"tag-input\" style=\"width: 100%\" type=\"text\" autocomplete=\"off\" data-val=\"true\" data-val-regex=\"Use only eng letter or numbers, length is up to 10\" data-val-regex-pattern=\"^#\\w{ 1, 10 }$\" data-val-required=\"Tag is required\" id=\"Tags_" + num + "__TagName\" name=\"Tags[" + num + "].TagName\" value=\"#\" >";
+    let htmlElemStr = "<input class=\"tag-input\" style=\"width: 100%\" type=\"text\" autocomplete=\"none\" data-val=\"true\" data-val-regex=\"Use only eng letter or numbers, length is up to 10\" data-val-regex-pattern=\"^#\\w{ 1, 10 }$\" data-val-required=\"Tag is required\" id=\"Tags_" + num + "__TagName\" name=\"Tags[" + num + "].TagName\" value=\"#\" >";
     return new DOMParser().parseFromString(htmlElemStr, 'text/html').getElementsByTagName('input')[0];
 }
 $('#btn-delete-tag').click(function () {

@@ -4,7 +4,7 @@
     ViewBag.JsPath = "js/addItemForm.min.js";
 }
 <div class="add_item_cont container">
-    <h1 class="item-header text-dark text-center">@Loc["Create new Item"]</h1>
+    <h1 class="item-header text-center">@Loc["Create new Item"]</h1>
     <form method="POST" asp-controller="Item" asp-action="Create">
         <input type="hidden" id="@Model.CollectionId" asp-for="CollectionId" />
         <div class="item_wrapper row">
@@ -19,11 +19,11 @@
                         <thead class="thead">
                             <tr><th>@Loc["Table_Name"]</th></tr>
                         </thead>
-                        <tbody id="table-body" class="info-table">
+                        <tbody id="table-body" class="bg-light info-table">
                             <ul id="dropdown" class="dropdown">
                             </ul>
                             <tr class="t-row">
-                                <td class="tag-container"><input class="tag-input" asp-for="Tags[0].TagName" style="width:100%" type="text" autocomplete="off" />                                   
+                                <td class="tag-container"><input class="tag-input" asp-for="Tags[0].TagName" style="width:100%" type="text" autocomplete="none" />                                   
                                 </td>
                             </tr>
                         </tbody>
@@ -33,9 +33,9 @@
             <div class="text_wrapper col-md-6 col-12">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <span asp-validation-for="Name" class="text-danger"></span>
                     <label asp-for="Name" class="text_label">@Loc["Name"]</label>
-                    <input type="text" asp-for="Name" class="input_form" autocomplete="off">
+                    <input type="text" asp-for="Name" class="input_form" autocomplete="none">
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     @{
@@ -61,17 +61,17 @@
                                                 break;
                                             }
                                         case CollectionFieldType.intField:
-                                            <input class="num-field input_form form-control" name="AddItems[@i].Value" type="number" min="@int.MinValue" max="@int.MaxValue" autocomplete="off">
+                                            <input class="num-field input_form" name="AddItems[@i].Value" type="number" min="@int.MinValue" max="@int.MaxValue" autocomplete="none" required>
                                             break;
 
                                         case CollectionFieldType.dateField:
-                                            <input class="date-field input_form form-control" name="AddItems[@i].Value" type="date" autocomplete="off" required>
+                                            <input class="date-field input_form" name="AddItems[@i].Value" type="date" autocomplete="none" required>
                                             break;
                                         case CollectionFieldType.multilineField:
-                                            <textarea asp-for="AddItems[i].Value" class="input_form form-control" maxlength="300" autocomplete="off" required></textarea>
+                                            <textarea asp-for="AddItems[i].Value" class="input_form" maxlength="300" autocomplete="none" required></textarea>
                                             break;
                                         default:
-                                            <input asp-for="AddItems[i].Value" type="text" maxlength="15" class="input_form form-control" autocomplete="off" required>
+                                            <input asp-for="AddItems[i].Value" type="text" maxlength="15" class="input_form" autocomplete="none" required>
                                             break;
                                     }
                                 }

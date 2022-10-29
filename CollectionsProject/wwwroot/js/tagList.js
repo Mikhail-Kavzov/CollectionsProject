@@ -8,7 +8,10 @@ function loadTag(url, element) {
         page++;
         $.post(url,{ TagName: tag, Page: page }, function (data) {
             if (data !== '') {
-                $(element).append(data);
+                {
+                    $(element).append(data);
+                    setup();
+                }
             } else {
                 pageFlag = true;
             }

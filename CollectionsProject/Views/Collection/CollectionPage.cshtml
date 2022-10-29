@@ -12,12 +12,12 @@
                     <div class="collection-info col-12  col-md-8">
                         <div class="collection-text-info">
                             <div class="collection-name">
-                                <span class="text-dark">@Loc["Name"]</span>
+                                <span>@Loc["Name"]</span>
                                 <span class="text-name text-warning">@collection.Name</span>
                                 <a class="d-block" asp-controller="Collection" asp-action="CollectionItems" asp-route-id="@collection.CollectionId">@Loc["View"]</a>
                             </div>
                             <div class="collection-author">
-                                <span class="text-dark">@Loc["Author"]</span>
+                                <span>@Loc["Author"]</span>
                                 <span class="text-warning">@collection.User.UserName</span>
                             </div>
                             <p class="collection-theme text-success">@collection.Type</p>

@@ -1,4 +1,5 @@
-﻿function deleteItem(url, element, id) {
+﻿
+function deleteItem(url, element, id) {
     $.ajax({
         type: 'DELETE',
         url: url,
@@ -29,3 +30,4 @@ $(document).click(function (e) {
     if (!isTargetSearch)
         RemoveSearchList();
 })
+

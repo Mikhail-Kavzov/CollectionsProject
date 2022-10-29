@@ -1,8 +1,4 @@
-﻿@{
-    bool isAuthenticated = User.Identity.IsAuthenticated;
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,7 +9,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/@ViewBag.CssPath" asp-append-version="true" />
 </head>
-<body>
+<body class="light-body">
     <div class="wrapper">
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -23,11 +19,20 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Home" asp-action="Index">@Loc["Home"]</a>
                             </li>
-                            @if (isAuthenticated)
+                            @if (User.Identity!.IsAuthenticated)
                             {
                                 @await RenderSectionAsync("Create", required: false)
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Collection" asp-action="Index">@Loc["Personal Page"]</a>
+                                </li>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Admin" asp-action="UserManager">@Loc["User Panel"]</a>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Account" asp-action="Logout">@Loc["Log Out"]</a>
                                 </li>
                             }
                             else
@@ -50,26 +55,16 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-success btn-app" id="search-btn"><i class="fa fa-search" aria-hidden="true"hi></i></button>
+                                <button type="submit" class="btn btn-success btn-app" id="search-btn"><i class="fa fa-search" aria-hidden="true" hi></i></button>
                             </form>
                         </div>
+                        <div class="change-mode">
+                            <label class="switch">
+                                <input type="checkbox" class="form-check" id="theme-switcher" />
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
                         <div class="link-language">
-                            <ul class="navbar-nav">
-                                @{
-                                    if (isAuthenticated)
-                                    {
-                                        @if (User.IsInRole("Admin"))
-                                        {
-                                            <li class="nav-item">
-                                                <a class="nav-link" asp-controller="Admin" asp-action="UserManager">@Loc["User Panel"]</a>
-                                            </li>
-                                        }
-                                        <li class="nav-item">
-                                            <a class="nav-link" asp-controller="Account" asp-action="Logout">@Loc["Log Out"]</a>
-                                        </li>
-                                    }
-                                }
-                            </ul>
                             @await Html.PartialAsync("_SelectLanguagePartial")
                         </div>
                     </div>
@@ -92,7 +87,8 @@
     <script src="~/lib/jquery/unobstrusive.js"></script>
     <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/@ViewBag.JsPath" asp-append-version="true"></script>
+    <script src="~/lib/DarkMode/DarkMode.js" asp-append-version="true"></script>
+    <script src="~/@ViewBag.JsPath" asp-append-version="true"></script>   
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

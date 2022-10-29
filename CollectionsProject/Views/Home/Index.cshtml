@@ -3,30 +3,40 @@
     ViewData["Title"] = "Home Page";
     ViewBag.CssPath = "css/home.min.css";
     ViewBag.JsPath = "js/home.min.js";
+    int timeNow = DateTime.UtcNow.Millisecond;
+    Random rand = new Random(timeNow);
 }
-
-<div class="home-container container">
-    <div class="row">
-        <h1 class="text-left" style="margin-bottom:5px">@Loc["Header_Item"]</h1>
-        <table style="margin-top:0" class="col-8 table-collection-list table table-hover table-bordered text-center">
-            <thead class="bg-info">
-                <tr>
-                    <th>@Loc["Item_Name"]</th>
-                    <th>@Loc["Collection_Name"]</th>
-                    <th>@Loc["Author"]</th>
-                    <th>@Loc["Action"]</th>
-                </tr>
-            </thead>
-            <tbody class="bg-light" id="tableBody">
-                @await Html.PartialAsync("~/Views/Item/ItemShortDescription.cshtml",Model.Items)
-            </tbody>
-        </table>
-    </div>
-    <div id="collection-list" class="container-fluid">
-        <h1 class="text-left" style="margin-bottom:5px">@Loc["Header_Collection"]</h1>
-        @await Html.PartialAsync("~/Views/Collection/CollectionPage.cshtml",Model.Collections)
-    </div>
-    @{
+@section Scripts{
+    <script src="~/lib/TagCloud/TagCloud.js"></script>
+    <script>
+        $("#tagcloud a").tagcloud({
+            size: { start: 24, end: 36, unit: "px" },
+            color: { start: '#3498DB', end: '#46CFB0' }
+        });
+    </script>
+}
+    <div class="home-container container">
+        <div class="row">
+            <h1 class="text-left" style="margin-bottom:5px">@Loc["Header_Item"]</h1>
+            <table style="margin-top:0" class="col-8 table-collection-list table table-hover table-bordered text-center">
+                <thead class="bg-info">
+                    <tr>
+                        <th>@Loc["Item_Name"]</th>
+                        <th>@Loc["Collection_Name"]</th>
+                        <th>@Loc["Author"]</th>
+                        <th>@Loc["Action"]</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-light" id="tableBody">
+                    @await Html.PartialAsync("~/Views/Item/ItemShortDescription.cshtml",Model.Items)
+                </tbody>
+            </table>
+        </div>
+        <div id="collection-list" class="container-fluid">
+            <h1 class="text-left" style="margin-bottom:5px">@Loc["Header_Collection"]</h1>
+            @await Html.PartialAsync("~/Views/Collection/CollectionPage.cshtml",Model.Collections)
+        </div>
+        @{
         if (Model.Tags != null)
         {
             <h1 style="margin-top:20px" class="text-left">@Loc["Header_Tags"]</h1>
@@ -34,7 +44,7 @@
                 @{
                     foreach (var tag in Model.Tags)
                     {
-                        <a asp-controller="Tag" asp-action="ItemList" class="tag_links" asp-route-id="@tag">@tag</a>
+                        <a asp-controller="Tag" asp-action="ItemList" asp-route-id="@tag" rel="@rand.Next(timeNow)">@tag</a>
                     }
                 }
             </div>

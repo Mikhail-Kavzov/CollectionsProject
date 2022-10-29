@@ -1,7 +1,6 @@
 .message-wrapper {
     overflow-x: hidden;
     overflow-y: scroll;
-    background-color:white;
     padding: 0 10px;
 }
 
@@ -24,7 +23,6 @@
 
 .message-time{
     font-size:16px;
-    color:gray;
 }
 
 .message-body {
@@ -38,7 +36,6 @@
     border-radius: 10px;
 }
 .comment-wrapper{
-    background-color: white;
     max-height: 50vh;
     height: 50vh;
     overflow-y: scroll;
@@ -79,5 +76,5 @@
 }
 .liked{
     font-size: 20px;
-    color: red;
+    color: goldenrod;
 }
