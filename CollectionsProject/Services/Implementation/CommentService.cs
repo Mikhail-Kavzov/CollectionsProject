@@ -18,7 +18,7 @@ namespace CollectionsProject.Services.Implementation
             _commentRepository = commentRepository;
         }
 
-        private static Comment CreateComment(CommentViewModel model)
+        private static Comment CreateCommentData(CommentViewModel model)
         {
             Comment comment = new()
             {
@@ -30,13 +30,12 @@ namespace CollectionsProject.Services.Implementation
             return comment;
         }
 
-        public async Task CreateComment(User user, CommentViewModel model)
+        public async Task<Comment> CreateComment(CommentViewModel model)
         {
-            model.UserName = user.UserName;
-            var comment = CreateComment(model);
+            var comment = CreateCommentData(model);
             _commentRepository.Create(comment);
-            _commentRepository.AddUserComment(user, comment);
             await _commentRepository.SaveChangesAsync();
+            return comment;
         }
 
         public async Task<IEnumerable<Comment>> GetNewComments(string itemId, string Time)
@@ -63,7 +62,7 @@ namespace CollectionsProject.Services.Implementation
             return userComment;
         }
 
-        public async Task UpdateUserLike(string userId, Guid commentId, bool oldLikeState)
+        public async Task<int> UpdateUserLike(string userId, Guid commentId, bool oldLikeState)
         {
             var userComment = await _commentRepository.TryGetUserComment(userId, commentId);
             if (userComment == null) // if there's no relations between user and comment - create new UserComment
@@ -78,6 +77,7 @@ namespace CollectionsProject.Services.Implementation
                 _commentRepository.UpdateUserComment(userComment);
             }
             await _commentRepository.SaveChangesAsync();
+            return await _commentRepository.CommentLikeCountAsync(commentId);
         }
     }
 }
