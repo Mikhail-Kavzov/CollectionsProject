@@ -22,5 +22,12 @@ namespace CollectionsProject.Repositories.Interfaces
         /// <param name="itemsToTake"></param>
         /// <returns></returns>
         Task<IEnumerable<Item>> GetTagItems(string tagName, int itemsToSkip, int itemsToTake);
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tagName"></param>
+        /// <returns>Number of tags in items</returns>
+        Task<int>CountTagInItemsAsync(string tagName);
     }
 }

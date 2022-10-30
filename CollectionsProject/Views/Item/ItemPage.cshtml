@@ -4,17 +4,21 @@
     ViewBag.JsPath = "js/itemCommentPage.min.js";
     ViewBag.CssPath = "css/itemCommentPage.min.css";
 }
-<div class="container">
-    <div id="@Model.ItemId-page" class="container">
-        <div class="row overflow-table">
-            <input type="hidden" id="ItemIdentificator" value="@Model.ItemId">
-            <table class="col-8 table-scroll table-collection-list table table-hover table-bordered text-center">
-                <thead class="bg-info">
-                    <tr>
-                        <th>@Loc["Name"]</th>
-                        <th>@Loc["Creation Date"]</th>
-                        <th>@Loc["Tags"]</th>
-                        @{
+@section ScriptsUpper{
+    <script src="~/lib/SignalR/SignalR.min.js"></script>
+}
+    <div class="container">
+        <div id="@Model.ItemId-page" class="container">
+            <div class="row overflow-table">
+                <input type="hidden" id="ItemIdentificator" value="@Model.ItemId">
+                <input type="hidden" id="Uid" value="@ViewBag.CurrentUserName">
+                <table class="col-8 table-scroll table-collection-list table table-hover table-bordered text-center">
+                    <thead class="bg-info">
+                        <tr>
+                            <th>@Loc["Name"]</th>
+                            <th>@Loc["Creation Date"]</th>
+                            <th>@Loc["Tags"]</th>
+                            @{
                             foreach (var field in Model.AddItems)
                             {
                                 <th>@field.AddCollectionFields.Name</th>
@@ -37,8 +41,14 @@
             if (User.Identity.IsAuthenticated)
             {
                 <div class="row">
-                    <div class="comment-form col-12">                       
-                        @await Html.PartialAsync("../Comment/CommentForm",new CommentViewModel())                       
+                    <div class="comment-form col-12">
+                        <div class="form-group form-elements">
+                            <label class="control-label labels-account" for="text-comment">@Loc["Comment"]</label>
+                            <textarea name="Text" id="text-comment" class="form-control" maxlength="300" required></textarea>
+                        </div>
+                        <div class="btn-group-justified form-elements">
+                            <input type="submit" class="btn btn-primary btn-app" id="submit-btn" value="@Loc["Send"]" />
+                        </div>
                     </div>
                 </div>
             }

@@ -1,3 +1,4 @@
+using CollectionsProject;
 using CollectionsProject.Context;
 using CollectionsProject.Models.UserModels;
 using CollectionsProject.Repositories.Implementation;
@@ -6,7 +7,8 @@ using CollectionsProject.Services.Implementation;
 using CollectionsProject.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 internal class Program
 {
@@ -25,8 +27,9 @@ internal class Program
             .AddDataAnnotationsLocalization();
 
         // 3. 
-        builder.Services.Configure<RequestLocalizationOptions>(options => {
-            var supportedCultures = new[] { "en", "pl"};
+        builder.Services.Configure<RequestLocalizationOptions>(options =>
+        {
+            var supportedCultures = new[] { "en", "pl" };
             options.SetDefaultCulture(supportedCultures[0])
                 .AddSupportedCultures(supportedCultures)
                 .AddSupportedUICultures(supportedCultures);
@@ -60,6 +63,7 @@ internal class Program
         builder.Services.AddScoped<ICommentService, CommentService>();
         builder.Services.AddScoped<IFullTextSearch, MySQLFullTextSearch>();
 
+        builder.Services.AddSignalR();
         var app = builder.Build();
 
         using (var scope = app.Services.CreateScope())
@@ -85,6 +89,7 @@ internal class Program
             app.UseHsts();
         }
 
+        app.UseStatusCodePagesWithReExecute("/Error/PageNotFound");
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
@@ -93,7 +98,7 @@ internal class Program
         app.UseAuthentication();
 
         app.UseAuthorization();
-        var supportedCultures = new[] { "en", "pl"};
+        var supportedCultures = new[] { "en", "pl" };
         // 5. 
         // Culture from the HttpRequest
         var localizationOptions = new RequestLocalizationOptions()
@@ -102,11 +107,10 @@ internal class Program
             .AddSupportedUICultures(supportedCultures);
 
         app.UseRequestLocalization(localizationOptions);
-
+        app.MapHub<CommentHub>("/CommentsHub");
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
-
         app.Run();
     }
 }

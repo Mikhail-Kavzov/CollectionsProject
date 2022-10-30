@@ -12,6 +12,11 @@ namespace CollectionsProject.Repositories.Implementation
         {
         }
 
+        public async Task<int> CountTagInItemsAsync(string tagName)
+        {
+            return await db.Tags.Where(t => t.TagName == tagName && t.Items.Count > 0).CountAsync();
+        }
+
         public async Task<IEnumerable<Item>> GetTagItems(string tagName, int itemsToSkip, int itemsToTake)
         {
             return await db.Items.Include(i => i.Collection).ThenInclude(c => c.User)

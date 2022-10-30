@@ -65,5 +65,10 @@ namespace CollectionsProject.Repositories.Implementation
         {
             db.UserComments.Update(userComment);
         }
+
+        public async Task<int> CommentLikeCountAsync(Guid commentId)
+        {
+            return await db.UserComments.Where(uc=>uc.CommentId==commentId && uc.IsLiked==true).CountAsync();
+        }
     }
 }

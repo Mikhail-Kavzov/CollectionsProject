@@ -99,7 +99,7 @@
                             </div>
                         </div>
                         <div class="search-form">
-                            <form method="GET" data-ajax-method="GET" data-ajax="true" asp-controller="Search" asp-action="Search" data-ajax-success="OnSearchSuccess">
+                            <form method="POST" data-ajax-method="POST" data-ajax="true" asp-controller="Search" asp-action="Search" data-ajax-success="OnSearchSuccess">
                                 <div class="form-group form-elements input-form-el">
                                     <label for="search-input">@Loc["Search"]:</label>
                                     <div id="search-group">
@@ -133,6 +133,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib//site-unobstrusive-dark.min.js" asp-append-version="true"></script>
     <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+    @await RenderSectionAsync("ScriptsUpper", required: false)
     <script src="~/@ViewBag.JsPath" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

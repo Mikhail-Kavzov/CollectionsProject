@@ -11,5 +11,6 @@ namespace CollectionsProject.Repositories.Interfaces
         Task<UserComment?> TryGetUserComment(string userId, Guid commentId);
         void AddUserComment(UserComment userComment);
         void UpdateUserComment(UserComment userComment);
+        Task<int>CommentLikeCountAsync(Guid commentId);
     }
 }

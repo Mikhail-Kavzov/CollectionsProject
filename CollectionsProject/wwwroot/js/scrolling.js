@@ -10,23 +10,24 @@ function defineTheme() {
     }
     else {
         colIt.css('border-color', 'black');
-        colIt.removeClass('bg-dark').addClass('bg-light');        
+        colIt.removeClass('bg-dark').addClass('bg-light');
     }
 }
-function loadItems(url,element) {
+function loadItems(url, element) {
     if (!pageFlag && !_inCallback) {
         _inCallback = true;
         page++;
         $.ajax({
-            type: 'GET',
-            url: url + page,
+            type: 'POST',
+            url: url,
+            data: { id: page },
             success: function (data, textstatus) {
                 if (data != '') {
                     $(element).append(data);
                     defineTheme();
                 }
                 else {
-                    pageFlag=true;
+                    pageFlag = true;
                 }
                 _inCallback = false;
             }

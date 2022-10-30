@@ -1,27 +1,11 @@
 let dateTimeSend = new Date();
 let dateTimeLoad = dateTimeSend.toJSON();
 let itemIden = $('#ItemIdentificator').val();
-const timeInterval = 5000;
-let inCallBack = false;
 let page = -1;
 let isEnd = false;
 let callBackPrev = false;
+let userName = $('#Uid').val();
 const liked = "liked";
-function getComments(time, url) {
-    if (inCallBack)
-        return;
-    inCallBack = true;
-    $.post(url, { itemId: itemIden, Time: time.toJSON() }, function (data) {
-        dateTimeSend = new Date();
-        if (data !== '') {
-            $('#comment-wrapper').append(data);
-        }
-        inCallBack = false;
-    });
-}
-function OnCommentSuccess() {
-    getComments(dateTimeSend, '/Comment/CommentPage/');
-}
 function PrevPage(url, timeJSON) {
     if (isEnd || callBackPrev)
         return;
@@ -37,29 +21,52 @@ function PrevPage(url, timeJSON) {
     });
 }
 PrevPage('/Comment/PreviousPage/', dateTimeLoad);
-setInterval(OnCommentSuccess, timeInterval);
-$('#ItemId').val(itemIden);
 $('#comment-wrapper').scroll(function () {
     if ($('#comment-wrapper').scrollTop() < 10) {
         PrevPage('/Comment/PreviousPage/', dateTimeLoad);
     }
 });
+    let connection = new signalR.HubConnectionBuilder().withUrl("/CommentsHub").build();
 
+    connection.start().then(function () {
+        connection.invoke("SubscribeComment", itemIden);
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    connection.on("GetNewComment", function (comment) {
+        $.post('/Comment/GetComment/', { comment: comment }, function (data) {
+            if (data !== '') {
+                $('#comment-wrapper').append(data);
+            }
+        })
+    });
 function updateLike(e) {
+    if (userName === "")
+        return;
     let oldval = false;
     let target = $(e.target);
     let counterLike = target.prev();
-    let oldCounterVal = Number(counterLike.text());
     let commentId = target.closest('.message').attr('id');
     if (target.hasClass(liked)) {
         oldval = true;
-        --oldCounterVal
     }
-    else {
-        ++oldCounterVal
-    }
-    counterLike.text(oldCounterVal);
     target.toggleClass(liked);
-    $.post('/Comment/UpdateLike/', { commentId: commentId, oldLikeState: oldval }, function (data) { });
+    $.post('/Comment/UpdateLike/', { commentId: commentId, oldLikeState: oldval }, function (data) {
+        if (data !== '')
+            counterLike.text(data);
+    });
+}
+if (userName !== "") {
+    $('#submit-btn').click(function () {
+        let comment = {
+            ItemId: itemIden,
+            Text: $('#text-comment').val(),
+            UserName: userName,
+        };
+        connection.invoke("CreateComment", comment).catch(function (err) {
+            return console.error(err.toString());
+        });
+    });
 }
 

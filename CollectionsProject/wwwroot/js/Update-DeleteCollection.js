@@ -23,8 +23,9 @@ function updateCollection(e) {
     let formUpdate = $('#update_col_cont');
     formUpdate.show();
     let item = $(e.target).closest('.collection-item');
-    updateItem = item;
-    $('#Id').val(item.attr('id'));
+    let idCollection = item.attr('id');
+    updateItem = idCollection;
+    $('#Id').val(idCollection);
     let oldNameVal = item.find('.text-name').first().text();
     let descHtml = item.find('.collection-description').first().html();
     let murkdown = turndownService.turndown(descHtml);
@@ -47,7 +48,20 @@ $(document).on('click', function (e) {
         hideForm();
 });
 $('#update-hide').click(hideForm);
+function defineCollectionTheme(item){
+    let theme = localStorage.getItem('lightSwitch');
+    if (theme === 'dark') {
+        $(item).css('border-color', 'white');
+        $(item).removeClass('bg-light').addClass('bg-dark');
+    }
+    else {
+        $(item).css('border-color', 'black');
+        $(item).removeClass('bg-dark').addClass('bg-light');
+    }
+}
 function SuccessUpdate(data) {
     hideForm();
-    updateItem.replaceWith(data);
+    let colItem = '#'+updateItem;
+    $(colItem).replaceWith(data);
+    defineCollectionTheme(colItem);
 }
