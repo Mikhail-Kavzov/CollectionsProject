@@ -1,4 +1,5 @@
-﻿using CollectionsProject.Models.UserModels;
+﻿using CollectionsProject.Models.ItemModels;
+using CollectionsProject.Models.UserModels;
 using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -20,25 +21,6 @@ namespace CollectionsProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CommentViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var currentUser = await _userManager.GetUserAsync(User);
-                await _commentService.CreateComment(currentUser, model);
-            }
-            return Ok();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> CommentPage(string itemId, string Time)
-        {
-            var comments = await _commentService.GetNewComments(itemId, Time);
-            return PartialView(comments);
-        }
-
-        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> PreviousPage(string itemId, string Time, int Page = 0)
         {
@@ -50,8 +32,12 @@ namespace CollectionsProject.Controllers
         public async Task<IActionResult> UpdateLike(string commentId, bool oldLikeState)
         {
             var currentUser = await _userManager.GetUserAsync(User);
-            await _commentService.UpdateUserLike(currentUser.Id, Guid.Parse(commentId), oldLikeState);
-            return Ok();
+            var countLikes = await _commentService.UpdateUserLike(currentUser.Id, Guid.Parse(commentId), oldLikeState);
+            return Json(countLikes);
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult GetComment(Comment comment) => PartialView("CommentPage", new List<Comment>() { comment });
     }
 }

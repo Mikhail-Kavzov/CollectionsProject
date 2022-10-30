@@ -1,7 +1,9 @@
-﻿using CollectionsProject.Repositories.Interfaces;
+﻿using CollectionsProject.Models.UserModels;
+using CollectionsProject.Repositories.Interfaces;
 using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollectionsProject.Controllers
@@ -38,17 +40,20 @@ namespace CollectionsProject.Controllers
             if (ModelState.IsValid)
             {
                 var collection = await _collectionRepository.GetItemIncludeFieldsAsync(model.CollectionId);
-                await _itemService.CreateNewItem(model,collection);
+                if (collection == null)
+                    return NotFound();
+                await _itemService.CreateNewItem(model, collection);
             }
             return View(model);
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> ItemsPagination(string collectionId, int id = 0,string sortRule="Name",string searchString="")
+        public async Task<IActionResult> ItemsPagination(string collectionId, int id = 0, string sortRule = "Name", string searchString = "")
         {
             var items = await _itemRepository.Filter(id * itemCount, itemCount, collectionId, searchString);
-            items=_itemService.SortItems(items,sortRule);
+            if (items!=null)
+            items = _itemService.SortItems(items, sortRule);
             return PartialView(items);
         }
 
@@ -70,16 +75,19 @@ namespace CollectionsProject.Controllers
             var item = await _itemService.GetAllItemFieldsAsync(id);
             if (item == null)
                 return NotFound();
+            ViewBag.CurrentUserName = "";
+            if (User.Identity!.IsAuthenticated)
+                ViewBag.CurrentUserName = User.Identity.Name;
             return View(item);
-        }    
+        }
 
         [HttpGet]
         public async Task<IActionResult> Update(string id)
         {
-            var item = await _itemService.GetAllItemFieldsAsync(id);           
+            var item = await _itemService.GetAllItemFieldsAsync(id);
             if (item == null)
                 return NotFound();
-            var itemViewModel=_itemService.CreateItemViewModel(item);
+            var itemViewModel = _itemService.CreateItemViewModel(item);
             return View(itemViewModel);
         }
 
@@ -88,9 +96,11 @@ namespace CollectionsProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var item=await _itemService.GetAllItemFieldsAsync(model.ItemId);
+                var item = await _itemService.GetAllItemFieldsAsync(model.ItemId);
+                if (item == null)
+                    return NotFound();
                 await _itemService.UpdateItem(model, item);
-                return RedirectToAction("CollectionItems","Collection", new { id = model.CollectionId });
+                return RedirectToAction("CollectionItems", "Collection", new { id = model.CollectionId });
             }
             return View(model);
         }

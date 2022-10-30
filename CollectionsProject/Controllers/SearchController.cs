@@ -14,11 +14,12 @@ namespace CollectionsProject.Controllers
             _fullTextSearch = fullTextSearch;
         }
 
-        [HttpGet]
+        //full text search action
+        [HttpPost]
         public async Task<IActionResult> Search(string searchString)
         {
-            if (string.IsNullOrEmpty(searchString))
-                return Ok();
+            if (string.IsNullOrEmpty(searchString) || searchString.Length<3)
+                return BadRequest();
             string requireWord = '+' + searchString;
             ViewBag.Items = await _fullTextSearch.SearchInItems(requireWord);
             ViewBag.Collections = await _fullTextSearch.SearchInCollections(requireWord);

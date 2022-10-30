@@ -18,9 +18,19 @@ namespace CollectionsProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register() => View();
+        public IActionResult Register()
+        {
+            if (User.Identity!.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+            return View();
+        }
 
-        public IActionResult Login() => View();
+        public IActionResult Login()
+        {
+            if (User.Identity!.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

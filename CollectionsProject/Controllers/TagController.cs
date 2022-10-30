@@ -1,8 +1,10 @@
 ﻿using CollectionsProject.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollectionsProject.Controllers
 {
+
     public class TagController : Controller
     {
         private readonly ITagRepository _tagRepository;
@@ -13,6 +15,7 @@ namespace CollectionsProject.Controllers
             _tagRepository = tagRepository;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> GetAllTags()
         {
@@ -28,6 +31,12 @@ namespace CollectionsProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult ItemList(string id) => View("ItemList", id);
+        public async Task<IActionResult> ItemList(string id)
+        {
+            var count = await _tagRepository.CountTagInItemsAsync(id);
+            if (count == 0)
+                return NotFound();
+            return View("ItemList", id);
+        }
     }
 }

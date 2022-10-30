@@ -42,20 +42,12 @@ namespace CollectionsProject.Controllers
         [HttpGet]
         public IActionResult AddNewField(int i = 0) => PartialView("AddNewField", i);
 
-        private async Task<User> CheckCurrentUser(string name)
-        {
-            var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser == null)
-                throw new ArgumentNullException($"No user with name {name}");
-            return currentUser;
-        }
-
         [HttpPost]
         public async Task<IActionResult> Create(CollectionViewModel model, IFormFile? formFile = null)
         {
             if (ModelState.IsValid)
             {
-                var currentUser = await CheckCurrentUser(model.Name);
+                var currentUser = await _userManager.GetUserAsync(User);
                 model.Image = noPhoto;
                 if (formFile != null)
                     model.Image = await _fileService.CreateFileAsync(formFile);
@@ -90,6 +82,8 @@ namespace CollectionsProject.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var collection = await _collectionRepository.GetItemAsync(id);
+            if (collection == null)
+                return NotFound();
             _collectionRepository.Delete(collection);
             if (collection.Image != noPhoto)
                 _fileService.DeleteFile(collection.Image);
@@ -106,7 +100,8 @@ namespace CollectionsProject.Controllers
             if (ModelState.IsValid)
             {
                 var collection = await _collectionRepository.GetItemAsync(model.Id);
-
+                if (collection == null)
+                    return NotFound();
                 collection.Description = model.Description;
                 collection.Name = model.Name;
                 collection.Type = model.Type;
@@ -121,7 +116,7 @@ namespace CollectionsProject.Controllers
         }
 
         //Personal Page controller of current user
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> PersonalPage(int id = 0)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -151,7 +146,7 @@ namespace CollectionsProject.Controllers
         }
 
         //Page of collections ordered by Id
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> CollectionPage(int id = 0)
         {
