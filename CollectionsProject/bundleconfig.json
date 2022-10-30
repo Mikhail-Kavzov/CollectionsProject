@@ -144,5 +144,11 @@
     "inputFiles": [
       "wwwroot/css/site.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/Markdown/turndown.min.js",
+    "inputFiles": [
+      "wwwroot/lib/Markdown/turndown.js"
+    ]
   }
 ]
