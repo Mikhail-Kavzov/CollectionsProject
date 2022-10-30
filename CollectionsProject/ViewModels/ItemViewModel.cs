@@ -9,7 +9,7 @@ namespace CollectionsProject.ViewModels
         public string ItemId { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Name is required")]
-        [StringLength(15, ErrorMessage = "Length should be less than 15 symbols", MinimumLength = 1)]
+        [StringLength(15, ErrorMessage = "Length should be less than 15", MinimumLength = 1)]
         public string Name { get; set; } = "";
 
         [Required]

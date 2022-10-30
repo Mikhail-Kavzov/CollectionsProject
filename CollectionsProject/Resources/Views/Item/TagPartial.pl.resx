@@ -117,25 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Comment" xml:space="preserve">
-    <value>Write a comment:</value>
+  <data name="Tag is required" xml:space="preserve">
+    <value>Tag jest wymagany</value>
   </data>
-  <data name="Creation Date" xml:space="preserve">
-    <value>Creation Date</value>
-  </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="Non Authorized" xml:space="preserve">
-    <value>To write a comment -</value>
-  </data>
-  <data name="Send" xml:space="preserve">
-    <value>Send</value>
-  </data>
-  <data name="Tags" xml:space="preserve">
-    <value>Tags</value>
+  <data name="Use only eng letter or numbers, length is up to 10" xml:space="preserve">
+    <value>Używaj tylko liter lub cyfr w języku angielskim, długość do 10</value>
   </data>
 </root>

@@ -112,7 +112,7 @@ namespace CollectionsProject.Controllers
                 await _collectionRepository.SaveChangesAsync();
                 return PartialView("CollectionPage", new List<Collection>() { collection });
             }
-            return Ok();
+            return BadRequest();
         }
 
         //Personal Page controller of current user

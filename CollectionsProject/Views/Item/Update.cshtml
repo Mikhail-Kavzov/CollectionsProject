@@ -24,18 +24,17 @@
                         <tbody id="table-body" class="bg-light info-table">
                             <ul id="dropdown" class="dropdown">
                             </ul>
-
                             @{
                                 for (int i = 0; i < Model.Tags.Count; i++)
                                 {
                                     <tr class="t-row">
                                         <td class="tag-container">
+                                            <span class="text-danger" asp-validation-for="Tags[i].TagName"></span>
                                             <input class="tag-input" asp-for="Tags[i].TagName" value="@Model.Tags[i].TagName" style="width:100%" type="text" autocomplete="none" />
                                         </td>
                                     </tr>
                                 }
                             }
-
                         </tbody>
                     </table>
                 </div>

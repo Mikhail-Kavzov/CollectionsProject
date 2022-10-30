@@ -23,7 +23,9 @@
                             <ul id="dropdown" class="dropdown">
                             </ul>
                             <tr class="t-row">
-                                <td class="tag-container"><input class="tag-input" asp-for="Tags[0].TagName" style="width:100%" type="text" autocomplete="none" />                                   
+                                <td class="tag-container">
+                                    <span class="text-danger" asp-validation-for="Tags[0].TagName"></span>
+                                    <input class="tag-input" asp-for="Tags[0].TagName" style="width:100%" type="text" autocomplete="none" />
                                 </td>
                             </tr>
                         </tbody>

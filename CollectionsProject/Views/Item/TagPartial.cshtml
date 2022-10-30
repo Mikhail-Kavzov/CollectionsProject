@@ -1,0 +1,9 @@
+﻿@model int
+<tr class="t-row">
+    <td class="tag-container">
+        <span class="text-danger field-validation-valid" data-valmsg-for="Tags[@Model].TagName" data-valmsg-replace="true"></span>
+        <input class="tag-input" style="width:100%" type="text" autocomplete="none" data-val="true" data-val-regex="@Loc["Use only eng letter or numbers, length is up to 10"]" data-val-regex-pattern="^#\w{1,10}$" data-val-required="@Loc["Tag is required"]" id="Tags_@{
+                @Model
+}__TagName" name="Tags[@Model].TagName" value="#">
+    </td>
+</tr>

@@ -19,12 +19,12 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Name" class="text_label">@Loc["Collection Name"]</label>
-                        <input type="text" asp-for="Name" class="input_form" autocomplete="none">
+                        <input type="text" asp-for="Name" class="input_form" autocomplete="none" maxlength="30" required>
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Description" class="text_label">@Loc["Description"]</label>
-                        <textarea asp-for="Description" class="input_form" autocomplete="none"></textarea>
+                        <textarea asp-for="Description" class="input_form" autocomplete="none" maxlength="300" required></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                     <div class="form-group">

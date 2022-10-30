@@ -117,25 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Comment" xml:space="preserve">
-    <value>Write a comment:</value>
+  <data name="Enter your Email" xml:space="preserve">
+    <value>Wprowadź swój email</value>
   </data>
-  <data name="Creation Date" xml:space="preserve">
-    <value>Creation Date</value>
+  <data name="Enter your name" xml:space="preserve">
+    <value>Wpisz swoje imię</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
+  <data name="Enter your password" xml:space="preserve">
+    <value>Wprowadź hasło</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="Non Authorized" xml:space="preserve">
-    <value>To write a comment -</value>
-  </data>
-  <data name="Send" xml:space="preserve">
-    <value>Send</value>
-  </data>
-  <data name="Tags" xml:space="preserve">
-    <value>Tags</value>
+  <data name="Passwords are not equal" xml:space="preserve">
+    <value>Hasła nie są równe</value>
   </data>
 </root>

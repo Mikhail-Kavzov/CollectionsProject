@@ -52,8 +52,8 @@ namespace CollectionsProject.Controllers
         public async Task<IActionResult> ItemsPagination(string collectionId, int id = 0, string sortRule = "Name", string searchString = "")
         {
             var items = await _itemRepository.Filter(id * itemCount, itemCount, collectionId, searchString);
-            if (items!=null)
-            items = _itemService.SortItems(items, sortRule);
+            if (items != null)
+                items = _itemService.SortItems(items, sortRule);
             return PartialView(items);
         }
 
@@ -104,5 +104,8 @@ namespace CollectionsProject.Controllers
             }
             return View(model);
         }
+
+        [HttpPost]
+        public IActionResult AddTagToItem(int i = 0) => PartialView("TagPartial", i);
     }
 }

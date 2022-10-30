@@ -3,7 +3,7 @@ const turndownService = new TurndownService();
 const mapEnum = new Map([
     ['Book', 0],
     ['Sign', 1],
-    ['Silverware',2],
+    ['Whiskey',2],
 ]
 );
 function deleteCollectionAjax(url, id) {

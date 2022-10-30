@@ -427,4 +427,12 @@ input:checked + .slider:before {
 .overflow-table::-webkit-scrollbar{
     height: 7px;
 }
+.login-comment-link{
+    text-decoration:underline;
+    color: darkgoldenrod;
+}
+.login-comment-link:hover {
+    color: lightskyblue !important;
+}
+
 

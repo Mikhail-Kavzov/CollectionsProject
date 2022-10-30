@@ -8,7 +8,7 @@ namespace CollectionsProject.Models.CollectionModels
         Book,
         [Display(Name = "Sign")]
         Sign,
-        [Display(Name = "Silverware")]
-        Silverware,
+        [Display(Name = "Whiskey")]
+        Whiskey,
     }
 }

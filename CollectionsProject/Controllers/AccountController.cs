@@ -3,6 +3,7 @@ using CollectionsProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace CollectionsProject.Controllers
 {
@@ -10,11 +11,13 @@ namespace CollectionsProject.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IStringLocalizer<AccountController> _Loc;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IStringLocalizer<AccountController> loc)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _Loc = loc;
         }
 
         [HttpGet]
@@ -41,18 +44,18 @@ namespace CollectionsProject.Controllers
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
-                    ModelState.AddModelError("Email", $"User with {model.Email} not found");
+                    ModelState.AddModelError("Email", $"{_Loc["User with"]} {model.Email} {_Loc["not found"]}");
                     return View(model);
                 }
                 if (user.Status == Status.Blocked)
                 {
-                    ModelState.AddModelError(string.Empty, $"{user.UserName} has been blocked");
+                    ModelState.AddModelError(string.Empty, $"{user.UserName} {_Loc["has been blocked"]}");
                     return View(model);
                 }
                 var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                     return RedirectToAction("Index", "Home");
-                ModelState.AddModelError("Password", "Incorrect Password");
+                ModelState.AddModelError("Password", _Loc["Incorrect Password"]);
             }
             return View(model);
         }

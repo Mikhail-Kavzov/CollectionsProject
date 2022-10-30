@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Comment" xml:space="preserve">
-    <value>Napisz komentarz:</value>
+  <data name="has been blocked" xml:space="preserve">
+    <value>został zablokowany</value>
   </data>
-  <data name="Send" xml:space="preserve">
-    <value>Wysłać</value>
+  <data name="Incorrect Password" xml:space="preserve">
+    <value>Niepoprawne Hasło</value>
+  </data>
+  <data name="not found" xml:space="preserve">
+    <value>nie znaleziono</value>
+  </data>
+  <data name="User with" xml:space="preserve">
+    <value>Użytkownik z</value>
   </data>
 </root>

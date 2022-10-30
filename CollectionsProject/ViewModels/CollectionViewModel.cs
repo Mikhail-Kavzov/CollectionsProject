@@ -8,11 +8,11 @@ namespace CollectionsProject.ViewModels
         public string? Id { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
-        [MaxLength(30, ErrorMessage = "Length should be less than 30 symbols")]
+        [MaxLength(30, ErrorMessage = "Length should be less than 30")]
         public string Name { get; set; } = "";
 
         [Required(ErrorMessage = "Description is required")]
-        [StringLength(300, ErrorMessage = ("Length should be less than 300 symbols"), MinimumLength = 1)]
+        [StringLength(300, ErrorMessage = ("Length should be less than 300"), MinimumLength = 1)]
         public string Description { get; set; } = "";
 
         [Required]

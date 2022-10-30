@@ -48,23 +48,13 @@ $(document).mouseup(function (e) {
 });
 
 let i = 1;
-let btnTag = document.getElementById('btn-add-tag');
-let tableBody = document.getElementById('table-body');
-btnTag.onclick = function () {
-    let tr = document.createElement('tr');
-    let td = document.createElement('td');
-    td.classList.add('tag-container');
-    tr.classList.add('t-row');
-    td.appendChild(getHtmlFromStr(i));
-    tr.appendChild(td);
-    tableBody.appendChild(tr);
-    $('.tag-container').last().keyup(keyUpDropdown);
+$('#btn-add-tag').click(function () {
+    $.post('/Item/AddTagToItem/', { i: i }, function (data) {
+        $('#table-body').append(data);
+        $('.tag-container').last().keyup(keyUpDropdown);
+    });
     i++;
-};
-function getHtmlFromStr(num) {
-    let htmlElemStr = "<input class=\"tag-input\" style=\"width: 100%\" type=\"text\" autocomplete=\"none\" data-val=\"true\" data-val-regex=\"Use only eng letter or numbers, length is up to 10\" data-val-regex-pattern=\"^#\\w{ 1, 10 }$\" data-val-required=\"Tag is required\" id=\"Tags_" + num + "__TagName\" name=\"Tags[" + num + "].TagName\" value=\"#\" >";
-    return new DOMParser().parseFromString(htmlElemStr, 'text/html').getElementsByTagName('input')[0];
-}
+});
 $('#btn-delete-tag').click(function () {
     if (i === 1)
         return;
