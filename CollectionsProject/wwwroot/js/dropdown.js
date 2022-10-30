@@ -22,9 +22,10 @@ function appendDropdown(list, target) {
         let element = $("<li></li>").text(value);
         $('#dropdown').append(element);
     });
+    $('#dropdown').show();
     $('#dropdown').children().each(function () { $(this).click(() => { $(target).val($(this).text()); $('#dropdown').children().remove(); }); });
 }
-$('.tag-container').last().keyup(keyUpDropdown);
+
 
 function keyUpDropdown(e) {
     $('#dropdown').children().remove();
@@ -32,7 +33,7 @@ function keyUpDropdown(e) {
     let textVal = $(inputTarget).val();
     if (textVal === '' || textVal === '#')
         return;
-    $('#dropdown').detach().appendTo(inputTarget.parent());
+    $('#dropdown').detach().appendTo(inputTarget.parent().parent());
     let newList = new Array();
     $.each(userList, function (key, value) {
         if (value.startsWith(textVal))
@@ -40,9 +41,16 @@ function keyUpDropdown(e) {
     });
     appendDropdown(newList, inputTarget);
 }
+$('.tag-container').each(function (i) {
+    $(this).keyup(keyUpDropdown);
+});
+let prevTarget = $('.tag-input').attr('id');
 $(document).mouseup(function (e) {
-    if (!e.target.classList.contains('tag-input'))
+    let tId = $(e.target).attr('id');
+    if (!e.target.classList.contains('tag-input') || prevTarget!==tId) {
         $('#dropdown').hide();
+        prevTarget = tId;
+    }
     else
         $('#dropdown').show();
 });

@@ -38,12 +38,6 @@ namespace CollectionsProject.Services.Implementation
             return comment;
         }
 
-        public async Task<IEnumerable<Comment>> GetNewComments(string itemId, string Time)
-        {
-            var time = TimeConverter.ConvertFromUTCTime(Time);
-            return await _commentRepository.GetCommentsByTimeAsync(time, itemId);
-        }
-
         public async Task<IEnumerable<Comment>> GetPreviousPage(string itemId, string time, int Page = 0)
         {
             var Time = TimeConverter.ConvertFromUTCTime(time);
@@ -65,7 +59,7 @@ namespace CollectionsProject.Services.Implementation
         public async Task<int> UpdateUserLike(string userId, Guid commentId, bool oldLikeState)
         {
             var userComment = await _commentRepository.TryGetUserComment(userId, commentId);
-            if (userComment == null) // if there's no relations between user and comment - create new UserComment
+            if (userComment == null) // if there are no relations between user and comment - create new UserComment
             {
                 userComment = CreateUserComment(userId, commentId);
                 userComment.IsLiked = true;

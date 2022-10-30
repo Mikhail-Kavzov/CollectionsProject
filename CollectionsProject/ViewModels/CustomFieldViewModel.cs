@@ -5,8 +5,8 @@ namespace CollectionsProject.ViewModels
 {
     public class CustomFieldViewModel
     {
-        public string FieldId { get; set; } =string.Empty;
-        
+        public string FieldId { get; set; } = string.Empty;
+
         [Required]
         public CollectionFieldType FieldType { get; set; }
 

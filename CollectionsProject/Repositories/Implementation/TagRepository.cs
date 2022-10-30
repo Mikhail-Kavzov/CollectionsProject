@@ -12,11 +12,13 @@ namespace CollectionsProject.Repositories.Implementation
         {
         }
 
+        // if there are tags assotiated with items
         public async Task<int> CountTagInItemsAsync(string tagName)
         {
             return await db.Tags.Where(t => t.TagName == tagName && t.Items.Count > 0).CountAsync();
         }
 
+        //pagination for tag page
         public async Task<IEnumerable<Item>> GetTagItems(string tagName, int itemsToSkip, int itemsToTake)
         {
             return await db.Items.Include(i => i.Collection).ThenInclude(c => c.User)
@@ -24,12 +26,14 @@ namespace CollectionsProject.Repositories.Implementation
                 .Skip(itemsToSkip).Take(itemsToTake).ToListAsync();
         }
 
+        //get tags for cloud, count - tags to take
         public async Task<IEnumerable<string>> GetTagList(int count)
         {
-            return await db.Tags.Where(t => t.Items.Count > 0).OrderByDescending(t => t.Items.Count)
-                .Take(count).Select(t => t.TagName).Distinct().ToListAsync();
+            return await db.Tags.Where(t => t.Items.Count > 0).Select(t => t.TagName).Distinct()
+                .Take(count).ToListAsync();
         }
 
+        //tags for autocompletion
         public async Task<IEnumerable<string>> GetTagNamesAsync()
         {
             return await db.Tags.Select(t => t.TagName).Distinct().ToListAsync();

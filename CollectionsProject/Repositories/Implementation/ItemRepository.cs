@@ -34,18 +34,20 @@ namespace CollectionsProject.Repositories.Implementation
             db.Items.Remove(item);
         }
 
+        //get item by id
         public async Task<Item?> GetItemAsync(string id)
         {
             return await db.Items.Include(i => i.AddItems).ThenInclude(c => c.AddCollectionFields)
-                .Include(i => i.Collection).Include(i => i.Tags).Include(i => i.Comments)
+                .Include(i => i.Collection).ThenInclude(c=>c.User).Include(i => i.Tags).Include(i => i.Comments)
                 .FirstOrDefaultAsync(i => i.ItemId.ToString() == id);
         }
-
+        //count items in collection (for main page)
         public async Task<int> GetItemCountAsync(string collectionId)
         {
             return await db.Items.Where(i => i.CollectionId.ToString() == collectionId).CountAsync();
         }
 
+        //fiter
         public async Task<IEnumerable<Item>?> Filter(int itemsToSkip, int itemsToTake, string collectionId, string searchString = "")
         {
             IQueryable<Item> query = db.Items.Where(i => i.CollectionId.ToString() == collectionId)
@@ -66,6 +68,7 @@ namespace CollectionsProject.Repositories.Implementation
             db.Items.Update(item);
         }
 
+        //last items (for main page)
         public async Task<IEnumerable<Item>> GetLastItemsAsync(int count)
         {
             return await db.Items.Include(i => i.Collection).ThenInclude(c => c.User).OrderByDescending(i => i.CreatedDate).Take(count).ToListAsync();

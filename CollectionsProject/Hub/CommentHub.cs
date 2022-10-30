@@ -17,11 +17,13 @@ namespace CollectionsProject
             _commentService = commentService;
         }
 
+        //subscribe to comments in item
         public async Task SubscribeComment(string itemId)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, itemId);
         }
 
+        // create comment
         [Authorize]
         public async Task CreateComment(CommentViewModel model)
         {

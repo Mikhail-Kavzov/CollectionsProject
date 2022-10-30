@@ -6,9 +6,9 @@ namespace CollectionsProject.ViewModels
 {
     public class FieldViewModel
     {
-        public string AddItemFieldId { get; set; }=string.Empty;
+        public string AddItemFieldId { get; set; } = string.Empty;
 
-        public string Value { get; set; } = "";
+        public string Value { get; set; } = string.Empty;
 
         public CustomFieldViewModel CustomFieldViewModel { get; set; } = new();
     }

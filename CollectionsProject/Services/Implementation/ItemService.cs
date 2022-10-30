@@ -33,6 +33,7 @@ namespace CollectionsProject.Services.Implementation
             List<AddItemField> addItemFields = new();
             for (int i = 0; i < model.Count; i++)
             {
+                //convert datetime
                 if (model[i].CustomFieldViewModel.FieldType == CollectionFieldType.dateField)
                 {
                     model[i].Value = DateTime.ParseExact(model[i].Value, "yyyy-mm-dd", CultureInfo.InvariantCulture).ToString("dd.mm.yyyy");
@@ -81,7 +82,7 @@ namespace CollectionsProject.Services.Implementation
             return tagsList;
         }
 
-        private FieldViewModel CreateFieldViewModel(CustomFieldViewModel custom, string id = "", string value = "")
+        private static FieldViewModel CreateFieldViewModel(CustomFieldViewModel custom, string id = "", string value = "")
         {
             FieldViewModel model = new()
             {
@@ -92,7 +93,7 @@ namespace CollectionsProject.Services.Implementation
             return model;
         }
 
-        private CustomFieldViewModel CreateCustomFieldViewModel(string id, CollectionFieldType type, string name)
+        private static CustomFieldViewModel CreateCustomFieldViewModel(string id, CollectionFieldType type, string name)
         {
             CustomFieldViewModel model = new()
             {
@@ -103,7 +104,7 @@ namespace CollectionsProject.Services.Implementation
             return model;
         }
 
-        private List<FieldViewModel> CreateListFieldViewModel(List<AddCollectionField> fields)
+        private static List<FieldViewModel> CreateListFieldViewModel(List<AddCollectionField> fields)
         {
             List<FieldViewModel> fieldList = new();
             foreach (var field in fields)
@@ -134,7 +135,7 @@ namespace CollectionsProject.Services.Implementation
             return item;
         }
 
-        private List<FieldViewModel> CreateListFieldViewModel(List<AddItemField> fields)
+        private static List<FieldViewModel> CreateListFieldViewModel(List<AddItemField> fields)
         {
             List<FieldViewModel> fieldList = new();
             foreach (var field in fields)

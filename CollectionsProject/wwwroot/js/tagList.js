@@ -6,7 +6,8 @@ function loadTag(url, element) {
     if (!pageFlag && !_inCallback) {
         _inCallback = true;
         page++;
-        $.post(url,{ TagName: tag, Page: page }, function (data) {
+        $.post(url, { TagName: tag, Page: page }, function (data) {
+            console.log(data);
             if (data !== '') {
                 {
                     $(element).append(data);
@@ -21,7 +22,7 @@ function loadTag(url, element) {
 };
 loadTag('/Tag/ItemPage/', '#tableBody');
 $(window).scroll(function () {
-    if ((Math.trunc($(window).scrollTop())) === $(document).height() - $(window).height()) {
+    if (($(window).scrollTop()) > ($(document).height() - $(window).height()-100)) {
         loadTag('/Tag/ItemPage/', '#tableBody');
     }
 });

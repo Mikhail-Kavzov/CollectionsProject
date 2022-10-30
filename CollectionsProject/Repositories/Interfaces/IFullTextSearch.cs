@@ -9,12 +9,12 @@ namespace CollectionsProject.Repositories.Interfaces
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        Task<IEnumerable<SearchModel>> SearchInCollections(string searchString, MySqlMatchSearchMode mode = MySqlMatchSearchMode.Boolean);
+        Task<IEnumerable<SearchModel>> SearchInCollections(string searchString);
         /// <summary>
         /// Find items that contains SearchString in fields
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        Task<IEnumerable<SearchModel>> SearchInItems(string searchString, MySqlMatchSearchMode mode = MySqlMatchSearchMode.Boolean);
+        Task<IEnumerable<SearchModel>> SearchInItems(string searchString);
     }
 }

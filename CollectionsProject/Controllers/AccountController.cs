@@ -23,7 +23,7 @@ namespace CollectionsProject.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            if (User.Identity!.IsAuthenticated)
+            if (User.Identity!.IsAuthenticated) //if user authenticated - no reason for register or login
                 return RedirectToAction("Index", "Home");
             return View();
         }
@@ -42,20 +42,20 @@ namespace CollectionsProject.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null)
+                if (user == null) //no such user
                 {
                     ModelState.AddModelError("Email", $"{_Loc["User with"]} {model.Email} {_Loc["not found"]}");
                     return View(model);
                 }
-                if (user.Status == Status.Blocked)
+                if (user.Status == Status.Blocked)//if user is blocked
                 {
                     ModelState.AddModelError(string.Empty, $"{user.UserName} {_Loc["has been blocked"]}");
                     return View(model);
                 }
                 var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
+                if (result.Succeeded) //success
                     return RedirectToAction("Index", "Home");
-                ModelState.AddModelError("Password", _Loc["Incorrect Password"]);
+                ModelState.AddModelError("Password", _Loc["Incorrect Password"]); //otherwise - incorrect password
             }
             return View(model);
         }
@@ -79,13 +79,13 @@ namespace CollectionsProject.Controllers
             {
                 User user = CreateNewUser(regForm);
                 var result = await _userManager.CreateAsync(user, regForm.Password);
-                if (result.Succeeded)
+                if (result.Succeeded) //success
                 {
                     await _userManager.AddToRolesAsync(user, new List<string> {"User"});
                     return RedirectToAction(nameof(Login));
                 }
 
-                foreach (var error in result.Errors)
+                foreach (var error in result.Errors) //errors (email or username exists)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }

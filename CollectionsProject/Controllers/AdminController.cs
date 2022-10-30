@@ -34,7 +34,7 @@ namespace CollectionsProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UserPage(int Page = 0)
+        public async Task<IActionResult> UserPage(int Page = 0) //pagination
         {
             var users = await _userRepository.GetSomeItemsAsync(Page * usersCount, usersCount);
             return PartialView(users);
@@ -49,7 +49,7 @@ namespace CollectionsProject.Controllers
             }
         }
 
-        private async Task<IActionResult> CheckCurrentStatusUser()
+        private async Task<IActionResult> CheckCurrentStatusUser() //check current admin status after operation
         {
             var currentUser = await _userManager.GetUserAsync(User);
             bool hasNoAccess = currentUser == null || currentUser?.Status == Status.Blocked || currentUser?.Role == Role.User;

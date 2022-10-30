@@ -1,4 +1,5 @@
-﻿using CollectionsProject.Models.UserModels;
+﻿using CollectionsProject.Extensions;
+using CollectionsProject.Models.UserModels;
 using CollectionsProject.Repositories.Interfaces;
 using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
@@ -42,6 +43,8 @@ namespace CollectionsProject.Controllers
                 var collection = await _collectionRepository.GetItemIncludeFieldsAsync(model.CollectionId);
                 if (collection == null)
                     return NotFound();
+                if (!this.HasAccess(collection.User.UserName))
+                    return Forbid();
                 await _itemService.CreateNewItem(model, collection);
             }
             return View(model);
@@ -52,7 +55,7 @@ namespace CollectionsProject.Controllers
         public async Task<IActionResult> ItemsPagination(string collectionId, int id = 0, string sortRule = "Name", string searchString = "")
         {
             var items = await _itemRepository.Filter(id * itemCount, itemCount, collectionId, searchString);
-            if (items != null)
+            if (items != null) //skip sort if nothing was found
                 items = _itemService.SortItems(items, sortRule);
             return PartialView(items);
         }
@@ -63,11 +66,14 @@ namespace CollectionsProject.Controllers
             var item = await _itemRepository.GetItemAsync(id);
             if (item == null)
                 return NotFound();
+            if (!this.HasAccess(item.Collection.User.UserName))
+                return Forbid();
             _itemRepository.Delete(item);
             await _itemRepository.SaveChangesAsync();
             return Ok();
         }
 
+        //item page with comments
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ItemPage(string id)
@@ -76,7 +82,7 @@ namespace CollectionsProject.Controllers
             if (item == null)
                 return NotFound();
             ViewBag.CurrentUserName = "";
-            if (User.Identity!.IsAuthenticated)
+            if (User.Identity!.IsAuthenticated) //for displaying comment form
                 ViewBag.CurrentUserName = User.Identity.Name;
             return View(item);
         }
@@ -87,6 +93,8 @@ namespace CollectionsProject.Controllers
             var item = await _itemService.GetAllItemFieldsAsync(id);
             if (item == null)
                 return NotFound();
+            if (!this.HasAccess(item.Collection.User.UserName))
+                return Forbid();
             var itemViewModel = _itemService.CreateItemViewModel(item);
             return View(itemViewModel);
         }
@@ -99,12 +107,15 @@ namespace CollectionsProject.Controllers
                 var item = await _itemService.GetAllItemFieldsAsync(model.ItemId);
                 if (item == null)
                     return NotFound();
+                if (!this.HasAccess(item.Collection.User.UserName))
+                    return Forbid();
                 await _itemService.UpdateItem(model, item);
                 return RedirectToAction("CollectionItems", "Collection", new { id = model.CollectionId });
             }
             return View(model);
         }
 
+        //add new tag in update or create operations
         [HttpPost]
         public IActionResult AddTagToItem(int i = 0) => PartialView("TagPartial", i);
     }

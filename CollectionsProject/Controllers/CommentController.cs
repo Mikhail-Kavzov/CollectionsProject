@@ -20,6 +20,7 @@ namespace CollectionsProject.Controllers
             _userManager = userManager;
         }
 
+        //previous comments in corresponding item
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> PreviousPage(string itemId, string Time, int Page = 0)
@@ -28,6 +29,7 @@ namespace CollectionsProject.Controllers
             return PartialView("CommentPage", comments);
         }
 
+        // update like state
         [HttpPost]
         public async Task<IActionResult> UpdateLike(string commentId, bool oldLikeState)
         {
@@ -36,6 +38,7 @@ namespace CollectionsProject.Controllers
             return Json(countLikes);
         }
 
+        //new comment
         [HttpPost]
         [AllowAnonymous]
         public IActionResult GetComment(Comment comment) => PartialView("CommentPage", new List<Comment>() { comment });

@@ -21,6 +21,7 @@
 }
 #table-body{
 	max-height: 390px;
+	position:relative;
 	overflow:auto;
 }
 .tag-container{

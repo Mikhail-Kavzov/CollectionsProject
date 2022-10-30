@@ -15,6 +15,7 @@ namespace CollectionsProject.Controllers
             _tagRepository = tagRepository;
         }
 
+        //tag for autocompletion
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> GetAllTags()
@@ -23,6 +24,7 @@ namespace CollectionsProject.Controllers
             return new JsonResult(tags);
         }
 
+        //pagination for tag page with corresponding items
         [HttpPost]
         public async Task<IActionResult> ItemPage(string TagName, int Page = 0)
         {
@@ -30,8 +32,9 @@ namespace CollectionsProject.Controllers
             return PartialView("~/Views/Item/ItemShortDescription.cshtml", items);
         }
 
+        //tag page with items
         [HttpGet]
-        public async Task<IActionResult> ItemList(string id)
+        public async Task<IActionResult> ItemList(string id) //id - tag name
         {
             var count = await _tagRepository.CountTagInItemsAsync(id);
             if (count == 0)

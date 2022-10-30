@@ -29,15 +29,16 @@ namespace CollectionsProject.Repositories.Implementation
 
         public async Task<User?> GetItemAsync(string id)
         {
-            return await db.Users.FirstOrDefaultAsync();
+            return await db.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
 
+        //pagination for admin
         public async Task<IEnumerable<User>?> GetSomeItemsAsync(int itemsToSkip, int itemsToTake)
         {
-
             return await db.Users.OrderBy(u => u.Id).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();
         }
 
+        //for admin operations
         public async Task<IEnumerable<User>> GetUsersAsync(string[] id)
         {
             return await db.Users.Where(u => id.Contains(u.Id)).ToListAsync();

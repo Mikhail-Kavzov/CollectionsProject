@@ -18,9 +18,9 @@ namespace CollectionsProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Search(string searchString)
         {
-            if (string.IsNullOrEmpty(searchString) || searchString.Length<3)
+            if (string.IsNullOrEmpty(searchString) || searchString.Length<3) //search limit (ex MySQL won't find text less than 3 symbols)
                 return BadRequest();
-            string requireWord = '+' + searchString;
+            string requireWord = '+' + searchString; // '+' means require word (in MySql in Boolean mode)
             ViewBag.Items = await _fullTextSearch.SearchInItems(requireWord);
             ViewBag.Collections = await _fullTextSearch.SearchInCollections(requireWord);
             return PartialView();

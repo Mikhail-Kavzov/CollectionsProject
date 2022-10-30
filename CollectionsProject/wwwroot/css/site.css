@@ -13,14 +13,16 @@ main{
 }
 body::-webkit-scrollbar-track, ::-webkit-scrollbar-track {
     -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
-    background-color: rgb(46,51,56);
+    background-color: lightblue;
     border-radius: 10px;
 }
 body::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb {
     background-color: gray;
     border-radius: 10px;
 }
-
+.overflow-table{
+    margin-left:0;
+}
 html {
     font-size: 14px;
     position: relative;
@@ -170,7 +172,6 @@ textarea {
 .table-collection-list {
     margin-top: 50px;
 }
-
 .item-link {
     text-decoration: underline;
     cursor: pointer;
@@ -221,8 +222,8 @@ textarea {
     margin-top: 30px;
     padding: 5px;
 }
-.content {
-    
+.content, main, .flex-column-container {
+   min-height:inherit;
 }
 .nav-item{
     transition: all ease 400ms;
@@ -276,6 +277,7 @@ textarea {
     max-height: 100px;
     width:100%;
     padding-left:0;
+    z-index:1000;
 }
 .search-element {
     cursor: pointer;
@@ -420,12 +422,16 @@ input:checked + .slider:before {
         overflow-x: auto;
     }
 .overflow-cell{
-    height:100px;
+    max-height:100px;
     overflow:auto;
     word-break: break-word;
 }
 .overflow-table::-webkit-scrollbar{
     height: 7px;
+}
+.overflow-td{
+    min-width: 200px;
+    display:block;
 }
 .login-comment-link{
     text-decoration:underline;

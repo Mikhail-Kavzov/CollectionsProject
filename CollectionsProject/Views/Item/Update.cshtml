@@ -68,11 +68,11 @@
                                                     @{
                                                         if (Fields[i].Value == "on")
                                                         {
-                                                            <input class="checkbox-field" value="on" name="AddItems[@i].Value" type="checkbox" checked>
+                                                            <input class="checkbox-field" name="AddItems[@i].Value" type="checkbox" checked>
                                                         }
                                                         else
                                                         {
-                                                            <input class="checkbox-field" value="" name="AddItems[@i].Value" type="checkbox">
+                                                            <input class="checkbox-field" name="AddItems[@i].Value" type="checkbox">
                                                         }
                                                         <label class="text_label" for="checkbox-field">@Loc["Yes/No"]</label>
                                                     }
@@ -84,8 +84,19 @@
                                             break;
 
                                         case CollectionFieldType.dateField:
-                                            <input class="date-field input_form" value="@DateTime.ParseExact(Fields[i].Value,"dd.mm.yyyy",CultureInfo.InvariantCulture).ToString("yyyy-mm-dd")" name="AddItems[@i].Value" type="date" autocomplete="none" required>
-                                            break;
+                                            {
+                                                string valDate = "";
+                                                if (DateTime.TryParseExact(Fields[i].Value, "dd.mm.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime tryData))
+                                                {
+                                                    valDate = tryData.ToString("yyyy-mm-dd");
+                                                }
+                                                else
+                                                {
+                                                    valDate = Fields[i].Value;
+                                                }
+                                                <input class="date-field input_form" value="@valDate" name="AddItems[@i].Value" type="date" autocomplete="none" required>
+                                                break;
+                                            }
                                         case CollectionFieldType.multilineField:
                                             <textarea asp-for="AddItems[i].Value" class="input_form" maxlength="300" autocomplete="none" required>@Fields[i].Value</textarea>
                                             break;

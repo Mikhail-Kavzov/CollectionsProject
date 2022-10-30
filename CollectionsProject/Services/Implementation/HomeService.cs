@@ -17,6 +17,7 @@ namespace CollectionsProject.Services.Implementation
             _tagRepository = tagRepository;
         }
 
+        //model for main page
         public async Task<HomeModel> GetHomeModel(int countCollection = 5, int countItem = 5, int countTags = 20)
         {
             var collections = await _collectionRepository.GetLargestCollections(countCollection);

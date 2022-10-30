@@ -43,8 +43,12 @@ function queryDeleteToolbar(Url) {
         dataType: 'json',
         data: { id: idCheckBoxes },
         success: function (data) {
-            if (data === '')
+            if (data === '') {
                 $(".selected").remove();
+                if (!$('#tableBody').children().length) {
+                    location.reload();
+                }
+            }
             else
                 window.location.href = data.redirectToUrl;
         }

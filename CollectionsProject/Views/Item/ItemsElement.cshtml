@@ -11,7 +11,7 @@
                 @{
                     List<string> tagNames = item.Tags.Select(t => t.TagName).ToList();
                 }
-                <td><div class="overflow-cell">@string.Join(" ",tagNames)</div></td>
+                <td class="overflow-td"><div class="overflow-cell">@string.Join(" ",tagNames)</div></td>
                 @{
                     foreach (var field in item.AddItems)
                     {
@@ -31,7 +31,7 @@
                                 }
                             case CollectionFieldType.multilineField:
                                 {
-                                    <td><div class="overflow-cell">@field.Value</div></td>
+                                    <td class="overflow-td"><div class="overflow-cell">@field.Value</div></td>
                                     break;
                                 }
                             default:

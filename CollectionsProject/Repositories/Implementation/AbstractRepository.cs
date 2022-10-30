@@ -13,6 +13,7 @@ namespace CollectionsProject.Repositories.Implementation
             this.db = db;
         }
 
+        //save changes to database
         public async Task SaveChangesAsync()
         {
             await db.SaveChangesAsync();

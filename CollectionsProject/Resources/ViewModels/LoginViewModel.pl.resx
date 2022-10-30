@@ -123,4 +123,10 @@
   <data name="Enter your password" xml:space="preserve">
     <value>Wprowadź hasło</value>
   </data>
+  <data name="Length should be less than 15" xml:space="preserve">
+    <value>Długość powinna być mniejsza niż 15</value>
+  </data>
+  <data name="Length should be less than 20" xml:space="preserve">
+    <value>Długość powinna być mniejsza niż 20</value>
+  </data>
 </root>

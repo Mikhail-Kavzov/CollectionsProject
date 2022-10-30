@@ -1,16 +1,14 @@
 .dropdown {
-    position: absolute !important;
+    position: relative;
     left:0;
-    top: 37px;
+    top: 0;
     width: 100%;
     max-height: 150px;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow:auto;
     text-align: center;
-    background-color: wheat;
-    z-index:5;
-    color:white;
+    z-index:5000;
     padding-left:0;
+    margin: 0;
 }
 
 .dropdown li {
@@ -22,7 +20,9 @@
 .dropdown li:not(:last-child){
     border-bottom: 1px solid white;
 }
-
-.dropdown li:hover{
-    color:yellow;
+.t-row{
+    position:relative;
+}
+.dropdown li:hover {
+    color: red;
 }

@@ -129,4 +129,10 @@
   <data name="Passwords are not equal" xml:space="preserve">
     <value>Hasła nie są równe</value>
   </data>
+  <data name="Length should be less than 15" xml:space="preserve">
+    <value>Długość powinna być mniejsza niż 15</value>
+  </data>
+  <data name="Length should be less than 20" xml:space="preserve">
+    <value>Długość powinna być mniejsza niż 20</value>
+  </data>
 </root>

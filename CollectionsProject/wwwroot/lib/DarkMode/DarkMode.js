@@ -56,7 +56,6 @@
         var tables = document.querySelectorAll('tbody');
         for (var i = 0; i < tables.length; i++) {
             tables[i].classList.remove('table-dark');
-
         }
         document.querySelectorAll('.bg-gradient').forEach((element) => {
             element.classList.remove('bg-dark', 'bg-gradient');

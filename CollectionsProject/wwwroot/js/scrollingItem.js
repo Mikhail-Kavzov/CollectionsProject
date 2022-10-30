@@ -34,6 +34,7 @@ if (pageCount > 0) {
     $('#href-left').click(moveLeft);
     $('#href-right').click(moveRight);
     let radios = $('.p-radio');
+    radios.first().next().focus();
     let pageWrapper = document.getElementById('pagination-wrapper');
     radios.each(function (index) {
         $(this).click(function () {

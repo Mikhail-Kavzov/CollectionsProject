@@ -19,6 +19,7 @@ namespace CollectionsProject.Controllers
             return View(homeModel);
         }
 
+        //set current site language
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {

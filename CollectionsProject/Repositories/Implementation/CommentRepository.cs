@@ -12,6 +12,7 @@ namespace CollectionsProject.Repositories.Implementation
         {
         }
 
+        //relations between user and comment for like
         public void AddUserComment(User user, Comment comment)
         {
             comment.Users.Add(user);
@@ -33,16 +34,11 @@ namespace CollectionsProject.Repositories.Implementation
             db.Comments.Remove(item);
         }
 
+        //previous comments
         public async Task<IEnumerable<Comment>> GetPreviousCommentsAsync(string itemId, DateTime time, int itemsToSkip, int ItemsToTake)
         {
             return await db.Comments.Where(c => c.ItemId.ToString() == itemId && c.CreatedDate < time)
                 .OrderByDescending(c => c.CreatedDate).Skip(itemsToSkip).Take(ItemsToTake)
-                .Include(c => c.UserComments).ThenInclude(uc => uc.User).ToListAsync();
-        }
-
-        public async Task<IEnumerable<Comment>> GetCommentsByTimeAsync(DateTime time, string itemId)
-        {
-            return await db.Comments.Where(c => c.ItemId.ToString() == itemId && c.CreatedDate >= time)
                 .Include(c => c.UserComments).ThenInclude(uc => uc.User).ToListAsync();
         }
 
@@ -51,6 +47,7 @@ namespace CollectionsProject.Repositories.Implementation
             db.Comments.Update(item);
         }
 
+        //if there's a relation between user and comment (for like)
         public async Task<UserComment?> TryGetUserComment(string userId, Guid commentId)
         {
             return await db.UserComments.FirstOrDefaultAsync(uc => uc.UserId == userId && uc.CommentId == commentId);
@@ -66,6 +63,7 @@ namespace CollectionsProject.Repositories.Implementation
             db.UserComments.Update(userComment);
         }
 
+        //count likes for comment (get new comment)
         public async Task<int> CommentLikeCountAsync(Guid commentId)
         {
             return await db.UserComments.Where(uc=>uc.CommentId==commentId && uc.IsLiked==true).CountAsync();

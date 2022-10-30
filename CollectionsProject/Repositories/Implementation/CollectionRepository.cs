@@ -35,7 +35,7 @@ namespace CollectionsProject.Repositories.Implementation
         //Get collection include additional Fields without values
         public async Task<Collection?> GetItemIncludeFieldsAsync(string id)
         {
-            return await db.Collections.Include(c => c.AddFields).FirstOrDefaultAsync(c => c.CollectionId.ToString() == id);
+            return await db.Collections.Include(c=>c.User).Include(c => c.AddFields).FirstOrDefaultAsync(c => c.CollectionId.ToString() == id);
         }
 
         //The largest collections (for main page)
@@ -44,12 +44,13 @@ namespace CollectionsProject.Repositories.Implementation
             return await db.Collections.Include(c => c.User).OrderByDescending(c => c.Items.Count).Take(count).ToListAsync();
         }
 
+        //pagination for collection page
         public async Task<IEnumerable<Collection>?> GetSomeItemsAsync(int itemsToSkip, int itemsToTake)
         {
             return await db.Collections.Include(c => c.User).OrderBy(c => c.CollectionId).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();
         }
 
-        //Get collections for personal user page
+        //pagination for personal user page
         public async Task<IEnumerable<Collection>?> GetUserItemsAsync(int itemsToSkip, int itemsToTake, string id)
         {
             return await db.Collections.Include(c => c.User).Where(c => c.UserId == id).OrderBy(c => c.CollectionId).Skip(itemsToSkip).Take(itemsToTake).ToListAsync();

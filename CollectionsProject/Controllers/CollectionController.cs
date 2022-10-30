@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Collection = CollectionsProject.Models.CollectionModels.Collection;
 using CollectionsProject.Repositories.Interfaces;
+using CollectionsProject.Extensions;
 
 namespace CollectionsProject.Controllers
 {
@@ -39,6 +40,7 @@ namespace CollectionsProject.Controllers
         [AllowAnonymous]
         public IActionResult CollectionList() => View();
 
+        //Add field to new collection
         [HttpGet]
         public IActionResult AddNewField(int i = 0) => PartialView("AddNewField", i);
 
@@ -49,11 +51,11 @@ namespace CollectionsProject.Controllers
             {
                 var currentUser = await _userManager.GetUserAsync(User);
                 model.Image = noPhoto;
-                if (formFile != null)
+                if (formFile != null) //user uploaded the image
                     model.Image = await _fileService.CreateFileAsync(formFile);
                 var collection = _collectionService.CreateNewCollection(model, currentUser);
                 _collectionRepository.Create(collection);
-                if (model.CustomFields != null)
+                if (model.CustomFields != null) //if user added custom fields
                 {
                     var fields = _collectionService.CreateAddFields(model.CustomFields, collection);
                     _collectionRepository.AddFieldsRange(fields);
@@ -64,26 +66,14 @@ namespace CollectionsProject.Controllers
             return View(model);
         }
 
-        private static Collection CreateNewCollection(CollectionViewModel model, User user)
-        {
-            Collection collection = new()
-            {
-                Image = model.Image,
-                Type = model.Type,
-                Description = model.Description,
-                Name = model.Name,
-                User = user,
-                Count = 0,
-            };
-            return collection;
-        }
-
         [HttpDelete]
         public async Task<IActionResult> Delete(string id)
         {
             var collection = await _collectionRepository.GetItemAsync(id);
             if (collection == null)
                 return NotFound();
+            if (!this.HasAccess(collection.User.UserName))
+                return Forbid();
             _collectionRepository.Delete(collection);
             if (collection.Image != noPhoto)
                 _fileService.DeleteFile(collection.Image);
@@ -102,11 +92,13 @@ namespace CollectionsProject.Controllers
                 var collection = await _collectionRepository.GetItemAsync(model.Id);
                 if (collection == null)
                     return NotFound();
+                if (!this.HasAccess(collection.User.UserName))
+                    return Forbid();
                 collection.Description = model.Description;
                 collection.Name = model.Name;
                 collection.Type = model.Type;
 
-                if (formFile != null) //previous file will be remained
+                if (formFile != null) //new image was uploaded otherwise previous image will be remained
                     collection.Image = await _fileService.UpdateFileAsync(formFile, collection.Image);
                 _collectionRepository.Update(collection);
                 await _collectionRepository.SaveChangesAsync();

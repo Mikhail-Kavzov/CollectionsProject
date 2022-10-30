@@ -6,7 +6,7 @@ namespace CollectionsProject.Services.Implementation
     public class FileService : IFileService
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private static readonly string pathToFolder = "/images/";
+        private static readonly string pathToFolder = "/images/"; //directory for images
         private const string noPhoto = "noPhoto.jpg";
 
         public FileService(IWebHostEnvironment webHostEnvironment)
@@ -16,20 +16,20 @@ namespace CollectionsProject.Services.Implementation
 
         public async Task<string> CreateFileAsync(IFormFile file)
         {
-            string fileName = MyGuid.GetGuid() + file.FileName;
+            string fileName = MyGuid.GetGuid() + file.FileName; //change file name in server
             string path = pathToFolder + fileName;
             using var fileStream = new FileStream(_webHostEnvironment.WebRootPath + path, FileMode.Create); //create file
             await file.CopyToAsync(fileStream); //save asynchroniously
             return fileName;
         }
 
-        public void DeleteFile(string fileName)
+        public void DeleteFile(string fileName) //delete file
         {
             string path = pathToFolder + fileName;
             File.Delete(_webHostEnvironment.WebRootPath + path);
         }
 
-        public Task<string> ReadFileAsync(string fileName)
+        public Task<string> ReadFileAsync(string fileName) //expected for cloud
         {
             throw new NotImplementedException();
         }
