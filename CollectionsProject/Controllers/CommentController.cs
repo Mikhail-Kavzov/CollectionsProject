@@ -25,8 +25,8 @@ namespace CollectionsProject.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> PreviousPage(string itemId, string Time, int Page = 0)
         {
-            var comments = await _commentService.GetPreviousPage(itemId, Time, Page);
-            return PartialView("CommentPage", comments);
+                var comments = await _commentService.GetPreviousPage(itemId, Time, Page);
+                return PartialView("CommentPage", comments);
         }
 
         // update like state

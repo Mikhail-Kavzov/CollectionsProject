@@ -1,4 +1,9 @@
 let dateTimeSend = new Date().toISOString();
+
+function converToSharpUTC(date) {
+    return date.replace('T', ' ').substring(0, 20).concat('000000');
+}
+dateTimeSend = converToSharpUTC(dateTimeSend);
 console.log(dateTimeSend);
 let dateTimeLoad = dateTimeSend;
 let itemIden = $('#ItemIdentificator').val();
