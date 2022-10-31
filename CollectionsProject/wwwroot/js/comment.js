@@ -1,5 +1,6 @@
-let dateTimeSend = new Date();
-let dateTimeLoad = dateTimeSend.toJSON();
+let dateTimeSend = new Date().toISOString();
+console.log(dateTimeSend);
+let dateTimeLoad = dateTimeSend;
 let itemIden = $('#ItemIdentificator').val();
 let page = -1;
 let isEnd = false;
