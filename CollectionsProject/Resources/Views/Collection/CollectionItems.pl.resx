@@ -138,4 +138,7 @@
   <data name="No Result" xml:space="preserve">
     <value>Nie znaleziono przedmiotów</value>
   </data>
+  <data name="No Items" xml:space="preserve">
+    <value>Żadnych Przedmiotów</value>
+  </data>
 </root>

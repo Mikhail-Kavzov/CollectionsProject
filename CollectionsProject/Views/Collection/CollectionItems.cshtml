@@ -90,6 +90,12 @@
                 @await Html.PartialAsync("~/Views/Pagination.cshtml",CountItems)
             </div>
         }
+        else
+        {
+            <div style="margin-top:100px" class="col-12 row center-container">
+                <h1 class="text-center">@Loc["No Items"]</h1>
+            </div>
+        }
     }
 </div>
 
