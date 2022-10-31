@@ -23,7 +23,7 @@ namespace CollectionsProject.Services.Implementation
             Comment comment = new()
             {
                 CommentText = model.Text,
-                CreatedDate = DateTime.Now,
+                CreatedDate = DateTime.Now.ToUniversalTime(),
                 Author = model.UserName,
                 ItemId = Guid.Parse(model.ItemId),
             };

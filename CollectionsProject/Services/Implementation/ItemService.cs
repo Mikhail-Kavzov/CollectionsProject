@@ -52,7 +52,7 @@ namespace CollectionsProject.Services.Implementation
                 Name = model.Name,
                 Collection = collection,
                 Tags = tags,
-                CreatedDate = DateTime.Now,
+                CreatedDate = DateTime.Now.ToUniversalTime(),
             };
             _itemRepository.Create(item);
             var addFields = CreateFields(model.AddItems, collection.AddFields, item);

@@ -7,7 +7,7 @@
         {
             <tr class="info-table" id="@item.ItemId">
                 <td>@item.Name</td>
-                <td>@item.CreatedDate</td>
+                <td>@item.CreatedDate.ToLocalTime()</td>
                 @{
                     List<string> tagNames = item.Tags.Select(t => t.TagName).ToList();
                 }
