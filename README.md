@@ -1,1 +1,1 @@
-# CollectionsProject
+# Project from ITransition courses
