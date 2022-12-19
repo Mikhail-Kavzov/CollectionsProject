@@ -36,7 +36,8 @@ namespace CollectionsProject.Services.Implementation
                 //convert datetime
                 if (model[i].CustomFieldViewModel.FieldType == CollectionFieldType.dateField)
                 {
-                    model[i].Value = DateTime.ParseExact(model[i].Value, "yyyy-mm-dd", CultureInfo.InvariantCulture).ToString("dd.mm.yyyy");
+                    model[i].Value = DateTime.ParseExact(model[i].Value, "yyyy-mm-dd", CultureInfo.InvariantCulture)
+                        .ToString("dd.mm.yyyy");
                 }
                 addItemFields.Add(CreateAddField(model[i].Value, colField[i], item));
             }
@@ -140,7 +141,8 @@ namespace CollectionsProject.Services.Implementation
             List<FieldViewModel> fieldList = new();
             foreach (var field in fields)
             {
-                var custField = CreateCustomFieldViewModel(field.FieldId.ToString(), field.AddCollectionFields.Type, field.AddCollectionFields.Name);
+                var custField = CreateCustomFieldViewModel(field.FieldId.ToString(),
+                    field.AddCollectionFields.Type, field.AddCollectionFields.Name);
                 var fieldView = CreateFieldViewModel(custField, field.FieldId.ToString(), field.Value);
                 fieldList.Add(fieldView);
             }
@@ -172,7 +174,8 @@ namespace CollectionsProject.Services.Implementation
             {
                 if (item.AddItems[i].AddCollectionFields.Type == CollectionFieldType.dateField)
                 {
-                    item.AddItems[i].Value = DateTime.ParseExact(model.AddItems[i].Value, "yyyy-mm-dd", CultureInfo.InvariantCulture).ToString("dd.mm.yyyy");
+                    item.AddItems[i].Value = DateTime.ParseExact(model.AddItems[i].Value, "yyyy-mm-dd",
+                        CultureInfo.InvariantCulture).ToString("dd.mm.yyyy");
                 }
                 else
                 {
@@ -197,7 +200,8 @@ namespace CollectionsProject.Services.Implementation
                         if (sortRule.Contains("_Desc"))
                         {
                             sortRule = sortRule.Replace("_Desc", "");
-                            return items.OrderByDescending(i => i.AddItems.Where(ai => ai.AddCollectionFields.Name == sortRule)
+                            return items.OrderByDescending(i => i.AddItems
+                            .Where(ai => ai.AddCollectionFields.Name == sortRule)
                         .Select(ai => ai.Value).ElementAt(0));
                         }
                         return items.OrderBy(i => i.AddItems.Where(ai => ai.AddCollectionFields.Name == sortRule)

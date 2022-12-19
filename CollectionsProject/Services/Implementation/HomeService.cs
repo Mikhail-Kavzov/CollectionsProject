@@ -10,7 +10,8 @@ namespace CollectionsProject.Services.Implementation
         private readonly IItemRepository _itemRepository;
         private readonly ITagRepository _tagRepository;
 
-        public HomeService(ICollectionRepository collectionRepository, ITagRepository tagRepository, IItemRepository itemRepository)
+        public HomeService(ICollectionRepository collectionRepository,
+            ITagRepository tagRepository, IItemRepository itemRepository)
         {
             _collectionRepository = collectionRepository;
             _itemRepository = itemRepository;

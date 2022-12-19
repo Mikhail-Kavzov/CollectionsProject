@@ -4,7 +4,6 @@ using CollectionsProject.Repositories.Interfaces;
 using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollectionsProject.Controllers
@@ -18,7 +17,8 @@ namespace CollectionsProject.Controllers
 
         private const int itemCount = 5;
 
-        public ItemController(ICollectionRepository collectionRepository, IItemRepository itemRepository, IItemService itemService)
+        public ItemController(ICollectionRepository collectionRepository,
+            IItemRepository itemRepository, IItemService itemService)
         {
             _collectionRepository = collectionRepository;
             _itemRepository = itemRepository;
@@ -31,6 +31,8 @@ namespace CollectionsProject.Controllers
             var collection = await _collectionRepository.GetItemIncludeFieldsAsync(id);
             if (collection == null)
                 return NotFound();
+            if (!this.HasAccess(collection.User.UserName))
+                return Forbid();
             var model = _itemService.CreateItemViewModel(collection);
             return View(model);
         }
@@ -52,7 +54,8 @@ namespace CollectionsProject.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> ItemsPagination(string collectionId, int id = 0, string sortRule = "Name", string searchString = "")
+        public async Task<IActionResult> ItemsPagination(string collectionId, int id = 0, 
+            string sortRule = "Name", string searchString = "")
         {
             var items = await _itemRepository.Filter(id * itemCount, itemCount, collectionId, searchString);
             if (items != null) //skip sort if nothing was found

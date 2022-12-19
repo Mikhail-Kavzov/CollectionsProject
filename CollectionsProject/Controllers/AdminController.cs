@@ -36,7 +36,8 @@ namespace CollectionsProject.Controllers
         private async Task<IActionResult> CheckCurrentStatusUser() //check current admin status after operation
         {
             var currentUser = await _userManager.GetUserAsync(User);
-            bool hasNoAccess = currentUser == null || currentUser?.Status == Status.Blocked || currentUser?.Role == Role.User;
+            bool hasNoAccess = currentUser == null || currentUser?.Status == Status.Blocked 
+                || currentUser?.Role == Role.User;
             if (hasNoAccess)
                 return Json(new { redirectToUrl = Url.Action("Logout", "Account") });
             return Json("");

@@ -20,7 +20,8 @@ namespace CollectionsProject.Controllers
         private const int itemsCount = 5;
         private const string noPhoto = "noPhoto.jpg";
 
-        public CollectionController(ICollectionRepository collectionRepository, UserManager<User> userManager, IFileService fileService, ICollectionService collectionService)
+        public CollectionController(ICollectionRepository collectionRepository, UserManager<User> userManager
+            , IFileService fileService, ICollectionService collectionService)
         {
             _collectionRepository = collectionRepository;
             _userManager = userManager;
