@@ -1,7 +1,5 @@
-﻿using CollectionsProject.Models.ItemModels;
-using CollectionsProject.Repositories.Interfaces;
+﻿using CollectionsProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CollectionsProject.Controllers
 {
@@ -18,7 +16,8 @@ namespace CollectionsProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Search(string searchString)
         {
-            if (string.IsNullOrEmpty(searchString) || searchString.Length<3) //search limit (ex MySQL won't find text less than 3 symbols)
+            //search limit (ex MySQL won't find text less than 3 symbols)
+            if (string.IsNullOrEmpty(searchString) || searchString.Length<3) 
                 return BadRequest();
             string requireWord = '+' + searchString; // '+' means require word (in MySql in Boolean mode)
             ViewBag.Items = await _fullTextSearch.SearchInItems(requireWord);
