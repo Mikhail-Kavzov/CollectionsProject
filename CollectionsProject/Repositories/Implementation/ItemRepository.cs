@@ -48,7 +48,8 @@ namespace CollectionsProject.Repositories.Implementation
         }
 
         //fiter
-        public async Task<IEnumerable<Item>?> Filter(int itemsToSkip, int itemsToTake, string collectionId, string searchString = "")
+        public async Task<IEnumerable<Item>?> Filter(int itemsToSkip, int itemsToTake, string collectionId
+            , string searchString = "")
         {
             IQueryable<Item> query = db.Items.Where(i => i.CollectionId.ToString() == collectionId)
                 .Include(i => i.Collection.User).Include(i => i.AddItems).ThenInclude(ai => ai.AddCollectionFields);
@@ -71,7 +72,8 @@ namespace CollectionsProject.Repositories.Implementation
         //last items (for main page)
         public async Task<IEnumerable<Item>> GetLastItemsAsync(int count)
         {
-            return await db.Items.Include(i => i.Collection).ThenInclude(c => c.User).OrderByDescending(i => i.CreatedDate).Take(count).ToListAsync();
+            return await db.Items.Include(i => i.Collection).ThenInclude(c => c.User).OrderByDescending(i => i.CreatedDate)
+                .Take(count).ToListAsync();
         }
     }
 }

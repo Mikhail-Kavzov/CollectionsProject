@@ -35,7 +35,8 @@ namespace CollectionsProject.Repositories.Implementation
         }
 
         //previous comments
-        public async Task<IEnumerable<Comment>> GetPreviousCommentsAsync(string itemId, DateTime time, int itemsToSkip, int ItemsToTake)
+        public async Task<IEnumerable<Comment>> GetPreviousCommentsAsync(string itemId, DateTime time,
+            int itemsToSkip, int ItemsToTake)
         {
             return await db.Comments.Where(c => c.ItemId.ToString() == itemId && c.CreatedDate < time)
                 .OrderByDescending(c => c.CreatedDate).Skip(itemsToSkip).Take(ItemsToTake)
