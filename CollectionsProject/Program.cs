@@ -51,19 +51,7 @@ internal class Program
             opts.ValidationInterval = TimeSpan.Zero;
         });
 
-        builder.Services.AddScoped<IUserRepository, UserRepository>();
-        builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
-        builder.Services.AddScoped<IFileService, FileService>();
-        builder.Services.AddScoped<IItemService, ItemService>();
-        builder.Services.AddScoped<ICollectionService, CollectionService>();
-        builder.Services.AddScoped<IItemRepository, ItemRepository>();
-        builder.Services.AddScoped<ITagRepository, TagRepository>();
-        builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-        builder.Services.AddScoped<IHomeService, HomeService>();
-        builder.Services.AddScoped<ICommentService, CommentService>();
-        builder.Services.AddScoped<IFullTextSearch, MySQLFullTextSearch>();
-
-        builder.Services.AddSignalR();
+        CreateDependencies(builder);
         var app = builder.Build();
 
         using (var scope = app.Services.CreateScope())
@@ -109,5 +97,28 @@ internal class Program
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
         app.Run();
+    }
+
+    private static void CreateDependencies(WebApplicationBuilder builder)
+    {
+        //DAO
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
+        builder.Services.AddScoped<IItemRepository, ItemRepository>();
+        builder.Services.AddScoped<ITagRepository, TagRepository>();
+        builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+
+        //Services
+        builder.Services.AddScoped<ICollectionService, CollectionService>();
+        builder.Services.AddScoped<IHomeService, HomeService>();
+        builder.Services.AddScoped<ICommentService, CommentService>();
+        builder.Services.AddScoped<IAccountService, AccountService>();
+        builder.Services.AddScoped<IAdminService, AdminService>();
+        builder.Services.AddScoped<IFileService, FileService>();
+        builder.Services.AddScoped<IItemService, ItemService>();
+
+        builder.Services.AddScoped<IFullTextSearch, MySQLFullTextSearch>();
+
+        builder.Services.AddSignalR();
     }
 }
