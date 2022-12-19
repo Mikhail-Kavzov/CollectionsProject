@@ -1,4 +1,5 @@
 using CollectionsProject.Models.UserModels;
+using CollectionsProject.Services.Interfaces;
 using CollectionsProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,11 +13,14 @@ namespace CollectionsProject.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IStringLocalizer<AccountController> _Loc;
+        private readonly IAccountService _accountService;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IStringLocalizer<AccountController> loc)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,
+            IStringLocalizer<AccountController> loc, IAccountService accountService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _accountService = accountService;
             _Loc = loc;
         }
 
@@ -60,24 +64,12 @@ namespace CollectionsProject.Controllers
             return View(model);
         }
 
-        private static User CreateNewUser(RegisterViewModel regForm)
-        {
-            User newUser = new()
-            {
-                Email = regForm.Email,
-                UserName = regForm.Name,
-                Status = Status.Active,
-                Role = Role.User,
-            };
-            return newUser;
-        }
-
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel regForm)
         {
             if (ModelState.IsValid)
             {
-                User user = CreateNewUser(regForm);
+                User user = _accountService.CreateNewUser(regForm);
                 var result = await _userManager.CreateAsync(user, regForm.Password);
                 if (result.Succeeded) //success
                 {
@@ -89,7 +81,6 @@ namespace CollectionsProject.Controllers
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-
             }
             return View(regForm);
         }
